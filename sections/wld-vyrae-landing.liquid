@@ -9,6 +9,25 @@
 
 <section id="wld-{{ slug }}-{{ section.id }}" class="wld-{{ slug }}">
 
+  {%- capture pay_badges -%}
+    {%- if section.settings.pay_visa -%}<span class="wld-pay__badge"><svg height="13" viewBox="0 0 64 21" role="img" aria-label="Visa"><text x="0" y="17" font-family="Arial,Helvetica,sans-serif" font-size="21" font-style="italic" font-weight="700" fill="#1A1F71">VISA</text></svg></span>{%- endif -%}
+    {%- if section.settings.pay_mastercard -%}<span class="wld-pay__badge"><svg height="20" viewBox="0 0 40 25" role="img" aria-label="Mastercard"><circle cx="16" cy="12.5" r="10" fill="#EB001B"/><circle cx="24" cy="12.5" r="10" fill="#F79E1B"/><path d="M20 5.2a10 10 0 0 1 0 14.6 10 10 0 0 1 0-14.6z" fill="#FF5F00"/></svg></span>{%- endif -%}
+    {%- if section.settings.pay_amex -%}<span class="wld-pay__badge"><svg height="20" viewBox="0 0 40 25" role="img" aria-label="American Express"><rect width="40" height="25" rx="3" fill="#2E77BC"/><text x="20" y="11" text-anchor="middle" font-family="Arial" font-weight="700" font-size="6.5" fill="#fff">AMERICAN</text><text x="20" y="20" text-anchor="middle" font-family="Arial" font-weight="700" font-size="6.5" fill="#fff">EXPRESS</text></svg></span>{%- endif -%}
+    {%- if section.settings.pay_paypal -%}<span class="wld-pay__badge"><svg height="14" viewBox="0 0 76 20" role="img" aria-label="PayPal"><text x="0" y="16" font-family="Arial" font-weight="700" font-style="italic" font-size="18" fill="#003087">Pay</text><text x="35" y="16" font-family="Arial" font-weight="700" font-style="italic" font-size="18" fill="#009CDE">Pal</text></svg></span>{%- endif -%}
+    {%- if section.settings.pay_applepay -%}<span class="wld-pay__badge"><svg height="16" viewBox="0 0 60 24" role="img" aria-label="Apple Pay"><path fill="#000" d="M11.79 5.66c.5-.62.84-1.46.75-2.31-.72.03-1.6.48-2.12 1.1-.46.54-.87 1.41-.76 2.24.81.06 1.63-.41 2.13-1.03z M12.53 6.84c-1.18-.07-2.18.67-2.74.67-.56 0-1.42-.64-2.34-.62-1.2.02-2.31.7-2.93 1.78-1.25 2.17-.32 5.38.9 7.14.6.86 1.31 1.83 2.24 1.79.9-.04 1.24-.58 2.33-.58 1.08 0 1.39.58 2.34.56.97-.02 1.58-.87 2.17-1.74.69-1 .97-1.97.98-2.02-.02-.01-1.88-.72-1.9-2.86-.02-1.79 1.46-2.64 1.53-2.69-.84-1.23-2.14-1.37-2.6-1.4z"/><text x="20" y="18" font-family="Arial,Helvetica,sans-serif" font-weight="500" font-size="17" fill="#000">Pay</text></svg></span>{%- endif -%}
+    {%- if section.settings.pay_shoppay -%}<span class="wld-pay__badge"><svg height="16" viewBox="0 0 74 24" role="img" aria-label="Shop Pay"><rect width="44" height="24" rx="6" fill="#5A31F4"/><text x="22" y="17" text-anchor="middle" font-family="Arial" font-weight="700" font-size="13" fill="#fff">shop</text><text x="48" y="17" font-family="Arial" font-weight="700" font-size="13" fill="#5A31F4">Pay</text></svg></span>{%- endif -%}
+    {%- if section.settings.pay_cb -%}<span class="wld-pay__badge"><svg height="16" viewBox="0 0 34 24" role="img" aria-label="Carte Bancaire"><text x="1" y="19" font-family="Arial" font-weight="800" font-size="19" fill="#214B8C">C</text><text x="15" y="19" font-family="Arial" font-weight="800" font-size="19" fill="#3AA935">B</text></svg></span>{%- endif -%}
+  {%- endcapture -%}
+
+  {%- capture brand_logo -%}
+    {%- if section.settings.footer_logo != blank -%}
+      <img src="{{ section.settings.footer_logo | image_url: width: 320 }}" alt="{{ section.settings.brand_name | escape }}" width="150" height="44">
+    {%- else -%}
+      <span class="wld-logo__mark"><svg viewBox="0 0 32 32" width="26" height="26" role="img" aria-label="{{ section.settings.brand_name | escape }}"><path d="M5 7.5 L16 24.5 L27 7.5" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span class="wld-logo__word">{{ section.settings.brand_name }}</span>
+    {%- endif -%}
+  {%- endcapture -%}
+
   {%- unless p != blank -%}
     <div class="vel-no-product-notice">
       ⚠️ Aucun produit sélectionné. Ouvrez l'éditeur de thème → réglages de la section « WLD — Vyrae Landing » → choisissez votre produit pour activer le panier.
@@ -18,7 +37,7 @@
   {%- comment -%} ====================== BANDE ANNONCE + HEADER ====================== {%- endcomment -%}
   <div class="wld-announce">{{ section.settings.announce_text }}</div>
   <header class="wld-header">
-    <a href="#wld-top" class="wld-logo">{{ section.settings.brand_name }}</a>
+    <a href="#wld-top" class="wld-logo">{{ brand_logo }}</a>
     <a href="#wld-top" class="wld-header__cta">{{ section.settings.header_cta }}</a>
   </header>
 
@@ -101,6 +120,7 @@
 
           <input type="hidden" name="id" data-variant-input value="{{ section.settings.b2_variant }}">
           <button type="submit" class="wld-cta wld-cta--block"{% unless p != blank %} disabled{% endunless %}>{{ section.settings.hero_cta }}</button>
+          <div class="wld-pay wld-pay--sm wld-pay--buy">{{ pay_badges }}</div>
           <p class="wld-buy__guarantee">{{ section.settings.hero_guarantee }}</p>
         {%- endform -%}
       </div>
@@ -457,9 +477,7 @@
   <div class="wld-footer">
     <div class="wld-wrap wld-footer__grid">
       <div class="wld-footer__brand">
-        {%- if section.settings.footer_logo != blank -%}
-          <img src="{{ section.settings.footer_logo | image_url: width: 240 }}" alt="{{ section.settings.brand_name | escape }}" loading="lazy" width="140" height="46">
-        {%- else -%}<span class="wld-footer__name">{{ section.settings.brand_name }}</span>{%- endif -%}
+        <span class="wld-logo wld-logo--footer">{{ brand_logo }}</span>
         <p>{{ section.settings.footer_about }}</p>
       </div>
       <div class="wld-footer__col">
@@ -482,15 +500,7 @@
     </div>
 
     <div class="wld-footer__bottom">
-      <div class="wld-pay">
-        {%- if section.settings.pay_visa -%}<span class="wld-pay__badge"><svg height="13" viewBox="0 0 64 21" role="img" aria-label="Visa"><text x="0" y="17" font-family="Arial,Helvetica,sans-serif" font-size="21" font-style="italic" font-weight="700" fill="#1A1F71">VISA</text></svg></span>{%- endif -%}
-        {%- if section.settings.pay_mastercard -%}<span class="wld-pay__badge"><svg height="20" viewBox="0 0 40 25" role="img" aria-label="Mastercard"><circle cx="16" cy="12.5" r="10" fill="#EB001B"/><circle cx="24" cy="12.5" r="10" fill="#F79E1B"/><path d="M20 5.2a10 10 0 0 1 0 14.6 10 10 0 0 1 0-14.6z" fill="#FF5F00"/></svg></span>{%- endif -%}
-        {%- if section.settings.pay_amex -%}<span class="wld-pay__badge"><svg height="20" viewBox="0 0 40 25" role="img" aria-label="American Express"><rect width="40" height="25" rx="3" fill="#2E77BC"/><text x="20" y="11" text-anchor="middle" font-family="Arial" font-weight="700" font-size="6.5" fill="#fff">AMERICAN</text><text x="20" y="20" text-anchor="middle" font-family="Arial" font-weight="700" font-size="6.5" fill="#fff">EXPRESS</text></svg></span>{%- endif -%}
-        {%- if section.settings.pay_paypal -%}<span class="wld-pay__badge"><svg height="14" viewBox="0 0 76 20" role="img" aria-label="PayPal"><text x="0" y="16" font-family="Arial" font-weight="700" font-style="italic" font-size="18" fill="#003087">Pay</text><text x="35" y="16" font-family="Arial" font-weight="700" font-style="italic" font-size="18" fill="#009CDE">Pal</text></svg></span>{%- endif -%}
-        {%- if section.settings.pay_applepay -%}<span class="wld-pay__badge"><svg height="16" viewBox="0 0 60 24" role="img" aria-label="Apple Pay"><path fill="#000" d="M11.79 5.66c.5-.62.84-1.46.75-2.31-.72.03-1.6.48-2.12 1.1-.46.54-.87 1.41-.76 2.24.81.06 1.63-.41 2.13-1.03z M12.53 6.84c-1.18-.07-2.18.67-2.74.67-.56 0-1.42-.64-2.34-.62-1.2.02-2.31.7-2.93 1.78-1.25 2.17-.32 5.38.9 7.14.6.86 1.31 1.83 2.24 1.79.9-.04 1.24-.58 2.33-.58 1.08 0 1.39.58 2.34.56.97-.02 1.58-.87 2.17-1.74.69-1 .97-1.97.98-2.02-.02-.01-1.88-.72-1.9-2.86-.02-1.79 1.46-2.64 1.53-2.69-.84-1.23-2.14-1.37-2.6-1.4z"/><text x="20" y="18" font-family="Arial,Helvetica,sans-serif" font-weight="500" font-size="17" fill="#000">Pay</text></svg></span>{%- endif -%}
-        {%- if section.settings.pay_shoppay -%}<span class="wld-pay__badge"><svg height="16" viewBox="0 0 74 24" role="img" aria-label="Shop Pay"><rect width="44" height="24" rx="6" fill="#5A31F4"/><text x="22" y="17" text-anchor="middle" font-family="Arial" font-weight="700" font-size="13" fill="#fff">shop</text><text x="48" y="17" font-family="Arial" font-weight="700" font-size="13" fill="#5A31F4">Pay</text></svg></span>{%- endif -%}
-        {%- if section.settings.pay_cb -%}<span class="wld-pay__badge"><svg height="16" viewBox="0 0 34 24" role="img" aria-label="Carte Bancaire"><text x="1" y="19" font-family="Arial" font-weight="800" font-size="19" fill="#214B8C">C</text><text x="15" y="19" font-family="Arial" font-weight="800" font-size="19" fill="#3AA935">B</text></svg></span>{%- endif -%}
-      </div>
+      <div class="wld-pay">{{ pay_badges }}</div>
 
       <p class="wld-footer__copy">
         {{ section.settings.footer_legal }}
@@ -543,7 +553,14 @@
   /* bande annonce + header */
   #wld-{{ slug }}-{{ section.id }} .wld-announce{background:var(--c-primary-dark);color:#fff;text-align:center;font-size:13px;font-weight:600;letter-spacing:.05em;padding:9px 16px}
   #wld-{{ slug }}-{{ section.id }} .wld-header{display:flex;align-items:center;justify-content:space-between;max-width:1140px;margin:0 auto;padding:16px 22px;border-bottom:1px solid #e6edf3;background:var(--c-bg)}
-  #wld-{{ slug }}-{{ section.id }} .wld-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:26px;letter-spacing:.04em;color:var(--c-primary-dark);text-transform:uppercase;text-decoration:none}
+  #wld-{{ slug }}-{{ section.id }} .wld-logo{display:inline-flex;align-items:center;gap:8px;color:var(--c-primary-dark);text-decoration:none}
+  #wld-{{ slug }}-{{ section.id }} .wld-logo__mark{display:inline-flex;color:var(--c-primary)}
+  #wld-{{ slug }}-{{ section.id }} .wld-logo__word{font-family:'Syne',sans-serif;font-weight:800;font-size:25px;letter-spacing:.06em;text-transform:uppercase;line-height:1}
+  #wld-{{ slug }}-{{ section.id }} .wld-logo img{height:40px;width:auto}
+  #wld-{{ slug }}-{{ section.id }} .wld-logo--footer{color:#fff}
+  #wld-{{ slug }}-{{ section.id }} .wld-logo--footer .wld-logo__mark{color:#fff}
+  #wld-{{ slug }}-{{ section.id }} .wld-pay--sm .wld-pay__badge{height:24px;min-width:36px;padding:0 6px}
+  #wld-{{ slug }}-{{ section.id }} .wld-pay--buy{justify-content:center;gap:7px;margin:12px 0 0}
   #wld-{{ slug }}-{{ section.id }} .wld-header__cta{background:var(--c-primary);color:#fff;font-size:13px;font-weight:700;padding:9px 18px;border-radius:999px;text-decoration:none;white-space:nowrap}
   #wld-{{ slug }}-{{ section.id }} .wld-header__cta:hover{background:var(--c-primary-dark)}
 
