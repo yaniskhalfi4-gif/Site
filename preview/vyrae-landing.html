@@ -105,9 +105,14 @@
   .wld-press__logos::-webkit-scrollbar{display:none}
   .wld-press__track{display:flex;flex-wrap:nowrap;align-items:center;gap:42px;width:max-content;margin:0 auto;padding:0 8px}
   .wld-press__track span{font-family:'DM Serif Display',serif;font-size:25px;line-height:1;color:var(--c-primary-dark);opacity:.92;white-space:nowrap}
-  .wld-story{display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;align-items:center}
+  .wld-story{display:grid;grid-template-columns:1fr auto;gap:44px;align-items:start}
   .wld-story__txt p{font-size:15px;color:#54616b;margin:0 0 14px}
   .wld-story__sign{font-family:'DM Serif Display',serif;font-style:italic;color:var(--c-primary-dark)}
+  .wld-story__brand{justify-self:end}
+  .wld-logo--story{gap:14px}
+  .wld-logo--story .wld-logo__mark svg{width:56px;height:56px}
+  .wld-logo--story .wld-logo__word{font-size:38px}
+  @media(max-width:760px){.wld-story__brand{justify-self:start;order:-1;margin-bottom:4px}.wld-logo--story .wld-logo__mark svg{width:46px;height:46px}.wld-logo--story .wld-logo__word{font-size:32px}}
   .wld-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin:0 0 36px}
   .wld-stat{background:var(--c-primary-dark);color:#fff;border-radius:16px;padding:24px 14px;text-align:center}
   .wld-stat__num{display:block;font-family:'DM Serif Display',serif;font-size:38px;line-height:1;color:#fff}
@@ -273,13 +278,16 @@
 
 <!-- STORY -->
 <div class="wld-block"><div class="wld-wrap wld-story">
-  <div class="wld-story__media"><div class="wld-ph wld-ph--port">Photo fondatrice / atelier</div></div>
   <div class="wld-story__txt">
     <p class="wld-eyebrow">NOTRE HISTOIRE</p>
     <h2 class="wld-h2 wld-h2--left">Pourquoi nous avons créé Vyrae</h2>
-    <p>Tout est parti d'une frustration simple : aucune gaine ne tenait ses promesses. Elles serraient, roulaient, se voyaient sous les vêtements et devenaient vite insupportables après quelques heures.</p>
-    <p>Nous avons donc travaillé pendant 18 mois avec des ingénieurs textile et une kinésithérapeute pour concevoir un débardeur qui sculpte vraiment, soutient le dos et se fait oublier. Vyrae est né de cette obsession du détail.</p>
+    <p>Tout est parti d'une frustration simple : aucune gaine pour homme ne tenait ses promesses. Elles serraient, roulaient, se voyaient sous les vêtements et devenaient vite insupportables après quelques heures.</p>
+    <p>Nous avons voulu un produit pensé pour les hommes, qui ne ressemble pas à une gaine mais à un vrai débardeur technique : discret sous une chemise, confortable toute la journée, et qui redessine la silhouette sans qu'on ait à y penser.</p>
+    <p>Pendant des mois, nous avons testé tissus, coutures et zones de compression jusqu'à obtenir un maintien ferme au ventre, un soutien du dos et une coupe qui se fait oublier. Vyrae est né de cette obsession du détail.</p>
     <p class="wld-story__sign">— L'équipe Vyrae</p>
+  </div>
+  <div class="wld-story__brand">
+    <span class="wld-logo wld-logo--story"><span class="wld-logo__mark"><svg viewBox="0 0 40 40" width="34" height="34" role="img" aria-label="Vyrae"><rect class="wld-tile" width="40" height="40" rx="9"/><path class="wld-vee" d="M11 12.5 L20 29 L29 12.5" fill="none" stroke-width="5" stroke-linejoin="miter"/></svg></span><span class="wld-logo__word">Vyrae</span></span>
   </div>
 </div></div>
 
