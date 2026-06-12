@@ -302,7 +302,6 @@
           </article>
         {%- endfor -%}
       </div>
-      <p class="wld-footnote">{{ section.settings.tech_footnote }}</p>
     </div>
   </div>
 
@@ -310,7 +309,6 @@
   <div class="wld-block wld-block--cream">
     <div class="wld-wrap">
       <h2 class="wld-h2">{{ section.settings.mirror_title }}</h2>
-      <p class="wld-lead">{{ section.settings.mirror_intro }}</p>
       <div class="wld-grid8">
         {%- for i in (1..6) -%}
           {%- assign img = 'mirror_img_' | append: i -%}
@@ -350,7 +348,6 @@
   <div class="wld-block wld-block--cream">
     <div class="wld-wrap">
       <h2 class="wld-h2">{{ section.settings.timeline_title }}</h2>
-      <p class="wld-lead">{{ section.settings.timeline_intro }}</p>
       <div class="wld-timeline">
         {%- for i in (1..4) -%}
           {%- assign tt = 'timeline_step_' | append: i -%}
@@ -1020,11 +1017,9 @@
     { "type": "image_picker", "id": "tech_img_4", "label": "Atout 4 — image" },
     { "type": "text", "id": "tech_title_4", "label": "Atout 4 — titre", "default": "Coutures invisibles" },
     { "type": "textarea", "id": "tech_text_4", "label": "Atout 4 — texte", "default": "Bords laser sans démarcation : aucune trace sous les vêtements." },
-    { "type": "text", "id": "tech_footnote", "label": "Note de bas", "default": "Conçu et testé pour un maintien optimal sur toutes les morphologies." },
 
     { "type": "header", "content": "🪞 Galerie résultats (8 avant/après)" },
     { "type": "text", "id": "mirror_title", "label": "Titre", "default": "Des résultats réels, vus dans le miroir" },
-    { "type": "textarea", "id": "mirror_intro", "label": "Intro", "default": "Les premiers retours de nos clients après quelques semaines avec Vyrae." },
     { "type": "image_picker", "id": "mirror_img_1", "label": "Photo 1" },
     { "type": "text", "id": "mirror_cap_1", "label": "Légende 1", "default": "Gérard, 57 ans" },
     { "type": "image_picker", "id": "mirror_img_2", "label": "Photo 2" },
@@ -1050,7 +1045,6 @@
 
     { "type": "header", "content": "📅 Timeline résultats (avec avis clients)" },
     { "type": "text", "id": "timeline_title", "label": "Titre", "default": "Vos résultats, jour après jour" },
-    { "type": "textarea", "id": "timeline_intro", "label": "Intro", "default": "Voici ce que vivent la plupart de nos clients, semaine après semaine." },
     { "type": "text", "id": "timeline_step_1", "label": "Étape 1 — titre", "default": "Jour 1 à 3" },
     { "type": "textarea", "id": "timeline_text_1", "label": "Étape 1 — texte", "default": "Effet immédiat : ventre lissé et taille affinée dès l'enfilage." },
     { "type": "text", "id": "timeline_quote_1", "label": "Étape 1 — avis client", "default": "(« Effet ventre plat dès la première minute, j'étais bluffé. » — Enzo M.)" },
