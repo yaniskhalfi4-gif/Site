@@ -45,6 +45,21 @@
   .wld-hero__ticks{list-style:none;padding:0;margin:0 0 20px;display:grid;gap:8px}
   .wld-hero__ticks li{padding-left:28px;position:relative;font-size:15px}
   .wld-hero__ticks li::before{content:"✓";position:absolute;left:0;top:0;color:var(--c-primary);font-weight:800}
+  .wld-selector{margin:0 0 16px}
+  .wld-selector__head{display:flex;justify-content:space-between;align-items:baseline;margin:0 0 9px}
+  .wld-selector__label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+  .wld-selector__val{font-size:13px;color:#6b7882;font-weight:600}
+  .wld-size-guide{font-size:12px;color:var(--c-primary);text-decoration:underline}
+  .wld-swatches{display:flex;gap:12px}
+  .wld-swatch{width:36px;height:36px;border-radius:50%;border:2px solid #dbe5ed;background:var(--sw);cursor:pointer;padding:0;transition:.15s}
+  .wld-swatch:hover{transform:scale(1.05)}
+  .wld-swatch.is-active{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--c-primary)}
+  .wld-sizes{display:flex;flex-wrap:wrap;gap:8px}
+  .wld-size{min-width:48px;padding:11px 12px;border:2px solid #dbe5ed;border-radius:10px;background:#fff;font-weight:700;font-size:14px;color:var(--c-text);cursor:pointer;transition:.15s}
+  .wld-size:hover{border-color:var(--c-primary)}
+  .wld-size.is-active{border-color:var(--c-primary);background:rgba(62,124,168,.12);color:var(--c-primary-dark)}
+  .wld-sizes--error .wld-size{border-color:#c0564f}
+  .wld-size-error{display:none;color:#c0564f;font-size:12px;font-weight:600;margin:8px 0 0}
   .wld-offer-note{background:rgba(62,124,168,.12);color:var(--c-primary-dark);border:1px dashed var(--c-primary);border-radius:10px;padding:9px 12px;margin:0 0 12px;font-size:13px;font-weight:600;text-align:center}
   .wld-adv{text-align:center}
   .wld-adv__icon{font-size:30px;display:block;margin-bottom:6px}
@@ -184,6 +199,28 @@
     <h1 class="wld-h1">Le Débardeur de Compression qui Sculpte Votre Silhouette en 1 Seconde</h1>
     <p class="wld-hero__sub">Vyrae gaine le ventre, affine la taille et redresse le dos — sous n'importe quelle tenue, sans qu'on le voie.</p>
     <ul class="wld-hero__ticks"><li>Ventre plat instantané, taille marquée</li><li>Maintien du dos &amp; posture redressée</li><li>Tissu respirant, coutures invisibles</li></ul>
+    <div class="wld-selector">
+      <div class="wld-selector__head"><span class="wld-selector__label">Couleur</span><span class="wld-selector__val" data-color-val></span></div>
+      <div class="wld-swatches" data-swatches>
+        <button type="button" class="wld-swatch" data-name="Noir" style="--sw:#1A1A1A" title="Noir" aria-label="Noir"></button>
+        <button type="button" class="wld-swatch" data-name="Gris" style="--sw:#B7BCC2" title="Gris" aria-label="Gris"></button>
+        <button type="button" class="wld-swatch" data-name="Blanc" style="--sw:#FFFFFF" title="Blanc" aria-label="Blanc"></button>
+      </div>
+      <input type="hidden" name="properties[Couleur]" data-color-input>
+    </div>
+    <div class="wld-selector">
+      <div class="wld-selector__head"><span class="wld-selector__label">Taille</span><a class="wld-size-guide" href="#">Guide des tailles</a></div>
+      <div class="wld-sizes" data-sizes>
+        <button type="button" class="wld-size" data-size="S">S</button>
+        <button type="button" class="wld-size" data-size="M">M</button>
+        <button type="button" class="wld-size" data-size="L">L</button>
+        <button type="button" class="wld-size" data-size="XL">XL</button>
+        <button type="button" class="wld-size" data-size="2XL">2XL</button>
+        <button type="button" class="wld-size" data-size="3XL">3XL</button>
+      </div>
+      <p class="wld-size-error" data-size-error>Veuillez choisir une taille.</p>
+      <input type="hidden" name="properties[Taille]" data-size-input>
+    </div>
     <p class="wld-offer-note">🎁 Plus vous prenez, plus c'est avantageux : 2 achetés = 1 offert · 3 achetés = 2 offerts</p>
     <div class="wld-bundles" data-bundles>
       <label class="wld-bundle"><input type="radio" name="hero-bundle"><span class="wld-bundle__top"><strong>1 Débardeur</strong></span><span class="wld-bundle__sub">Pour tester</span><span class="wld-bundle__price">34,90€ <s>49,90€</s></span></label>
@@ -424,6 +461,20 @@
 </div>
 
 <script>
+  document.querySelectorAll('[data-swatches]').forEach(function(group){
+    var input=group.parentNode.querySelector('[data-color-input]');
+    var val=group.parentNode.querySelector('[data-color-val]');
+    var sw=group.querySelectorAll('.wld-swatch');
+    function act(el){sw.forEach(function(b){b.classList.remove('is-active')});el.classList.add('is-active');var n=el.getAttribute('data-name');if(input)input.value=n;if(val)val.textContent=n;}
+    sw.forEach(function(el){el.addEventListener('click',function(){act(el)})});
+    if(sw[0])act(sw[0]);
+  });
+  document.querySelectorAll('[data-sizes]').forEach(function(group){
+    var input=group.parentNode.querySelector('[data-size-input]');
+    var err=group.parentNode.querySelector('[data-size-error]');
+    var sz=group.querySelectorAll('.wld-size');
+    sz.forEach(function(el){el.addEventListener('click',function(){sz.forEach(function(b){b.classList.remove('is-active')});el.classList.add('is-active');if(input)input.value=el.getAttribute('data-size');group.classList.remove('wld-sizes--error');if(err)err.style.display='none';});});
+  });
   document.querySelectorAll('[data-bundles]').forEach(function(group){
     var bundles = group.querySelectorAll('.wld-bundle');
     function activate(el){bundles.forEach(function(b){b.classList.remove('is-active')});el.classList.add('is-active');var r=el.querySelector('input');if(r)r.checked=true;}

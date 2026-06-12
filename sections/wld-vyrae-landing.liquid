@@ -50,6 +50,33 @@
         </ul>
 
         {%- form 'product', p, class: 'wld-buy', id: 'wld-hero-form-' | append: section.id -%}
+          <div class="wld-selector">
+            <div class="wld-selector__head"><span class="wld-selector__label">Couleur</span><span class="wld-selector__val" data-color-val></span></div>
+            <div class="wld-swatches" data-swatches>
+              {%- for i in (1..3) -%}
+                {%- assign cn = 'color_opt_' | append: i | append: '_name' -%}
+                {%- assign ch = 'color_opt_' | append: i | append: '_hex' -%}
+                {%- if section.settings[cn] != blank -%}
+                  <button type="button" class="wld-swatch" data-name="{{ section.settings[cn] | escape }}" style="--sw:{{ section.settings[ch] }}" title="{{ section.settings[cn] | escape }}" aria-label="{{ section.settings[cn] | escape }}"></button>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+            <input type="hidden" name="properties[Couleur]" data-color-input>
+          </div>
+
+          <div class="wld-selector">
+            <div class="wld-selector__head"><span class="wld-selector__label">Taille</span>{%- if section.settings.size_guide_url != blank -%}<a class="wld-size-guide" href="{{ section.settings.size_guide_url }}">{{ section.settings.size_guide_label }}</a>{%- endif -%}</div>
+            <div class="wld-sizes" data-sizes>
+              {%- assign sizes = section.settings.sizes_list | split: ',' -%}
+              {%- for s in sizes -%}
+                {%- assign sv = s | strip -%}
+                <button type="button" class="wld-size" data-size="{{ sv | escape }}">{{ sv }}</button>
+              {%- endfor -%}
+            </div>
+            <p class="wld-size-error" data-size-error>Veuillez choisir une taille.</p>
+            <input type="hidden" name="properties[Taille]" data-size-input>
+          </div>
+
           <p class="wld-offer-note">{{ section.settings.hero_offer_note }}</p>
           <div class="wld-bundles" data-bundles>
             <label class="wld-bundle" data-variant="{{ section.settings.b1_variant }}">
@@ -530,6 +557,21 @@
   #wld-{{ slug }}-{{ section.id }} .wld-hero__ticks li{padding-left:28px;position:relative;font-size:15px}
   #wld-{{ slug }}-{{ section.id }} .wld-hero__ticks li::before{content:"✓";position:absolute;left:0;top:0;color:var(--c-primary);font-weight:800}
 
+  #wld-{{ slug }}-{{ section.id }} .wld-selector{margin:0 0 16px}
+  #wld-{{ slug }}-{{ section.id }} .wld-selector__head{display:flex;justify-content:space-between;align-items:baseline;margin:0 0 9px}
+  #wld-{{ slug }}-{{ section.id }} .wld-selector__label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+  #wld-{{ slug }}-{{ section.id }} .wld-selector__val{font-size:13px;color:#6b7882;font-weight:600}
+  #wld-{{ slug }}-{{ section.id }} .wld-size-guide{font-size:12px;color:var(--c-primary);text-decoration:underline}
+  #wld-{{ slug }}-{{ section.id }} .wld-swatches{display:flex;gap:12px}
+  #wld-{{ slug }}-{{ section.id }} .wld-swatch{width:36px;height:36px;border-radius:50%;border:2px solid #dbe5ed;background:var(--sw);cursor:pointer;padding:0;transition:.15s}
+  #wld-{{ slug }}-{{ section.id }} .wld-swatch:hover{transform:scale(1.05)}
+  #wld-{{ slug }}-{{ section.id }} .wld-swatch.is-active{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--c-primary)}
+  #wld-{{ slug }}-{{ section.id }} .wld-sizes{display:flex;flex-wrap:wrap;gap:8px}
+  #wld-{{ slug }}-{{ section.id }} .wld-size{min-width:48px;padding:11px 12px;border:2px solid #dbe5ed;border-radius:10px;background:#fff;font-weight:700;font-size:14px;color:var(--c-text);cursor:pointer;transition:.15s}
+  #wld-{{ slug }}-{{ section.id }} .wld-size:hover{border-color:var(--c-primary)}
+  #wld-{{ slug }}-{{ section.id }} .wld-size.is-active{border-color:var(--c-primary);background:color-mix(in srgb,var(--c-primary) 12%,#fff);color:var(--c-primary-dark)}
+  #wld-{{ slug }}-{{ section.id }} .wld-sizes--error .wld-size{border-color:#c0564f}
+  #wld-{{ slug }}-{{ section.id }} .wld-size-error{display:none;color:#c0564f;font-size:12px;font-weight:600;margin:8px 0 0}
   #wld-{{ slug }}-{{ section.id }} .wld-offer-note{background:color-mix(in srgb,var(--c-primary) 12%,#fff);color:var(--c-primary-dark);border:1px dashed var(--c-primary);border-radius:10px;padding:9px 12px;margin:0 0 12px;font-size:13px;font-weight:600;text-align:center}
   #wld-{{ slug }}-{{ section.id }} .wld-adv{text-align:center}
   #wld-{{ slug }}-{{ section.id }} .wld-adv__icon{font-size:30px;display:block;margin-bottom:6px}
@@ -698,6 +740,49 @@
 (function(){
   function initSection(root){
     if(!root) return;
+    root.querySelectorAll('[data-swatches]').forEach(function(group){
+      var form = group.closest('form');
+      var input = form ? form.querySelector('[data-color-input]') : null;
+      var val = form ? form.querySelector('[data-color-val]') : null;
+      var swatches = group.querySelectorAll('.wld-swatch');
+      function activate(el){
+        swatches.forEach(function(b){ b.classList.remove('is-active'); });
+        el.classList.add('is-active');
+        var n = el.getAttribute('data-name');
+        if(input) input.value = n;
+        if(val) val.textContent = n;
+      }
+      swatches.forEach(function(el){ el.addEventListener('click', function(){ activate(el); }); });
+      if(swatches[0]) activate(swatches[0]);
+    });
+    root.querySelectorAll('[data-sizes]').forEach(function(group){
+      var form = group.closest('form');
+      var input = form ? form.querySelector('[data-size-input]') : null;
+      var err = form ? form.querySelector('[data-size-error]') : null;
+      var sizes = group.querySelectorAll('.wld-size');
+      sizes.forEach(function(el){
+        el.addEventListener('click', function(){
+          sizes.forEach(function(b){ b.classList.remove('is-active'); });
+          el.classList.add('is-active');
+          if(input) input.value = el.getAttribute('data-size');
+          group.classList.remove('wld-sizes--error');
+          if(err) err.style.display = 'none';
+        });
+      });
+    });
+    root.querySelectorAll('form.wld-buy').forEach(function(form){
+      form.addEventListener('submit', function(e){
+        var si = form.querySelector('[data-size-input]');
+        var sizesGroup = form.querySelector('[data-sizes]');
+        if(si && sizesGroup && !si.value){
+          e.preventDefault();
+          sizesGroup.classList.add('wld-sizes--error');
+          var err = form.querySelector('[data-size-error]');
+          if(err) err.style.display = 'block';
+          sizesGroup.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
     root.querySelectorAll('[data-bundles]').forEach(function(group){
       var form = group.closest('form');
       var input = form ? form.querySelector('[data-variant-input]') : null;
@@ -772,6 +857,17 @@
     { "type": "text", "id": "hero_cta", "label": "Texte bouton", "default": "AJOUTER AU PANIER" },
     { "type": "text", "id": "hero_guarantee", "label": "Réassurance sous le bouton", "default": "Paiement 100% sécurisé · Rétractation légale 14 jours" },
     { "type": "text", "id": "hero_offer_note", "label": "Ligne explication offre (au-dessus des packs)", "default": "🎁 Plus vous prenez, plus c'est avantageux : 2 achetés = 1 offert · 3 achetés = 2 offerts" },
+
+    { "type": "header", "content": "👕 Couleurs & tailles (sélecteur cliquable)" },
+    { "type": "text", "id": "color_opt_1_name", "label": "Couleur 1 — nom", "default": "Noir" },
+    { "type": "color", "id": "color_opt_1_hex", "label": "Couleur 1 — pastille", "default": "#1A1A1A" },
+    { "type": "text", "id": "color_opt_2_name", "label": "Couleur 2 — nom", "default": "Gris" },
+    { "type": "color", "id": "color_opt_2_hex", "label": "Couleur 2 — pastille", "default": "#B7BCC2" },
+    { "type": "text", "id": "color_opt_3_name", "label": "Couleur 3 — nom (vide = masqué)", "default": "Blanc" },
+    { "type": "color", "id": "color_opt_3_hex", "label": "Couleur 3 — pastille", "default": "#FFFFFF" },
+    { "type": "text", "id": "sizes_list", "label": "Tailles (séparées par des virgules)", "default": "S, M, L, XL, 2XL, 3XL" },
+    { "type": "text", "id": "size_guide_label", "label": "Lien guide des tailles — texte", "default": "Guide des tailles" },
+    { "type": "url", "id": "size_guide_url", "label": "Lien guide des tailles — URL (vide = masqué)" },
 
     { "type": "header", "content": "🧩 Bundles (texte libre — relier à une variante)" },
     { "type": "paragraph", "content": "Renseignez l'ID de variante de votre produit pour chaque offre (Admin Shopify → Produit → Variante → ID dans l'URL)." },
