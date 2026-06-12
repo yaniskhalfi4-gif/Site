@@ -1,0 +1,885 @@
+{%- liquid
+  assign slug = 'vyrae'
+  assign p = section.settings.product
+-%}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<section id="wld-{{ slug }}-{{ section.id }}" class="wld-{{ slug }}">
+
+  {%- unless p != blank -%}
+    <div class="vel-no-product-notice">
+      ⚠️ Aucun produit sélectionné. Ouvrez l'éditeur de thème → réglages de la section « WLD — Vyrae Landing » → choisissez votre produit pour activer le panier.
+    </div>
+  {%- endunless -%}
+
+  {%- comment -%} ====================== HERO ====================== {%- endcomment -%}
+  <div class="wld-hero">
+    <div class="wld-wrap wld-hero__grid">
+      <div class="wld-hero__media">
+        {%- if section.settings.hero_image != blank -%}
+          <img src="{{ section.settings.hero_image | image_url: width: 1200 }}" alt="{{ section.settings.hero_title | escape }}" loading="eager" width="600" height="600">
+        {%- else -%}
+          <div class="wld-ph wld-ph--square">Image produit</div>
+        {%- endif -%}
+        <div class="wld-hero__pills">
+          <span>{{ section.settings.hero_pill_1 }}</span>
+          <span>{{ section.settings.hero_pill_2 }}</span>
+          <span>{{ section.settings.hero_pill_3 }}</span>
+        </div>
+      </div>
+
+      <div class="wld-hero__box">
+        <div class="wld-stars">★★★★★ <span>{{ section.settings.hero_reviews_label }}</span></div>
+        <h1 class="wld-h1">{{ section.settings.hero_title }}</h1>
+        <p class="wld-hero__sub">{{ section.settings.hero_subtitle }}</p>
+
+        <ul class="wld-hero__ticks">
+          <li>{{ section.settings.hero_tick_1 }}</li>
+          <li>{{ section.settings.hero_tick_2 }}</li>
+          <li>{{ section.settings.hero_tick_3 }}</li>
+        </ul>
+
+        {%- form 'product', p, class: 'wld-buy', id: 'wld-hero-form-' | append: section.id -%}
+          <div class="wld-bundles" data-bundles>
+            <label class="wld-bundle" data-variant="{{ section.settings.b1_variant }}" data-default="true">
+              <input type="radio" name="hero-bundle" checked>
+              <span class="wld-bundle__top"><strong>{{ section.settings.b1_title }}</strong>{% if section.settings.b1_tag != blank %}<em class="wld-bundle__tag">{{ section.settings.b1_tag }}</em>{% endif %}</span>
+              <span class="wld-bundle__sub">{{ section.settings.b1_sub }}</span>
+              <span class="wld-bundle__price">{{ section.settings.b1_price }} <s>{{ section.settings.b1_compare }}</s></span>
+            </label>
+            <label class="wld-bundle wld-bundle--feat" data-variant="{{ section.settings.b2_variant }}">
+              <input type="radio" name="hero-bundle">
+              <span class="wld-bundle__top"><strong>{{ section.settings.b2_title }}</strong>{% if section.settings.b2_tag != blank %}<em class="wld-bundle__tag">{{ section.settings.b2_tag }}</em>{% endif %}</span>
+              <span class="wld-bundle__sub">{{ section.settings.b2_sub }}</span>
+              <span class="wld-bundle__price">{{ section.settings.b2_price }} <s>{{ section.settings.b2_compare }}</s></span>
+            </label>
+            <label class="wld-bundle" data-variant="{{ section.settings.b3_variant }}">
+              <input type="radio" name="hero-bundle">
+              <span class="wld-bundle__top"><strong>{{ section.settings.b3_title }}</strong>{% if section.settings.b3_tag != blank %}<em class="wld-bundle__tag">{{ section.settings.b3_tag }}</em>{% endif %}</span>
+              <span class="wld-bundle__sub">{{ section.settings.b3_sub }}</span>
+              <span class="wld-bundle__price">{{ section.settings.b3_price }} <s>{{ section.settings.b3_compare }}</s></span>
+            </label>
+          </div>
+
+          <input type="hidden" name="id" data-variant-input value="{{ section.settings.b1_variant }}">
+          <button type="submit" class="wld-cta wld-cta--block"{% unless p != blank %} disabled{% endunless %}>{{ section.settings.hero_cta }}</button>
+          <p class="wld-buy__guarantee">{{ section.settings.hero_guarantee }}</p>
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} ====================== PRESS STRIP ====================== {%- endcomment -%}
+  <div class="wld-press">
+    <div class="wld-wrap">
+      <p class="wld-press__label">{{ section.settings.press_label }}</p>
+      <div class="wld-press__logos">
+        <span>{{ section.settings.press_1 }}</span>
+        <span>{{ section.settings.press_2 }}</span>
+        <span>{{ section.settings.press_3 }}</span>
+        <span>{{ section.settings.press_4 }}</span>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} ====================== PROBLEM ====================== {%- endcomment -%}
+  <div class="wld-block wld-block--cream">
+    <div class="wld-wrap">
+      <h2 class="wld-h2">{{ section.settings.problem_title }}</h2>
+      <div class="wld-ba">
+        <figure>
+          {%- if section.settings.problem_before != blank -%}
+            <img src="{{ section.settings.problem_before | image_url: width: 700 }}" alt="Avant" loading="lazy" width="350" height="420">
+          {%- else -%}<div class="wld-ph wld-ph--port">Avant</div>{%- endif -%}
+          <figcaption>{{ section.settings.problem_before_cap }}</figcaption>
+        </figure>
+        <figure>
+          {%- if section.settings.problem_after != blank -%}
+            <img src="{{ section.settings.problem_after | image_url: width: 700 }}" alt="Après" loading="lazy" width="350" height="420">
+          {%- else -%}<div class="wld-ph wld-ph--port">Après</div>{%- endif -%}
+          <figcaption>{{ section.settings.problem_after_cap }}</figcaption>
+        </figure>
+      </div>
+      <ul class="wld-checklist">
+        <li>{{ section.settings.problem_pt_1 }}</li>
+        <li>{{ section.settings.problem_pt_2 }}</li>
+        <li>{{ section.settings.problem_pt_3 }}</li>
+        <li>{{ section.settings.problem_pt_4 }}</li>
+      </ul>
+      <a href="#wld-buybox" class="wld-cta">{{ section.settings.global_cta }}</a>
+    </div>
+  </div>
+
+  {%- comment -%} ====================== BENEFITS / ROOT CAUSE ====================== {%- endcomment -%}
+  <div class="wld-block">
+    <div class="wld-wrap">
+      <h2 class="wld-h2">{{ section.settings.benefits_title }}</h2>
+      <div class="wld-cards3">
+        {%- for i in (1..3) -%}
+          {%- assign img = 'benefit_img_' | append: i -%}
+          {%- assign tt = 'benefit_title_' | append: i -%}
+          {%- assign tx = 'benefit_text_' | append: i -%}
+          <article class="wld-card">
+            {%- if section.settings[img] != blank -%}
+              <img src="{{ section.settings[img] | image_url: width: 600 }}" alt="" loading="lazy" width="300" height="220">
+            {%- else -%}<div class="wld-ph">Image</div>{%- endif -%}
+            <h3>{{ section.settings[tt] }}</h3>
+            <p>{{ section.settings[tx] }}</p>
+            <div class="wld-stars wld-stars--sm">★★★★★</div>
+          </article>
+        {%- endfor -%}
+      </div>
+      <a href="#wld-buybox" class="wld-cta">{{ section.settings.global_cta }}</a>
+    </div>
+  </div>
+
+  {%- comment -%} ====================== MYTH (3 col) ====================== {%- endcomment -%}
+  <div class="wld-block wld-block--cream">
+    <div class="wld-wrap">
+      <h2 class="wld-h2">{{ section.settings.myth_title }}</h2>
+      <div class="wld-cards3 wld-cards3--text">
+        {%- for i in (1..3) -%}
+          {%- assign tt = 'myth_title_' | append: i -%}
+          {%- assign tx = 'myth_text_' | append: i -%}
+          <article class="wld-card wld-card--plain">
+            <h3>{{ section.settings[tt] }}</h3>
+            <p>{{ section.settings[tx] }}</p>
+          </article>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} ====================== METHOD COMPARE ====================== {%- endcomment -%}
+  <div class="wld-block">
+    <div class="wld-wrap wld-method">
+      <div class="wld-method__col wld-method__col--bad">
+        <h3>{{ section.settings.method_bad_title }}</h3>
+        <ul class="wld-x">
+          <li>{{ section.settings.method_bad_1 }}</li>
+          <li>{{ section.settings.method_bad_2 }}</li>
+          <li>{{ section.settings.method_bad_3 }}</li>
+        </ul>
+      </div>
+      <div class="wld-method__col wld-method__col--good">
+        <h3>{{ section.settings.method_good_title }}</h3>
+        <ul class="wld-checklist">
+          <li>{{ section.settings.method_good_1 }}</li>
+          <li>{{ section.settings.method_good_2 }}</li>
+          <li>{{ section.settings.method_good_3 }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} ====================== FORMULA / TECH (4 features) ====================== {%- endcomment -%}
+  <div class="wld-block wld-block--cream">
+    <div class="wld-wrap">
+      <h2 class="wld-h2">{{ section.settings.tech_title }}</h2>
+      <div class="wld-cards4">
+        {%- for i in (1..4) -%}
+          {%- assign img = 'tech_img_' | append: i -%}
+          {%- assign tt = 'tech_title_' | append: i -%}
+          {%- assign tx = 'tech_text_' | append: i -%}
+          <article class="wld-card">
+            {%- if section.settings[img] != blank -%}
+              <img src="{{ section.settings[img] | image_url: width: 500 }}" alt="" loading="lazy" width="250" height="170">
+            {%- else -%}<div class="wld-ph">Image</div>{%- endif -%}
+            <h3>{{ section.settings[tt] }}</h3>
+            <p>{{ section.settings[tx] }}</p>
+          </article>
+        {%- endfor -%}
+      </div>
+      <p class="wld-footnote">{{ section.settings.tech_footnote }}</p>
+    </div>
+  </div>
+
+  {%- comment -%} ====================== MIRROR RESULTS ====================== {%- endcomment -%}
+  <div class="wld-block">
+    <div class="wld-wrap">
+      <h2 class="wld-h2">{{ section.settings.mirror_title }}</h2>
+      <div class="wld-gallery">
+        {%- for i in (1..4) -%}
+          {%- assign img = 'mirror_img_' | append: i -%}
+          {%- if section.settings[img] != blank -%}
+            <img src="{{ section.settings[img] | image_url: width: 500 }}" alt="" loading="lazy" width="250" height="300">
+          {%- else -%}<div class="wld-ph wld-ph--port">Avant / Après</div>{%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} ====================== HOW TO (3 steps) ====================== {%- endcomment -%}
+  <div class="wld-block wld-block--cream">
+    <div class="wld-wrap">
+      <h2 class="wld-h2">{{ section.settings.how_title }}</h2>
+      <div class="wld-cards3">
+        {%- for i in (1..3) -%}
+          {%- assign img = 'how_img_' | append: i -%}
+          {%- assign tt = 'how_title_' | append: i -%}
+          {%- assign tx = 'how_text_' | append: i -%}
+          <article class="wld-card wld-step">
+            <span class="wld-step__num">{{ i }}</span>
+            {%- if section.settings[img] != blank -%}
+              <img src="{{ section.settings[img] | image_url: width: 600 }}" alt="" loading="lazy" width="300" height="220">
+            {%- else -%}<div class="wld-ph">Image</div>{%- endif -%}
+            <h3>{{ section.settings[tt] }}</h3>
+            <p>{{ section.settings[tx] }}</p>
+          </article>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} ====================== EXPERT ====================== {%- endcomment -%}
+  <div class="wld-block">
+    <div class="wld-wrap wld-expert">
+      <div class="wld-expert__media">
+        {%- if section.settings.expert_image != blank -%}
+          <img src="{{ section.settings.expert_image | image_url: width: 700 }}" alt="{{ section.settings.expert_name | escape }}" loading="lazy" width="350" height="420">
+        {%- else -%}<div class="wld-ph wld-ph--port">Expert</div>{%- endif -%}
+      </div>
+      <div class="wld-expert__txt">
+        <h2 class="wld-h2 wld-h2--left">{{ section.settings.expert_title }}</h2>
+        <p>{{ section.settings.expert_text }}</p>
+        <p class="wld-expert__name">{{ section.settings.expert_name }}<br><em>{{ section.settings.expert_role }}</em></p>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} ====================== TIMELINE ====================== {%- endcomment -%}
+  <div class="wld-block wld-block--cream">
+    <div class="wld-wrap">
+      <h2 class="wld-h2">{{ section.settings.timeline_title }}</h2>
+      <div class="wld-timeline">
+        {%- for i in (1..4) -%}
+          {%- assign tt = 'timeline_step_' | append: i -%}
+          {%- assign tx = 'timeline_text_' | append: i -%}
+          <div class="wld-timeline__item">
+            <h3>{{ section.settings[tt] }}</h3>
+            <p>{{ section.settings[tx] }}</p>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} ====================== COMPARISON TABLE ====================== {%- endcomment -%}
+  <div class="wld-block">
+    <div class="wld-wrap">
+      <h2 class="wld-h2">{{ section.settings.compare_title }}</h2>
+      <div class="wld-table-wrap">
+        <table class="wld-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th class="wld-table__us">{{ section.settings.compare_us }}</th>
+              <th>{{ section.settings.compare_alt1 }}</th>
+              <th>{{ section.settings.compare_alt2 }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%- for i in (1..4) -%}
+              {%- assign row = 'compare_row_' | append: i -%}
+              {%- assign u = 'compare_us_' | append: i -%}
+              {%- assign a1 = 'compare_a1_' | append: i -%}
+              {%- assign a2 = 'compare_a2_' | append: i -%}
+              <tr>
+                <td>{{ section.settings[row] }}</td>
+                <td class="wld-table__us">{{ section.settings[u] }}</td>
+                <td>{{ section.settings[a1] }}</td>
+                <td>{{ section.settings[a2] }}</td>
+              </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+      </div>
+      <a href="#wld-buybox" class="wld-cta">{{ section.settings.global_cta }}</a>
+    </div>
+  </div>
+
+  {%- comment -%} ====================== REVIEWS (blocks) ====================== {%- endcomment -%}
+  <div class="wld-block wld-block--cream">
+    <div class="wld-wrap">
+      <h2 class="wld-h2">{{ section.settings.reviews_title }}</h2>
+      <div class="wld-reviews">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'review' -%}
+            <article class="wld-review" {{ block.shopify_attributes }}>
+              <div class="wld-stars wld-stars--sm">★★★★★</div>
+              <p class="wld-review__body">{{ block.settings.body }}</p>
+              <p class="wld-review__author">— {{ block.settings.author }} <span>✔ {{ block.settings.verified }}</span></p>
+            </article>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} ====================== BUY BOX ====================== {%- endcomment -%}
+  <div class="wld-block" id="wld-buybox">
+    <div class="wld-wrap wld-buybox">
+      <div class="wld-buybox__media">
+        {%- if section.settings.buybox_image != blank -%}
+          <img src="{{ section.settings.buybox_image | image_url: width: 900 }}" alt="{{ section.settings.hero_title | escape }}" loading="lazy" width="450" height="450">
+        {%- elsif section.settings.hero_image != blank -%}
+          <img src="{{ section.settings.hero_image | image_url: width: 900 }}" alt="{{ section.settings.hero_title | escape }}" loading="lazy" width="450" height="450">
+        {%- else -%}<div class="wld-ph wld-ph--square">Image produit</div>{%- endif -%}
+      </div>
+      <div class="wld-buybox__box">
+        <div class="wld-stars">★★★★★ <span>{{ section.settings.hero_reviews_label }}</span></div>
+        <h2 class="wld-h2 wld-h2--left">{{ section.settings.buybox_title }}</h2>
+        <p class="wld-hero__sub">{{ section.settings.buybox_subtitle }}</p>
+
+        {%- form 'product', p, class: 'wld-buy', id: 'wld-buybox-form-' | append: section.id -%}
+          <div class="wld-bundles" data-bundles>
+            <label class="wld-bundle" data-variant="{{ section.settings.b1_variant }}" data-default="true">
+              <input type="radio" name="bb-bundle" checked>
+              <span class="wld-bundle__top"><strong>{{ section.settings.b1_title }}</strong>{% if section.settings.b1_tag != blank %}<em class="wld-bundle__tag">{{ section.settings.b1_tag }}</em>{% endif %}</span>
+              <span class="wld-bundle__sub">{{ section.settings.b1_sub }}</span>
+              <span class="wld-bundle__price">{{ section.settings.b1_price }} <s>{{ section.settings.b1_compare }}</s></span>
+            </label>
+            <label class="wld-bundle wld-bundle--feat" data-variant="{{ section.settings.b2_variant }}">
+              <input type="radio" name="bb-bundle">
+              <span class="wld-bundle__top"><strong>{{ section.settings.b2_title }}</strong>{% if section.settings.b2_tag != blank %}<em class="wld-bundle__tag">{{ section.settings.b2_tag }}</em>{% endif %}</span>
+              <span class="wld-bundle__sub">{{ section.settings.b2_sub }}</span>
+              <span class="wld-bundle__price">{{ section.settings.b2_price }} <s>{{ section.settings.b2_compare }}</s></span>
+            </label>
+            <label class="wld-bundle" data-variant="{{ section.settings.b3_variant }}">
+              <input type="radio" name="bb-bundle">
+              <span class="wld-bundle__top"><strong>{{ section.settings.b3_title }}</strong>{% if section.settings.b3_tag != blank %}<em class="wld-bundle__tag">{{ section.settings.b3_tag }}</em>{% endif %}</span>
+              <span class="wld-bundle__sub">{{ section.settings.b3_sub }}</span>
+              <span class="wld-bundle__price">{{ section.settings.b3_price }} <s>{{ section.settings.b3_compare }}</s></span>
+            </label>
+          </div>
+
+          <input type="hidden" name="id" data-variant-input value="{{ section.settings.b1_variant }}">
+          <button type="submit" class="wld-cta wld-cta--block"{% unless p != blank %} disabled{% endunless %}>{{ section.settings.buybox_cta }}</button>
+          <p class="wld-buy__guarantee">{{ section.settings.buybox_guarantee }}</p>
+        {%- endform -%}
+
+        <ul class="wld-buybox__trust">
+          <li>{{ section.settings.trust_1 }}</li>
+          <li>{{ section.settings.trust_2 }}</li>
+          <li>{{ section.settings.trust_3 }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} ====================== FAQ (blocks) ====================== {%- endcomment -%}
+  <div class="wld-block wld-block--cream">
+    <div class="wld-wrap wld-wrap--narrow">
+      <h2 class="wld-h2">{{ section.settings.faq_title }}</h2>
+      <div class="wld-faq">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'faq' -%}
+            <details class="wld-faq__item" {{ block.shopify_attributes }}>
+              <summary>{{ block.settings.q }}</summary>
+              <div class="wld-faq__a">{{ block.settings.a }}</div>
+            </details>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      <a href="#wld-buybox" class="wld-cta">{{ section.settings.global_cta }}</a>
+    </div>
+  </div>
+
+  {%- comment -%} ====================== FOOTER ====================== {%- endcomment -%}
+  <div class="wld-footer">
+    <div class="wld-wrap wld-footer__grid">
+      <div class="wld-footer__brand">
+        {%- if section.settings.footer_logo != blank -%}
+          <img src="{{ section.settings.footer_logo | image_url: width: 240 }}" alt="{{ section.settings.footer_brand | escape }}" loading="lazy" width="120" height="40">
+        {%- else -%}<span class="wld-footer__name">{{ section.settings.footer_brand }}</span>{%- endif -%}
+        <p>{{ section.settings.footer_tagline }}</p>
+      </div>
+      <div class="wld-footer__col">
+        <h4>{{ section.settings.footer_col1_title }}</h4>
+        <p>{{ section.settings.footer_col1_text }}</p>
+      </div>
+      <div class="wld-footer__col">
+        <h4>{{ section.settings.footer_col2_title }}</h4>
+        <p>{{ section.settings.footer_col2_text }}</p>
+      </div>
+      <div class="wld-footer__col">
+        <h4>{{ section.settings.footer_col3_title }}</h4>
+        <p>{{ section.settings.footer_col3_text }}</p>
+      </div>
+    </div>
+    <p class="wld-footer__legal">{{ section.settings.footer_legal }}</p>
+  </div>
+</section>
+
+<style>
+  #wld-{{ slug }}-{{ section.id }}{
+    --c-primary:{{ section.settings.color_primary }};
+    --c-primary-dark:{{ section.settings.color_primary_dark }};
+    --c-bg:{{ section.settings.color_bg }};
+    --c-cream:{{ section.settings.color_cream }};
+    --c-text:{{ section.settings.color_text }};
+    --c-accent:{{ section.settings.color_accent }};
+    --c-card:#ffffff;
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    color:var(--c-text);background:var(--c-bg);line-height:1.55;
+  }
+  #wld-{{ slug }}-{{ section.id }} *{box-sizing:border-box}
+  #wld-{{ slug }}-{{ section.id }} img{max-width:100%;height:auto;display:block;border-radius:14px}
+  #wld-{{ slug }}-{{ section.id }} .wld-wrap{max-width:1140px;margin:0 auto;padding:0 22px}
+  #wld-{{ slug }}-{{ section.id }} .wld-wrap--narrow{max-width:820px}
+  #wld-{{ slug }}-{{ section.id }} .wld-block{padding:64px 0}
+  #wld-{{ slug }}-{{ section.id }} .wld-block--cream{background:var(--c-cream)}
+  #wld-{{ slug }}-{{ section.id }} .wld-h1{font-family:'DM Serif Display',serif;font-size:38px;line-height:1.1;margin:6px 0 12px}
+  #wld-{{ slug }}-{{ section.id }} .wld-h2{font-family:'DM Serif Display',serif;font-size:32px;line-height:1.15;text-align:center;margin:0 0 34px}
+  #wld-{{ slug }}-{{ section.id }} .wld-h2--left{text-align:left;margin-bottom:16px}
+  #wld-{{ slug }}-{{ section.id }} h3{font-size:18px;margin:14px 0 8px}
+  #wld-{{ slug }}-{{ section.id }} .wld-ph{display:flex;align-items:center;justify-content:center;background:#e9e4d8;color:#9a917f;border-radius:14px;min-height:170px;font-size:13px;letter-spacing:.05em;text-transform:uppercase}
+  #wld-{{ slug }}-{{ section.id }} .wld-ph--port{min-height:300px}
+  #wld-{{ slug }}-{{ section.id }} .wld-ph--square{min-height:360px}
+
+  /* notice */
+  #wld-{{ slug }}-{{ section.id }} .vel-no-product-notice{background:#fff3cd;color:#7a5b00;border:1px solid #ffe08a;padding:14px 18px;border-radius:10px;margin:18px auto;max-width:1100px;font-size:14px;text-align:center}
+
+  /* stars */
+  #wld-{{ slug }}-{{ section.id }} .wld-stars{color:var(--c-accent);font-size:18px;letter-spacing:2px}
+  #wld-{{ slug }}-{{ section.id }} .wld-stars span{color:var(--c-text);font-size:13px;letter-spacing:0;margin-left:6px}
+  #wld-{{ slug }}-{{ section.id }} .wld-stars--sm{font-size:14px}
+
+  /* hero */
+  #wld-{{ slug }}-{{ section.id }} .wld-hero{background:var(--c-cream);padding:48px 0 60px}
+  #wld-{{ slug }}-{{ section.id }} .wld-hero__grid{display:grid;grid-template-columns:1fr 1fr;gap:46px;align-items:center}
+  #wld-{{ slug }}-{{ section.id }} .wld-hero__pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  #wld-{{ slug }}-{{ section.id }} .wld-hero__pills span{background:#fff;border:1px solid #e3ddcf;border-radius:999px;padding:7px 13px;font-size:12px;font-weight:600}
+  #wld-{{ slug }}-{{ section.id }} .wld-hero__sub{font-size:16px;margin:0 0 16px;color:#4a544f}
+  #wld-{{ slug }}-{{ section.id }} .wld-hero__ticks{list-style:none;padding:0;margin:0 0 20px;display:grid;gap:8px}
+  #wld-{{ slug }}-{{ section.id }} .wld-hero__ticks li{padding-left:28px;position:relative;font-size:15px}
+  #wld-{{ slug }}-{{ section.id }} .wld-hero__ticks li::before{content:"✓";position:absolute;left:0;top:0;color:var(--c-primary);font-weight:800}
+
+  /* bundles */
+  #wld-{{ slug }}-{{ section.id }} .wld-bundles{display:grid;gap:10px;margin:0 0 16px}
+  #wld-{{ slug }}-{{ section.id }} .wld-bundle{position:relative;display:grid;grid-template-columns:1fr auto;grid-template-areas:"top price" "sub price";gap:2px 12px;padding:14px 16px;border:2px solid #e3ddcf;border-radius:12px;background:#fff;cursor:pointer;transition:.15s}
+  #wld-{{ slug }}-{{ section.id }} .wld-bundle input{position:absolute;opacity:0;pointer-events:none}
+  #wld-{{ slug }}-{{ section.id }} .wld-bundle.is-active{border-color:var(--c-primary);box-shadow:0 0 0 3px color-mix(in srgb,var(--c-primary) 18%,transparent)}
+  #wld-{{ slug }}-{{ section.id }} .wld-bundle__top{grid-area:top;display:flex;align-items:center;gap:8px;font-size:15px}
+  #wld-{{ slug }}-{{ section.id }} .wld-bundle__tag{font-style:normal;background:var(--c-primary);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:999px;text-transform:uppercase;letter-spacing:.04em}
+  #wld-{{ slug }}-{{ section.id }} .wld-bundle__sub{grid-area:sub;font-size:12px;color:#6b7570}
+  #wld-{{ slug }}-{{ section.id }} .wld-bundle__price{grid-area:price;align-self:center;font-weight:800;font-size:17px;color:var(--c-primary-dark)}
+  #wld-{{ slug }}-{{ section.id }} .wld-bundle__price s{color:#b3aa97;font-weight:500;font-size:13px;margin-left:4px}
+  #wld-{{ slug }}-{{ section.id }} .wld-bundle--feat{border-color:var(--c-primary)}
+
+  /* cta */
+  #wld-{{ slug }}-{{ section.id }} .wld-cta{display:inline-block;background:var(--c-primary);color:#fff;font-weight:700;font-size:15px;padding:15px 34px;border:none;border-radius:999px;cursor:pointer;text-decoration:none;text-align:center;transition:.15s;letter-spacing:.02em}
+  #wld-{{ slug }}-{{ section.id }} .wld-cta:hover{background:var(--c-primary-dark)}
+  #wld-{{ slug }}-{{ section.id }} .wld-cta--block{display:block;width:100%}
+  #wld-{{ slug }}-{{ section.id }} .wld-cta[disabled]{opacity:.5;cursor:not-allowed}
+  #wld-{{ slug }}-{{ section.id }} .wld-block .wld-cta{margin:30px auto 0;display:table}
+  #wld-{{ slug }}-{{ section.id }} .wld-buy__guarantee{font-size:12px;color:#6b7570;text-align:center;margin:10px 0 0}
+
+  /* press */
+  #wld-{{ slug }}-{{ section.id }} .wld-press{padding:26px 0;border-bottom:1px solid #ece7da;background:var(--c-bg)}
+  #wld-{{ slug }}-{{ section.id }} .wld-press__label{text-align:center;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#9a917f;margin:0 0 14px}
+  #wld-{{ slug }}-{{ section.id }} .wld-press__logos{display:flex;flex-wrap:wrap;justify-content:center;gap:34px;align-items:center}
+  #wld-{{ slug }}-{{ section.id }} .wld-press__logos span{font-family:'DM Serif Display',serif;font-size:21px;color:#3a423d;opacity:.7}
+
+  /* before/after */
+  #wld-{{ slug }}-{{ section.id }} .wld-ba{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:760px;margin:0 auto 26px}
+  #wld-{{ slug }}-{{ section.id }} .wld-ba figure{margin:0}
+  #wld-{{ slug }}-{{ section.id }} .wld-ba figcaption{text-align:center;font-size:13px;color:#6b7570;margin-top:8px;font-weight:600}
+
+  /* checklist / x list */
+  #wld-{{ slug }}-{{ section.id }} .wld-checklist{list-style:none;padding:0;margin:0 auto;max-width:640px;display:grid;gap:10px}
+  #wld-{{ slug }}-{{ section.id }} .wld-checklist li{position:relative;padding-left:30px;font-size:15px}
+  #wld-{{ slug }}-{{ section.id }} .wld-checklist li::before{content:"✓";position:absolute;left:0;color:var(--c-primary);font-weight:800}
+  #wld-{{ slug }}-{{ section.id }} .wld-x{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+  #wld-{{ slug }}-{{ section.id }} .wld-x li{position:relative;padding-left:30px;font-size:15px;color:#7a6a6a}
+  #wld-{{ slug }}-{{ section.id }} .wld-x li::before{content:"✕";position:absolute;left:0;color:#c0564f;font-weight:800}
+
+  /* cards */
+  #wld-{{ slug }}-{{ section.id }} .wld-cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  #wld-{{ slug }}-{{ section.id }} .wld-cards4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  #wld-{{ slug }}-{{ section.id }} .wld-card{background:var(--c-card);border:1px solid #ece7da;border-radius:16px;padding:18px;text-align:left}
+  #wld-{{ slug }}-{{ section.id }} .wld-card--plain{background:transparent;border:none;padding:8px}
+  #wld-{{ slug }}-{{ section.id }} .wld-card p{font-size:14px;color:#4a544f;margin:0 0 10px}
+  #wld-{{ slug }}-{{ section.id }} .wld-footnote{text-align:center;font-size:12px;color:#9a917f;margin-top:22px}
+
+  /* method */
+  #wld-{{ slug }}-{{ section.id }} .wld-method{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  #wld-{{ slug }}-{{ section.id }} .wld-method__col{border-radius:16px;padding:26px}
+  #wld-{{ slug }}-{{ section.id }} .wld-method__col--bad{background:#f7efed;border:1px solid #ecd9d4}
+  #wld-{{ slug }}-{{ section.id }} .wld-method__col--good{background:#fff;border:2px solid var(--c-primary)}
+  #wld-{{ slug }}-{{ section.id }} .wld-method__col h3{margin-top:0}
+
+  /* gallery */
+  #wld-{{ slug }}-{{ section.id }} .wld-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+  /* step */
+  #wld-{{ slug }}-{{ section.id }} .wld-step{position:relative;text-align:center}
+  #wld-{{ slug }}-{{ section.id }} .wld-step__num{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;background:var(--c-primary);color:#fff;border-radius:50%;font-weight:800;margin-bottom:10px}
+  #wld-{{ slug }}-{{ section.id }} .wld-step h3,#wld-{{ slug }}-{{ section.id }} .wld-step p{text-align:center}
+
+  /* expert */
+  #wld-{{ slug }}-{{ section.id }} .wld-expert{display:grid;grid-template-columns:.85fr 1.15fr;gap:40px;align-items:center}
+  #wld-{{ slug }}-{{ section.id }} .wld-expert__name{font-weight:700;margin-top:18px}
+  #wld-{{ slug }}-{{ section.id }} .wld-expert__name em{font-weight:400;color:#6b7570}
+
+  /* timeline */
+  #wld-{{ slug }}-{{ section.id }} .wld-timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  #wld-{{ slug }}-{{ section.id }} .wld-timeline__item{background:#fff;border-left:3px solid var(--c-primary);border-radius:10px;padding:18px}
+  #wld-{{ slug }}-{{ section.id }} .wld-timeline__item h3{margin-top:0;color:var(--c-primary-dark)}
+  #wld-{{ slug }}-{{ section.id }} .wld-timeline__item p{font-size:14px;color:#4a544f;margin:0}
+
+  /* table */
+  #wld-{{ slug }}-{{ section.id }} .wld-table-wrap{overflow-x:auto}
+  #wld-{{ slug }}-{{ section.id }} .wld-table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;min-width:560px}
+  #wld-{{ slug }}-{{ section.id }} .wld-table th,#wld-{{ slug }}-{{ section.id }} .wld-table td{padding:14px 16px;text-align:center;border-bottom:1px solid #ece7da;font-size:14px}
+  #wld-{{ slug }}-{{ section.id }} .wld-table th{font-weight:700;background:var(--c-primary-dark);color:#fff}
+  #wld-{{ slug }}-{{ section.id }} .wld-table td:first-child,#wld-{{ slug }}-{{ section.id }} .wld-table th:first-child{text-align:left;font-weight:600}
+  #wld-{{ slug }}-{{ section.id }} .wld-table__us{background:color-mix(in srgb,var(--c-primary) 12%,#fff);font-weight:700}
+  #wld-{{ slug }}-{{ section.id }} th.wld-table__us{background:var(--c-primary)}
+
+  /* reviews */
+  #wld-{{ slug }}-{{ section.id }} .wld-reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  #wld-{{ slug }}-{{ section.id }} .wld-review{background:#fff;border:1px solid #ece7da;border-radius:14px;padding:20px}
+  #wld-{{ slug }}-{{ section.id }} .wld-review__body{font-size:14px;margin:8px 0 14px}
+  #wld-{{ slug }}-{{ section.id }} .wld-review__author{font-size:13px;font-weight:700;margin:0}
+  #wld-{{ slug }}-{{ section.id }} .wld-review__author span{color:var(--c-primary);font-weight:600;margin-left:6px}
+
+  /* buybox */
+  #wld-{{ slug }}-{{ section.id }} .wld-buybox{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
+  #wld-{{ slug }}-{{ section.id }} .wld-buybox__trust{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:8px}
+  #wld-{{ slug }}-{{ section.id }} .wld-buybox__trust li{position:relative;padding-left:26px;font-size:13px;color:#4a544f}
+  #wld-{{ slug }}-{{ section.id }} .wld-buybox__trust li::before{content:"🛡";position:absolute;left:0}
+
+  /* faq */
+  #wld-{{ slug }}-{{ section.id }} .wld-faq{display:grid;gap:10px}
+  #wld-{{ slug }}-{{ section.id }} .wld-faq__item{background:#fff;border:1px solid #ece7da;border-radius:12px;padding:4px 18px}
+  #wld-{{ slug }}-{{ section.id }} .wld-faq__item summary{cursor:pointer;font-weight:600;font-size:15px;padding:14px 0;list-style:none;position:relative;padding-right:30px}
+  #wld-{{ slug }}-{{ section.id }} .wld-faq__item summary::-webkit-details-marker{display:none}
+  #wld-{{ slug }}-{{ section.id }} .wld-faq__item summary::after{content:"+";position:absolute;right:0;top:12px;font-size:22px;color:var(--c-primary);font-weight:400}
+  #wld-{{ slug }}-{{ section.id }} .wld-faq__item[open] summary::after{content:"–"}
+  #wld-{{ slug }}-{{ section.id }} .wld-faq__a{font-size:14px;color:#4a544f;padding:0 0 16px}
+
+  /* footer */
+  #wld-{{ slug }}-{{ section.id }} .wld-footer{background:var(--c-primary-dark);color:#dfe7e2;padding:48px 0 24px;margin-top:0}
+  #wld-{{ slug }}-{{ section.id }} .wld-footer__grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:30px}
+  #wld-{{ slug }}-{{ section.id }} .wld-footer__name{font-family:'DM Serif Display',serif;font-size:26px;color:#fff}
+  #wld-{{ slug }}-{{ section.id }} .wld-footer h4{color:#fff;font-size:14px;margin:0 0 10px}
+  #wld-{{ slug }}-{{ section.id }} .wld-footer p{font-size:13px;color:#b8c6bf;margin:0}
+  #wld-{{ slug }}-{{ section.id }} .wld-footer__legal{text-align:center;font-size:12px;color:#8ba096;margin:34px 0 0;border-top:1px solid rgba(255,255,255,.12);padding-top:18px}
+
+  @media(max-width:900px){
+    #wld-{{ slug }}-{{ section.id }} .wld-hero__grid,
+    #wld-{{ slug }}-{{ section.id }} .wld-buybox,
+    #wld-{{ slug }}-{{ section.id }} .wld-expert,
+    #wld-{{ slug }}-{{ section.id }} .wld-method{grid-template-columns:1fr}
+    #wld-{{ slug }}-{{ section.id }} .wld-cards4,
+    #wld-{{ slug }}-{{ section.id }} .wld-gallery,
+    #wld-{{ slug }}-{{ section.id }} .wld-timeline{grid-template-columns:repeat(2,1fr)}
+    #wld-{{ slug }}-{{ section.id }} .wld-cards3,
+    #wld-{{ slug }}-{{ section.id }} .wld-reviews{grid-template-columns:1fr}
+    #wld-{{ slug }}-{{ section.id }} .wld-footer__grid{grid-template-columns:1fr 1fr}
+    #wld-{{ slug }}-{{ section.id }} .wld-h1{font-size:32px}
+    #wld-{{ slug }}-{{ section.id }} .wld-h2{font-size:27px}
+  }
+  @media(max-width:540px){
+    #wld-{{ slug }}-{{ section.id }} .wld-block{padding:44px 0}
+    #wld-{{ slug }}-{{ section.id }} .wld-cards4,
+    #wld-{{ slug }}-{{ section.id }} .wld-gallery,
+    #wld-{{ slug }}-{{ section.id }} .wld-timeline,
+    #wld-{{ slug }}-{{ section.id }} .wld-ba,
+    #wld-{{ slug }}-{{ section.id }} .wld-footer__grid{grid-template-columns:1fr}
+    #wld-{{ slug }}-{{ section.id }} .wld-press__logos{gap:20px}
+    #wld-{{ slug }}-{{ section.id }} .wld-press__logos span{font-size:17px}
+    #wld-{{ slug }}-{{ section.id }} .wld-h1{font-size:28px}
+  }
+</style>
+
+<script>
+(function(){
+  function initSection(root){
+    if(!root) return;
+    root.querySelectorAll('[data-bundles]').forEach(function(group){
+      var form = group.closest('form');
+      var input = form ? form.querySelector('[data-variant-input]') : null;
+      var bundles = group.querySelectorAll('.wld-bundle');
+      function activate(el){
+        bundles.forEach(function(b){ b.classList.remove('is-active'); });
+        el.classList.add('is-active');
+        var radio = el.querySelector('input[type=radio]');
+        if(radio) radio.checked = true;
+        if(input && el.getAttribute('data-variant')){
+          input.value = el.getAttribute('data-variant');
+        }
+      }
+      bundles.forEach(function(el){
+        el.addEventListener('click', function(){ activate(el); });
+      });
+      var def = group.querySelector('.wld-bundle[data-default]') || bundles[0];
+      if(def) activate(def);
+    });
+  }
+  function boot(){
+    document.querySelectorAll('[id^="wld-{{ slug }}-"]').forEach(initSection);
+  }
+  if(document.readyState !== 'loading'){ boot(); }
+  else { document.addEventListener('DOMContentLoaded', boot); }
+
+  document.addEventListener('shopify:section:load', function(e){
+    var el = e.target.querySelector('[id^="wld-{{ slug }}-"]') || e.target;
+    initSection(el);
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "WLD — Vyrae Landing",
+  "tag": "section",
+  "class": "wld-vyrae-section",
+  "enabled_on": { "templates": ["page", "index", "product"] },
+  "settings": [
+    { "type": "product", "id": "product", "label": "Produit lié (panier)" },
+
+    { "type": "header", "content": "🎨 Couleurs de la marque" },
+    { "type": "color", "id": "color_primary", "label": "Primaire", "default": "#2E6E5A" },
+    { "type": "color", "id": "color_primary_dark", "label": "Primaire foncé / footer", "default": "#1C3D34" },
+    { "type": "color", "id": "color_bg", "label": "Fond global", "default": "#FBFAF6" },
+    { "type": "color", "id": "color_cream", "label": "Fond crème (sections)", "default": "#F4EFE4" },
+    { "type": "color", "id": "color_text", "label": "Texte", "default": "#23302B" },
+    { "type": "color", "id": "color_accent", "label": "Accent (étoiles)", "default": "#C8A15A" },
+
+    { "type": "header", "content": "🔁 Textes globaux" },
+    { "type": "text", "id": "global_cta", "label": "CTA répété", "default": "COMMENCER MA TRANSFORMATION" },
+
+    { "type": "header", "content": "🦸 Hero" },
+    { "type": "image_picker", "id": "hero_image", "label": "Image produit hero" },
+    { "type": "text", "id": "hero_reviews_label", "label": "Label avis", "default": "4,9/5 — 2 148 avis vérifiés" },
+    { "type": "text", "id": "hero_title", "label": "Titre", "default": "Le Débardeur de Compression qui Sculpte Votre Silhouette en 1 Seconde" },
+    { "type": "textarea", "id": "hero_subtitle", "label": "Sous-titre", "default": "Vyrae gaine le ventre, affine la taille et redresse le dos — sous n'importe quelle tenue, sans qu'on le voie." },
+    { "type": "text", "id": "hero_tick_1", "label": "Bénéfice 1", "default": "Ventre plat instantané, taille marquée" },
+    { "type": "text", "id": "hero_tick_2", "label": "Bénéfice 2", "default": "Maintien du dos & posture redressée" },
+    { "type": "text", "id": "hero_tick_3", "label": "Bénéfice 3", "default": "Tissu respirant, coutures invisibles" },
+    { "type": "text", "id": "hero_pill_1", "label": "Pastille 1", "default": "Invisible sous les vêtements" },
+    { "type": "text", "id": "hero_pill_2", "label": "Pastille 2", "default": "Du XS au 3XL" },
+    { "type": "text", "id": "hero_pill_3", "label": "Pastille 3", "default": "Livraison 48h" },
+    { "type": "text", "id": "hero_cta", "label": "Texte bouton", "default": "AJOUTER AU PANIER" },
+    { "type": "text", "id": "hero_guarantee", "label": "Garantie sous le bouton", "default": "Garantie satisfait ou remboursé 30 jours · Paiement sécurisé" },
+
+    { "type": "header", "content": "🧩 Bundles (texte libre — relier à une variante)" },
+    { "type": "paragraph", "content": "Renseignez l'ID de variante de votre produit pour chaque offre (Admin Shopify → Produit → Variante → ID dans l'URL)." },
+    { "type": "text", "id": "b1_title", "label": "Bundle 1 — titre", "default": "1 Débardeur" },
+    { "type": "text", "id": "b1_sub", "label": "Bundle 1 — sous-titre", "default": "Pour tester" },
+    { "type": "text", "id": "b1_tag", "label": "Bundle 1 — badge", "default": "" },
+    { "type": "text", "id": "b1_price", "label": "Bundle 1 — prix", "default": "39€" },
+    { "type": "text", "id": "b1_compare", "label": "Bundle 1 — prix barré", "default": "59€" },
+    { "type": "text", "id": "b1_variant", "label": "Bundle 1 — ID variante" },
+    { "type": "text", "id": "b2_title", "label": "Bundle 2 — titre", "default": "2 Débardeurs" },
+    { "type": "text", "id": "b2_sub", "label": "Bundle 2 — sous-titre", "default": "Le plus choisi" },
+    { "type": "text", "id": "b2_tag", "label": "Bundle 2 — badge", "default": "POPULAIRE" },
+    { "type": "text", "id": "b2_price", "label": "Bundle 2 — prix", "default": "69€" },
+    { "type": "text", "id": "b2_compare", "label": "Bundle 2 — prix barré", "default": "118€" },
+    { "type": "text", "id": "b2_variant", "label": "Bundle 2 — ID variante" },
+    { "type": "text", "id": "b3_title", "label": "Bundle 3 — titre", "default": "3 Débardeurs" },
+    { "type": "text", "id": "b3_sub", "label": "Bundle 3 — sous-titre", "default": "Meilleure valeur" },
+    { "type": "text", "id": "b3_tag", "label": "Bundle 3 — badge", "default": "-50%" },
+    { "type": "text", "id": "b3_price", "label": "Bundle 3 — prix", "default": "89€" },
+    { "type": "text", "id": "b3_compare", "label": "Bundle 3 — prix barré", "default": "177€" },
+    { "type": "text", "id": "b3_variant", "label": "Bundle 3 — ID variante" },
+
+    { "type": "header", "content": "📰 Bandeau presse" },
+    { "type": "text", "id": "press_label", "label": "Label", "default": "Vu et recommandé dans" },
+    { "type": "text", "id": "press_1", "label": "Média 1", "default": "marie claire" },
+    { "type": "text", "id": "press_2", "label": "Média 2", "default": "ELLE" },
+    { "type": "text", "id": "press_3", "label": "Média 3", "default": "VOGUE" },
+    { "type": "text", "id": "press_4", "label": "Média 4", "default": "COSMOPOLITAN" },
+
+    { "type": "header", "content": "😣 Section problème (avant/après)" },
+    { "type": "text", "id": "problem_title", "label": "Titre", "default": "Regardez Votre Silhouette Passer de « Camouflée » à « Sculptée »" },
+    { "type": "image_picker", "id": "problem_before", "label": "Image avant" },
+    { "type": "text", "id": "problem_before_cap", "label": "Légende avant", "default": "Sans Vyrae" },
+    { "type": "image_picker", "id": "problem_after", "label": "Image après" },
+    { "type": "text", "id": "problem_after_cap", "label": "Légende après", "default": "Avec Vyrae" },
+    { "type": "text", "id": "problem_pt_1", "label": "Point 1", "default": "Le ventre qui ressort dès qu'on s'assoit" },
+    { "type": "text", "id": "problem_pt_2", "label": "Point 2", "default": "Les bourrelets qui marquent sous les hauts ajustés" },
+    { "type": "text", "id": "problem_pt_3", "label": "Point 3", "default": "Le dos voûté qui casse la silhouette" },
+    { "type": "text", "id": "problem_pt_4", "label": "Point 4", "default": "Les gaines inconfortables qui roulent et serrent" },
+
+    { "type": "header", "content": "🎯 Bénéfices (3 cartes)" },
+    { "type": "text", "id": "benefits_title", "label": "Titre", "default": "Vyrae agit directement sur LA zone qui change tout : votre maintien" },
+    { "type": "image_picker", "id": "benefit_img_1", "label": "Carte 1 — image" },
+    { "type": "text", "id": "benefit_title_1", "label": "Carte 1 — titre", "default": "Ventre gainé, taille affinée" },
+    { "type": "textarea", "id": "benefit_text_1", "label": "Carte 1 — texte", "default": "La zone abdominale à compression renforcée lisse le ventre et redessine la taille instantanément." },
+    { "type": "image_picker", "id": "benefit_img_2", "label": "Carte 2 — image" },
+    { "type": "text", "id": "benefit_title_2", "label": "Carte 2 — titre", "default": "Dos soutenu, posture droite" },
+    { "type": "textarea", "id": "benefit_text_2", "label": "Carte 2 — texte", "default": "Les bandes dorsales redressent les épaules et soulagent le bas du dos toute la journée." },
+    { "type": "image_picker", "id": "benefit_img_3", "label": "Carte 3 — image" },
+    { "type": "text", "id": "benefit_title_3", "label": "Carte 3 — titre", "default": "Confort invisible" },
+    { "type": "textarea", "id": "benefit_text_3", "label": "Carte 3 — texte", "default": "Sans coutures apparentes, il disparaît sous vos vêtements et ne roule jamais." },
+
+    { "type": "header", "content": "💡 Mythe (3 colonnes)" },
+    { "type": "text", "id": "myth_title", "label": "Titre", "default": "La vérité : une belle silhouette n'est pas une question de poids" },
+    { "type": "text", "id": "myth_title_1", "label": "Col 1 — titre", "default": "Le maintien fait 80% du résultat" },
+    { "type": "textarea", "id": "myth_text_1", "label": "Col 1 — texte", "default": "Ce n'est pas le nombre sur la balance qui compte, mais la façon dont votre corps est soutenu et redessiné." },
+    { "type": "text", "id": "myth_title_2", "label": "Col 2 — titre", "default": "La posture transforme tout" },
+    { "type": "textarea", "id": "myth_text_2", "label": "Col 2 — texte", "default": "Un dos droit et des épaules ouvertes affinent visuellement la silhouette, sans effort." },
+    { "type": "text", "id": "myth_title_3", "label": "Col 3 — titre", "default": "La bonne compression, au bon endroit" },
+    { "type": "textarea", "id": "myth_text_3", "label": "Col 3 — texte", "default": "Une compression ciblée sculpte ; une gaine mal conçue déforme. Vyrae cible les bonnes zones." },
+
+    { "type": "header", "content": "⚖️ Méthode (bon/mauvais)" },
+    { "type": "text", "id": "method_bad_title", "label": "Mauvais — titre", "default": "Les gaines classiques" },
+    { "type": "text", "id": "method_bad_1", "label": "Mauvais 1", "default": "Serrent, roulent et marquent la peau" },
+    { "type": "text", "id": "method_bad_2", "label": "Mauvais 2", "default": "Tissu épais visible sous les vêtements" },
+    { "type": "text", "id": "method_bad_3", "label": "Mauvais 3", "default": "Aucun soutien pour le dos" },
+    { "type": "text", "id": "method_good_title", "label": "Bon — titre", "default": "Le débardeur Vyrae" },
+    { "type": "text", "id": "method_good_1", "label": "Bon 1", "default": "Compression ferme mais confortable, ne roule pas" },
+    { "type": "text", "id": "method_good_2", "label": "Bon 2", "default": "Microfibre fine et invisible" },
+    { "type": "text", "id": "method_good_3", "label": "Bon 3", "default": "Bandes dorsales qui redressent la posture" },
+
+    { "type": "header", "content": "🧵 Technologie (4 atouts)" },
+    { "type": "text", "id": "tech_title", "label": "Titre", "default": "Les 4 technologies qui font de Vyrae une seconde peau" },
+    { "type": "image_picker", "id": "tech_img_1", "label": "Atout 1 — image" },
+    { "type": "text", "id": "tech_title_1", "label": "Atout 1 — titre", "default": "Compression 4 zones" },
+    { "type": "textarea", "id": "tech_text_1", "label": "Atout 1 — texte", "default": "Ventre, taille, flancs et dos sculptés par des zones de tension calibrées." },
+    { "type": "image_picker", "id": "tech_img_2", "label": "Atout 2 — image" },
+    { "type": "text", "id": "tech_title_2", "label": "Atout 2 — titre", "default": "Microfibre respirante" },
+    { "type": "textarea", "id": "tech_text_2", "label": "Atout 2 — texte", "default": "Tissu thermorégulant qui évacue l'humidité — confortable même toute la journée." },
+    { "type": "image_picker", "id": "tech_img_3", "label": "Atout 3 — image" },
+    { "type": "text", "id": "tech_title_3", "label": "Atout 3 — titre", "default": "Maintien dorsal" },
+    { "type": "textarea", "id": "tech_text_3", "label": "Atout 3 — texte", "default": "Bandes croisées qui ouvrent les épaules et soutiennent le bas du dos." },
+    { "type": "image_picker", "id": "tech_img_4", "label": "Atout 4 — image" },
+    { "type": "text", "id": "tech_title_4", "label": "Atout 4 — titre", "default": "Coutures invisibles" },
+    { "type": "textarea", "id": "tech_text_4", "label": "Atout 4 — texte", "default": "Bords laser sans démarcation : aucune trace sous les vêtements." },
+    { "type": "text", "id": "tech_footnote", "label": "Note de bas", "default": "Conçu et testé pour un maintien optimal sur toutes les morphologies." },
+
+    { "type": "header", "content": "🪞 Résultats miroir (galerie)" },
+    { "type": "text", "id": "mirror_title", "label": "Titre", "default": "Des résultats visibles, dès le miroir" },
+    { "type": "image_picker", "id": "mirror_img_1", "label": "Image 1" },
+    { "type": "image_picker", "id": "mirror_img_2", "label": "Image 2" },
+    { "type": "image_picker", "id": "mirror_img_3", "label": "Image 3" },
+    { "type": "image_picker", "id": "mirror_img_4", "label": "Image 4" },
+
+    { "type": "header", "content": "🪜 Comment l'utiliser (3 étapes)" },
+    { "type": "text", "id": "how_title", "label": "Titre", "default": "Un geste simple à adopter dans votre quotidien" },
+    { "type": "image_picker", "id": "how_img_1", "label": "Étape 1 — image" },
+    { "type": "text", "id": "how_title_1", "label": "Étape 1 — titre", "default": "Enfilez" },
+    { "type": "textarea", "id": "how_text_1", "label": "Étape 1 — texte", "default": "Glissez le débardeur comme un haut classique, le matin." },
+    { "type": "image_picker", "id": "how_img_2", "label": "Étape 2 — image" },
+    { "type": "text", "id": "how_title_2", "label": "Étape 2 — titre", "default": "Habillez-vous" },
+    { "type": "textarea", "id": "how_text_2", "label": "Étape 2 — texte", "default": "Mettez votre tenue par-dessus : il reste totalement invisible." },
+    { "type": "image_picker", "id": "how_img_3", "label": "Étape 3 — image" },
+    { "type": "text", "id": "how_title_3", "label": "Étape 3 — titre", "default": "Profitez" },
+    { "type": "textarea", "id": "how_text_3", "label": "Étape 3 — texte", "default": "Silhouette sculptée et dos soutenu, du matin au soir." },
+
+    { "type": "header", "content": "👩‍⚕️ Expert / conception" },
+    { "type": "image_picker", "id": "expert_image", "label": "Photo" },
+    { "type": "text", "id": "expert_title", "label": "Titre", "default": "Conçu avec une experte en maintien postural" },
+    { "type": "textarea", "id": "expert_text", "label": "Texte", "default": "Chaque débardeur Vyrae a été développé avec des spécialistes du textile et de la posture pour offrir le juste équilibre entre compression sculptante et confort durable." },
+    { "type": "text", "id": "expert_name", "label": "Nom", "default": "Camille Renaud" },
+    { "type": "text", "id": "expert_role", "label": "Rôle", "default": "Kinésithérapeute & consultante posture" },
+
+    { "type": "header", "content": "📅 Timeline résultats" },
+    { "type": "text", "id": "timeline_title", "label": "Titre", "default": "Vos résultats, semaine après semaine" },
+    { "type": "text", "id": "timeline_step_1", "label": "Étape 1 — titre", "default": "Dès la 1re minute" },
+    { "type": "textarea", "id": "timeline_text_1", "label": "Étape 1 — texte", "default": "Ventre lissé et taille affinée immédiatement visibles dans le miroir." },
+    { "type": "text", "id": "timeline_step_2", "label": "Étape 2 — titre", "default": "Jour 7" },
+    { "type": "textarea", "id": "timeline_text_2", "label": "Étape 2 — texte", "default": "Vous tenez naturellement plus droite, le dos moins fatigué." },
+    { "type": "text", "id": "timeline_step_3", "label": "Étape 3 — titre", "default": "Semaines 2-4" },
+    { "type": "textarea", "id": "timeline_text_3", "label": "Étape 3 — texte", "default": "Une meilleure posture devient un réflexe, même sans le porter." },
+    { "type": "text", "id": "timeline_step_4", "label": "Étape 4 — titre", "default": "Au quotidien" },
+    { "type": "textarea", "id": "timeline_text_4", "label": "Étape 4 — texte", "default": "Plus de confiance sous chaque tenue, à chaque occasion." },
+
+    { "type": "header", "content": "📊 Tableau comparatif" },
+    { "type": "text", "id": "compare_title", "label": "Titre", "default": "Vyrae comparé aux autres solutions" },
+    { "type": "text", "id": "compare_us", "label": "Colonne nous", "default": "Vyrae" },
+    { "type": "text", "id": "compare_alt1", "label": "Alternative 1", "default": "Gaine classique" },
+    { "type": "text", "id": "compare_alt2", "label": "Alternative 2", "default": "Rien" },
+    { "type": "text", "id": "compare_row_1", "label": "Ligne 1", "default": "Effet sculptant immédiat" },
+    { "type": "text", "id": "compare_us_1", "label": "Nous 1", "default": "✓" },
+    { "type": "text", "id": "compare_a1_1", "label": "Alt1 1", "default": "Partiel" },
+    { "type": "text", "id": "compare_a2_1", "label": "Alt2 1", "default": "✕" },
+    { "type": "text", "id": "compare_row_2", "label": "Ligne 2", "default": "Invisible sous les vêtements" },
+    { "type": "text", "id": "compare_us_2", "label": "Nous 2", "default": "✓" },
+    { "type": "text", "id": "compare_a1_2", "label": "Alt1 2", "default": "✕" },
+    { "type": "text", "id": "compare_a2_2", "label": "Alt2 2", "default": "—" },
+    { "type": "text", "id": "compare_row_3", "label": "Ligne 3", "default": "Soutien du dos" },
+    { "type": "text", "id": "compare_us_3", "label": "Nous 3", "default": "✓" },
+    { "type": "text", "id": "compare_a1_3", "label": "Alt1 3", "default": "✕" },
+    { "type": "text", "id": "compare_a2_3", "label": "Alt2 3", "default": "✕" },
+    { "type": "text", "id": "compare_row_4", "label": "Ligne 4", "default": "Confort longue durée" },
+    { "type": "text", "id": "compare_us_4", "label": "Nous 4", "default": "✓" },
+    { "type": "text", "id": "compare_a1_4", "label": "Alt1 4", "default": "✕" },
+    { "type": "text", "id": "compare_a2_4", "label": "Alt2 4", "default": "—" },
+
+    { "type": "header", "content": "💬 Avis (titre)" },
+    { "type": "text", "id": "reviews_title", "label": "Titre", "default": "Des transformations réelles, racontées par elles" },
+
+    { "type": "header", "content": "🛒 Buy box finale" },
+    { "type": "image_picker", "id": "buybox_image", "label": "Image (sinon image hero)" },
+    { "type": "text", "id": "buybox_title", "label": "Titre", "default": "Sculptez votre silhouette dès aujourd'hui" },
+    { "type": "textarea", "id": "buybox_subtitle", "label": "Sous-titre", "default": "Rejoignez plus de 50 000 femmes qui ont retrouvé confiance avec Vyrae." },
+    { "type": "text", "id": "buybox_cta", "label": "Texte bouton", "default": "JE COMMANDE MON VYRAE" },
+    { "type": "text", "id": "buybox_guarantee", "label": "Garantie", "default": "Satisfait ou remboursé 30 jours · Retours gratuits" },
+    { "type": "text", "id": "trust_1", "label": "Trust 1", "default": "Paiement 100% sécurisé" },
+    { "type": "text", "id": "trust_2", "label": "Trust 2", "default": "Livraison suivie 48h" },
+    { "type": "text", "id": "trust_3", "label": "Trust 3", "default": "Service client 7j/7" },
+
+    { "type": "header", "content": "❓ FAQ (titre)" },
+    { "type": "text", "id": "faq_title", "label": "Titre", "default": "Des réponses à vos questions" },
+
+    { "type": "header", "content": "🦶 Footer" },
+    { "type": "image_picker", "id": "footer_logo", "label": "Logo (sinon texte)" },
+    { "type": "text", "id": "footer_brand", "label": "Nom marque", "default": "Vyrae" },
+    { "type": "textarea", "id": "footer_tagline", "label": "Slogan", "default": "Le confort qui sculpte. La confiance qui se voit." },
+    { "type": "text", "id": "footer_col1_title", "label": "Col 1 — titre", "default": "À propos" },
+    { "type": "textarea", "id": "footer_col1_text", "label": "Col 1 — texte", "default": "Notre histoire · Nos engagements · Guide des tailles" },
+    { "type": "text", "id": "footer_col2_title", "label": "Col 2 — titre", "default": "Infos & mentions" },
+    { "type": "textarea", "id": "footer_col2_text", "label": "Col 2 — texte", "default": "CGV · Politique de retour · Confidentialité" },
+    { "type": "text", "id": "footer_col3_title", "label": "Col 3 — titre", "default": "Contact" },
+    { "type": "textarea", "id": "footer_col3_text", "label": "Col 3 — texte", "default": "support@vyrae.co · Du lundi au samedi, 9h-18h" },
+    { "type": "text", "id": "footer_legal", "label": "Mention légale", "default": "© 2026 Vyrae. Tous droits réservés." }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Avis client",
+      "settings": [
+        { "type": "textarea", "id": "body", "label": "Avis", "default": "J'étais sceptique mais l'effet est bluffant : mon ventre est lisse et je me tiens beaucoup plus droite. On ne le voit pas du tout sous mes robes." },
+        { "type": "text", "id": "author", "label": "Auteur", "default": "Sophie L." },
+        { "type": "text", "id": "verified", "label": "Mention vérifié", "default": "Achat vérifié" }
+      ]
+    },
+    {
+      "type": "faq",
+      "name": "Question FAQ",
+      "settings": [
+        { "type": "text", "id": "q", "label": "Question", "default": "Le débardeur se voit-il sous les vêtements ?" },
+        { "type": "textarea", "id": "a", "label": "Réponse", "default": "Non. La microfibre est ultra-fine et les bords sont sans couture : il reste totalement invisible, même sous un haut ajusté." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "WLD — Vyrae Landing",
+      "blocks": [
+        { "type": "review", "settings": { "body": "Effet ventre plat immédiat et je me sens enfin à l'aise dans mes vêtements moulants. Je ne le quitte plus.", "author": "Sophie L.", "verified": "Achat vérifié" } },
+        { "type": "review", "settings": { "body": "Mon dos me faisait mal au bureau. Depuis que je porte Vyrae, je me tiens droite sans y penser. Confort top.", "author": "Inès M.", "verified": "Achat vérifié" } },
+        { "type": "review", "settings": { "body": "Enfin une gaine qui ne roule pas et qui ne serre pas trop. La taille est parfaite, je l'oublie toute la journée.", "author": "Karine D.", "verified": "Achat vérifié" } },
+        { "type": "review", "settings": { "body": "Je l'ai pris pour un mariage, résultat impeccable sous ma robe. J'en ai recommandé deux autres depuis.", "author": "Laura B.", "verified": "Achat vérifié" } },
+        { "type": "review", "settings": { "body": "Qualité bien meilleure que ce que j'avais essayé avant. La compression est ferme mais on respire très bien.", "author": "Nadia R.", "verified": "Achat vérifié" } },
+        { "type": "review", "settings": { "body": "Livraison rapide et le rendu est exactement comme sur les photos. Ma silhouette paraît immédiatement plus fine.", "author": "Émilie T.", "verified": "Achat vérifié" } },
+        { "type": "faq", "settings": { "q": "Le débardeur se voit-il sous les vêtements ?", "a": "Non. La microfibre est ultra-fine et les bords sont sans couture : il reste totalement invisible, même sous un haut ajusté." } },
+        { "type": "faq", "settings": { "q": "Comment choisir ma taille ?", "a": "Référez-vous à notre guide des tailles (du XS au 3XL). En cas d'hésitation entre deux tailles, prenez la plus grande pour un confort optimal." } },
+        { "type": "faq", "settings": { "q": "Est-il confortable toute la journée ?", "a": "Oui. La compression est ferme mais répartie, et le tissu respirant évacue l'humidité : la plupart de nos clientes le portent du matin au soir." } },
+        { "type": "faq", "settings": { "q": "Soutient-il vraiment le dos ?", "a": "Les bandes dorsales croisées ouvrent les épaules et soutiennent le bas du dos, ce qui aide à corriger la posture au fil des jours." } },
+        { "type": "faq", "settings": { "q": "Comment l'entretenir ?", "a": "Lavage en machine à 30°C dans un filet, sans sèche-linge. Le tissu conserve ainsi son élasticité et son effet gainant." } },
+        { "type": "faq", "settings": { "q": "Convient-il à toutes les morphologies ?", "a": "Oui, il est conçu pour s'adapter de la taille XS au 3XL et épouser différentes morphologies sans rouler ni comprimer excessivement." } },
+        { "type": "faq", "settings": { "q": "Quels sont les délais de livraison ?", "a": "Votre commande est expédiée sous 24h et livrée en 48h en moyenne, avec un numéro de suivi envoyé par e-mail." } },
+        { "type": "faq", "settings": { "q": "Et si ça ne me convient pas ?", "a": "Vous bénéficiez de 30 jours satisfait ou remboursé avec retours gratuits. Si le résultat ne vous convient pas, on vous rembourse." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
