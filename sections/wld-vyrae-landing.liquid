@@ -495,8 +495,12 @@
               <li><a href="{{ link.url }}">{{ link.title }}</a></li>
             {%- endfor -%}
           {%- else -%}
-            {%- assign info_items = section.settings.footer_info_fallback | split: ',' -%}
-            {%- for it in info_items -%}<li>{{ it | strip }}</li>{%- endfor -%}
+            {%- if shop.privacy_policy != blank -%}<li><a href="{{ shop.privacy_policy.url }}">{{ shop.privacy_policy.title }}</a></li>{%- endif -%}
+            {%- if shop.refund_policy != blank -%}<li><a href="{{ shop.refund_policy.url }}">{{ shop.refund_policy.title }}</a></li>{%- endif -%}
+            {%- if shop.shipping_policy != blank -%}<li><a href="{{ shop.shipping_policy.url }}">{{ shop.shipping_policy.title }}</a></li>{%- endif -%}
+            {%- if shop.terms_of_service != blank -%}<li><a href="{{ shop.terms_of_service.url }}">{{ shop.terms_of_service.title }}</a></li>{%- endif -%}
+            {%- if section.settings.footer_contact_url != blank -%}<li><a href="{{ section.settings.footer_contact_url }}">Coordonnées</a></li>{%- endif -%}
+            {%- if section.settings.footer_legal_url != blank -%}<li><a href="{{ section.settings.footer_legal_url }}">Mentions légales</a></li>{%- endif -%}
           {%- endif -%}
         </ul>
       </div>
@@ -1115,8 +1119,9 @@
     { "type": "image_picker", "id": "footer_logo", "label": "Logo (sinon nom de marque)" },
     { "type": "textarea", "id": "footer_about", "label": "À propos (texte sous le logo)", "default": "Vyrae conçoit des débardeurs gainants pensés pour les hommes : ventre lissé, dos soutenu et silhouette affinée, sous n'importe quelle tenue, en toute discrétion." },
     { "type": "text", "id": "footer_info_title", "label": "Colonne Légal — titre", "default": "Légal" },
-    { "type": "link_list", "id": "footer_menu", "label": "Colonne Légal — menu Shopify", "info": "Choisissez un menu créé dans Boutique en ligne → Navigation (politiques, mentions, CGV…)." },
-    { "type": "textarea", "id": "footer_info_fallback", "label": "Liens (si aucun menu choisi, séparés par des virgules)", "default": "Politique de confidentialité, Politique de remboursement, Coordonnées, Politique d'expédition, Conditions d'utilisation, Mentions légales" },
+    { "type": "link_list", "id": "footer_menu", "label": "Colonne Légal — menu Shopify (optionnel)", "info": "Si vide, les politiques Shopify (Paramètres → Politiques) s'affichent automatiquement." },
+    { "type": "url", "id": "footer_contact_url", "label": "Lien « Coordonnées » (page contact)" },
+    { "type": "url", "id": "footer_legal_url", "label": "Lien « Mentions légales » (page)" },
     { "type": "text", "id": "footer_contact_title", "label": "Colonne contact — titre", "default": "Contact" },
     { "type": "text", "id": "footer_email", "label": "E-mail", "default": "Assistance par e-mail : contact@vyrae.co" },
     { "type": "textarea", "id": "footer_phone", "label": "Téléphone / horaires", "default": "Service client du lundi au vendredi, 9h-18h." },
