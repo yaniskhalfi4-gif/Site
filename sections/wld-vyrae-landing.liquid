@@ -50,6 +50,7 @@
         </ul>
 
         {%- form 'product', p, class: 'wld-buy', id: 'wld-hero-form-' | append: section.id -%}
+          <p class="wld-offer-note">{{ section.settings.hero_offer_note }}</p>
           <div class="wld-bundles" data-bundles>
             <label class="wld-bundle" data-variant="{{ section.settings.b1_variant }}">
               <input type="radio" name="hero-bundle">
@@ -334,6 +335,26 @@
     </div>
   </div>
 
+  {%- comment -%} ====================== AVANTAGES / GARANTIES ====================== {%- endcomment -%}
+  <div class="wld-block">
+    <div class="wld-wrap">
+      <h2 class="wld-h2">{{ section.settings.adv_title }}</h2>
+      <p class="wld-lead">{{ section.settings.adv_intro }}</p>
+      <div class="wld-cards3">
+        {%- for i in (1..6) -%}
+          {%- assign ic = 'adv_icon_' | append: i -%}
+          {%- assign tt = 'adv_title_' | append: i -%}
+          {%- assign tx = 'adv_text_' | append: i -%}
+          <article class="wld-card wld-adv">
+            <span class="wld-adv__icon">{{ section.settings[ic] }}</span>
+            <h3>{{ section.settings[tt] }}</h3>
+            <p>{{ section.settings[tx] }}</p>
+          </article>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
   {%- comment -%} ====================== COMPARISON TABLE ====================== {%- endcomment -%}
   <div class="wld-block wld-block--cream">
     <div class="wld-wrap">
@@ -483,6 +504,9 @@
   #wld-{{ slug }}-{{ section.id }} .wld-hero__ticks li{padding-left:28px;position:relative;font-size:15px}
   #wld-{{ slug }}-{{ section.id }} .wld-hero__ticks li::before{content:"✓";position:absolute;left:0;top:0;color:var(--c-primary);font-weight:800}
 
+  #wld-{{ slug }}-{{ section.id }} .wld-offer-note{background:color-mix(in srgb,var(--c-primary) 12%,#fff);color:var(--c-primary-dark);border:1px dashed var(--c-primary);border-radius:10px;padding:9px 12px;margin:0 0 12px;font-size:13px;font-weight:600;text-align:center}
+  #wld-{{ slug }}-{{ section.id }} .wld-adv{text-align:center}
+  #wld-{{ slug }}-{{ section.id }} .wld-adv__icon{font-size:30px;display:block;margin-bottom:6px}
   #wld-{{ slug }}-{{ section.id }} .wld-bundles{display:grid;gap:10px;margin:0 0 16px}
   #wld-{{ slug }}-{{ section.id }} .wld-bundle{position:relative;display:grid;grid-template-columns:1fr auto;grid-template-areas:"top price" "sub price";gap:2px 12px;padding:14px 16px;border:2px solid #e3ddcf;border-radius:12px;background:#fff;cursor:pointer;transition:.15s}
   #wld-{{ slug }}-{{ section.id }} .wld-bundle input{position:absolute;opacity:0;pointer-events:none}
@@ -710,6 +734,7 @@
     { "type": "text", "id": "hero_pill_3", "label": "Pastille 3", "default": "Maintien ventre + dos" },
     { "type": "text", "id": "hero_cta", "label": "Texte bouton", "default": "AJOUTER AU PANIER" },
     { "type": "text", "id": "hero_guarantee", "label": "Réassurance sous le bouton", "default": "Paiement 100% sécurisé · Rétractation légale 14 jours" },
+    { "type": "text", "id": "hero_offer_note", "label": "Ligne explication offre (au-dessus des packs)", "default": "🎁 Plus vous prenez, plus c'est avantageux : 2 achetés = 1 offert · 3 achetés = 2 offerts" },
 
     { "type": "header", "content": "🧩 Bundles (texte libre — relier à une variante)" },
     { "type": "paragraph", "content": "Renseignez l'ID de variante de votre produit pour chaque offre (Admin Shopify → Produit → Variante → ID dans l'URL)." },
@@ -882,6 +907,28 @@
     { "type": "image_picker", "id": "how_img_3", "label": "Étape 3 — image" },
     { "type": "text", "id": "how_title_3", "label": "Étape 3 — titre", "default": "Profitez" },
     { "type": "textarea", "id": "how_text_3", "label": "Étape 3 — texte", "default": "Silhouette sculptée et dos soutenu, du matin au soir." },
+
+    { "type": "header", "content": "✅ Pourquoi acheter chez Vyrae (avantages / garanties)" },
+    { "type": "text", "id": "adv_title", "label": "Titre", "default": "Pourquoi acheter chez Vyrae ?" },
+    { "type": "textarea", "id": "adv_intro", "label": "Intro", "default": "Ce qui nous différencie des gainants génériques que vous trouvez ailleurs." },
+    { "type": "text", "id": "adv_icon_1", "label": "Avantage 1 — icône", "default": "👔" },
+    { "type": "text", "id": "adv_title_1", "label": "Avantage 1 — titre", "default": "Pensé pour les hommes" },
+    { "type": "textarea", "id": "adv_text_1", "label": "Avantage 1 — texte", "default": "Conçu pour la morphologie masculine — pas une gaine unisexe reconditionnée." },
+    { "type": "text", "id": "adv_icon_2", "label": "Avantage 2 — icône", "default": "🧵" },
+    { "type": "text", "id": "adv_title_2", "label": "Avantage 2 — titre", "default": "Vraiment invisible" },
+    { "type": "textarea", "id": "adv_text_2", "label": "Avantage 2 — texte", "default": "Microfibre fine et sans couture : on ne la voit pas, contrairement aux copies épaisses." },
+    { "type": "text", "id": "adv_icon_3", "label": "Avantage 3 — icône", "default": "📏" },
+    { "type": "text", "id": "adv_title_3", "label": "Avantage 3 — titre", "default": "La bonne taille, du XS au 3XL" },
+    { "type": "textarea", "id": "adv_text_3", "label": "Avantage 3 — texte", "default": "Un guide des tailles clair pour choisir sans vous tromper et éviter les retours." },
+    { "type": "text", "id": "adv_icon_4", "label": "Avantage 4 — icône", "default": "🔒" },
+    { "type": "text", "id": "adv_title_4", "label": "Avantage 4 — titre", "default": "Paiement 100% sécurisé" },
+    { "type": "textarea", "id": "adv_text_4", "label": "Avantage 4 — texte", "default": "Vos paiements sont cryptés et protégés à chaque commande." },
+    { "type": "text", "id": "adv_icon_5", "label": "Avantage 5 — icône", "default": "↩️" },
+    { "type": "text", "id": "adv_title_5", "label": "Avantage 5 — titre", "default": "Rétractation 14 jours" },
+    { "type": "textarea", "id": "adv_text_5", "label": "Avantage 5 — texte", "default": "Vous changez d'avis ? Vous bénéficiez du délai légal de rétractation." },
+    { "type": "text", "id": "adv_icon_6", "label": "Avantage 6 — icône", "default": "💬" },
+    { "type": "text", "id": "adv_title_6", "label": "Avantage 6 — titre", "default": "Service client réactif" },
+    { "type": "textarea", "id": "adv_text_6", "label": "Avantage 6 — texte", "default": "Une question avant ou après l'achat ? On vous répond rapidement." },
 
     { "type": "header", "content": "📊 Tableau comparatif" },
     { "type": "text", "id": "compare_title", "label": "Titre", "default": "Vyrae comparé aux autres solutions" },

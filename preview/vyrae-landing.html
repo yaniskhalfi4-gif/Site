@@ -45,6 +45,9 @@
   .wld-hero__ticks{list-style:none;padding:0;margin:0 0 20px;display:grid;gap:8px}
   .wld-hero__ticks li{padding-left:28px;position:relative;font-size:15px}
   .wld-hero__ticks li::before{content:"✓";position:absolute;left:0;top:0;color:var(--c-primary);font-weight:800}
+  .wld-offer-note{background:rgba(62,124,168,.12);color:var(--c-primary-dark);border:1px dashed var(--c-primary);border-radius:10px;padding:9px 12px;margin:0 0 12px;font-size:13px;font-weight:600;text-align:center}
+  .wld-adv{text-align:center}
+  .wld-adv__icon{font-size:30px;display:block;margin-bottom:6px}
   .wld-bundles{display:grid;gap:10px;margin:0 0 16px}
   .wld-bundle{position:relative;display:grid;grid-template-columns:1fr auto;grid-template-areas:"top price" "sub price";gap:2px 12px;padding:14px 16px;border:2px solid #dbe5ed;border-radius:12px;background:#fff;cursor:pointer;transition:.15s}
   .wld-bundle input{position:absolute;opacity:0;pointer-events:none}
@@ -170,6 +173,7 @@
     <h1 class="wld-h1">Le Débardeur de Compression qui Sculpte Votre Silhouette en 1 Seconde</h1>
     <p class="wld-hero__sub">Vyrae gaine le ventre, affine la taille et redresse le dos — sous n'importe quelle tenue, sans qu'on le voie.</p>
     <ul class="wld-hero__ticks"><li>Ventre plat instantané, taille marquée</li><li>Maintien du dos &amp; posture redressée</li><li>Tissu respirant, coutures invisibles</li></ul>
+    <p class="wld-offer-note">🎁 Plus vous prenez, plus c'est avantageux : 2 achetés = 1 offert · 3 achetés = 2 offerts</p>
     <div class="wld-bundles" data-bundles>
       <label class="wld-bundle"><input type="radio" name="hero-bundle"><span class="wld-bundle__top"><strong>1 Débardeur</strong></span><span class="wld-bundle__sub">Pour tester</span><span class="wld-bundle__price">34,90€ <s>49,90€</s></span></label>
       <label class="wld-bundle wld-bundle--feat" data-default="true"><input type="radio" name="hero-bundle" checked><span class="wld-bundle__top"><strong>2 achetés, 1 offert</strong><em class="wld-bundle__tag">POPULAIRE</em></span><span class="wld-bundle__sub">3 débardeurs · soit 23,30€ l'unité</span><span class="wld-bundle__price">69,80€ <s>104,70€</s></span></label>
@@ -313,6 +317,20 @@
     <article class="wld-card wld-step"><span class="wld-step__num">1</span><div class="wld-ph">Image</div><h3>Enfilez</h3><p>Glissez le débardeur comme un haut classique, le matin.</p></article>
     <article class="wld-card wld-step"><span class="wld-step__num">2</span><div class="wld-ph">Image</div><h3>Habillez-vous</h3><p>Mettez votre tenue par-dessus : il reste totalement invisible.</p></article>
     <article class="wld-card wld-step"><span class="wld-step__num">3</span><div class="wld-ph">Image</div><h3>Profitez</h3><p>Silhouette sculptée et dos soutenu, du matin au soir.</p></article>
+  </div>
+</div></div>
+
+<!-- AVANTAGES -->
+<div class="wld-block"><div class="wld-wrap">
+  <h2 class="wld-h2">Pourquoi acheter chez Vyrae ?</h2>
+  <p class="wld-lead">Ce qui nous différencie des gainants génériques que vous trouvez ailleurs.</p>
+  <div class="wld-cards3">
+    <article class="wld-card wld-adv"><span class="wld-adv__icon">👔</span><h3>Pensé pour les hommes</h3><p>Conçu pour la morphologie masculine — pas une gaine unisexe reconditionnée.</p></article>
+    <article class="wld-card wld-adv"><span class="wld-adv__icon">🧵</span><h3>Vraiment invisible</h3><p>Microfibre fine et sans couture : on ne la voit pas, contrairement aux copies épaisses.</p></article>
+    <article class="wld-card wld-adv"><span class="wld-adv__icon">📏</span><h3>La bonne taille, du XS au 3XL</h3><p>Un guide des tailles clair pour choisir sans vous tromper et éviter les retours.</p></article>
+    <article class="wld-card wld-adv"><span class="wld-adv__icon">🔒</span><h3>Paiement 100% sécurisé</h3><p>Vos paiements sont cryptés et protégés à chaque commande.</p></article>
+    <article class="wld-card wld-adv"><span class="wld-adv__icon">↩️</span><h3>Rétractation 14 jours</h3><p>Vous changez d'avis ? Vous bénéficiez du délai légal de rétractation.</p></article>
+    <article class="wld-card wld-adv"><span class="wld-adv__icon">💬</span><h3>Service client réactif</h3><p>Une question avant ou après l'achat ? On vous répond rapidement.</p></article>
   </div>
 </div></div>
 
