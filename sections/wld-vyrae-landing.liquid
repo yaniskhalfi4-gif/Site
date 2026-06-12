@@ -431,24 +431,50 @@
     <div class="wld-wrap wld-footer__grid">
       <div class="wld-footer__brand">
         {%- if section.settings.footer_logo != blank -%}
-          <img src="{{ section.settings.footer_logo | image_url: width: 240 }}" alt="{{ section.settings.footer_brand | escape }}" loading="lazy" width="120" height="40">
-        {%- else -%}<span class="wld-footer__name">{{ section.settings.footer_brand }}</span>{%- endif -%}
-        <p>{{ section.settings.footer_tagline }}</p>
+          <img src="{{ section.settings.footer_logo | image_url: width: 240 }}" alt="{{ section.settings.brand_name | escape }}" loading="lazy" width="140" height="46">
+        {%- else -%}<span class="wld-footer__name">{{ section.settings.brand_name }}</span>{%- endif -%}
+        <p>{{ section.settings.footer_about }}</p>
       </div>
       <div class="wld-footer__col">
-        <h4>{{ section.settings.footer_col1_title }}</h4>
-        <p>{{ section.settings.footer_col1_text }}</p>
+        <h4>{{ section.settings.footer_info_title }}</h4>
+        {%- if section.settings.footer_menu != blank -%}
+          <ul class="wld-footer__links">
+            {%- for link in linklists[section.settings.footer_menu].links -%}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        {%- else -%}
+          <p>{{ section.settings.footer_info_fallback }}</p>
+        {%- endif -%}
       </div>
       <div class="wld-footer__col">
-        <h4>{{ section.settings.footer_col2_title }}</h4>
-        <p>{{ section.settings.footer_col2_text }}</p>
-      </div>
-      <div class="wld-footer__col">
-        <h4>{{ section.settings.footer_col3_title }}</h4>
-        <p>{{ section.settings.footer_col3_text }}</p>
+        <h4>{{ section.settings.footer_contact_title }}</h4>
+        <p>{{ section.settings.footer_email }}</p>
+        <p>{{ section.settings.footer_phone }}</p>
       </div>
     </div>
-    <p class="wld-footer__legal">{{ section.settings.footer_legal }}</p>
+
+    <div class="wld-footer__bottom">
+      {%- if section.settings.payment_badges != blank -%}
+        <div class="wld-pay">
+          {%- assign pays = section.settings.payment_badges | split: ',' -%}
+          {%- for pay in pays -%}<span class="wld-pay__badge">{{ pay | strip }}</span>{%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      <p class="wld-footer__copy">
+        {{ section.settings.footer_legal }}
+        {%- if section.settings.footer_legal_menu != blank -%}
+          {%- for link in linklists[section.settings.footer_legal_menu].links -%}
+            <a href="{{ link.url }}">{{ link.title }}</a>{%- unless forloop.last -%}<span class="wld-sep">·</span>{%- endunless -%}
+          {%- endfor -%}
+        {%- endif -%}
+      </p>
+
+      {%- if section.settings.footer_disclaimer != blank -%}
+        <p class="wld-footer__disclaimer">{{ section.settings.footer_disclaimer }}</p>
+      {%- endif -%}
+    </div>
   </div>
 </section>
 
@@ -619,12 +645,23 @@
   #wld-{{ slug }}-{{ section.id }} .wld-faq__item[open] summary::after{content:"–"}
   #wld-{{ slug }}-{{ section.id }} .wld-faq__a{font-size:14px;color:#4a544f;padding:0 0 16px}
 
-  #wld-{{ slug }}-{{ section.id }} .wld-footer{background:var(--c-primary-dark);color:#dfe7e2;padding:48px 0 24px}
-  #wld-{{ slug }}-{{ section.id }} .wld-footer__grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:30px}
-  #wld-{{ slug }}-{{ section.id }} .wld-footer__name{font-family:'DM Serif Display',serif;font-size:26px;color:#fff}
-  #wld-{{ slug }}-{{ section.id }} .wld-footer h4{color:#fff;font-size:14px;margin:0 0 10px}
-  #wld-{{ slug }}-{{ section.id }} .wld-footer p{font-size:13px;color:#b8c6bf;margin:0}
-  #wld-{{ slug }}-{{ section.id }} .wld-footer__legal{text-align:center;font-size:12px;color:#8ba096;margin:34px 0 0;border-top:1px solid rgba(255,255,255,.12);padding-top:18px}
+  #wld-{{ slug }}-{{ section.id }} .wld-footer{background:var(--c-primary-dark);color:#cdd9e2;padding:48px 0 24px}
+  #wld-{{ slug }}-{{ section.id }} .wld-footer__grid{display:grid;grid-template-columns:1.5fr 1fr 1.2fr;gap:40px}
+  #wld-{{ slug }}-{{ section.id }} .wld-footer__name{font-family:'Syne',sans-serif;font-weight:800;font-size:28px;letter-spacing:.04em;text-transform:uppercase;color:#fff}
+  #wld-{{ slug }}-{{ section.id }} .wld-footer__brand p{margin-top:12px}
+  #wld-{{ slug }}-{{ section.id }} .wld-footer h4{color:#fff;font-size:16px;margin:0 0 14px;font-weight:600}
+  #wld-{{ slug }}-{{ section.id }} .wld-footer p{font-size:14px;color:#aebfcb;margin:0 0 6px;line-height:1.6}
+  #wld-{{ slug }}-{{ section.id }} .wld-footer__links{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+  #wld-{{ slug }}-{{ section.id }} .wld-footer__links a{color:#cdd9e2;text-decoration:none;font-size:14px}
+  #wld-{{ slug }}-{{ section.id }} .wld-footer__links a:hover{color:#fff;text-decoration:underline}
+  #wld-{{ slug }}-{{ section.id }} .wld-footer__bottom{border-top:1px solid rgba(255,255,255,.12);margin-top:36px;padding-top:24px;text-align:center}
+  #wld-{{ slug }}-{{ section.id }} .wld-pay{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:0 0 18px}
+  #wld-{{ slug }}-{{ section.id }} .wld-pay__badge{background:#fff;color:#1a1f24;font-size:11px;font-weight:700;padding:6px 10px;border-radius:6px;letter-spacing:.02em;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+  #wld-{{ slug }}-{{ section.id }} .wld-footer__copy{font-size:12px;color:#9fb1bd;line-height:1.9}
+  #wld-{{ slug }}-{{ section.id }} .wld-footer__copy a{color:#9fb1bd;text-decoration:none}
+  #wld-{{ slug }}-{{ section.id }} .wld-footer__copy a:hover{color:#fff;text-decoration:underline}
+  #wld-{{ slug }}-{{ section.id }} .wld-footer__copy .wld-sep{margin:0 8px;opacity:.5}
+  #wld-{{ slug }}-{{ section.id }} .wld-footer__disclaimer{font-size:11px;color:#6f8290;margin:14px auto 0;max-width:900px}
 
   @media(max-width:900px){
     #wld-{{ slug }}-{{ section.id }} .wld-hero__grid,
@@ -959,16 +996,18 @@
     { "type": "text", "id": "faq_title", "label": "Titre", "default": "Des réponses à vos questions" },
 
     { "type": "header", "content": "🦶 Footer" },
-    { "type": "image_picker", "id": "footer_logo", "label": "Logo (sinon texte)" },
-    { "type": "text", "id": "footer_brand", "label": "Nom marque", "default": "Vyrae" },
-    { "type": "textarea", "id": "footer_tagline", "label": "Slogan", "default": "Le confort qui sculpte. La confiance qui se voit." },
-    { "type": "text", "id": "footer_col1_title", "label": "Col 1 — titre", "default": "À propos" },
-    { "type": "textarea", "id": "footer_col1_text", "label": "Col 1 — texte", "default": "Notre histoire · Nos engagements · Guide des tailles" },
-    { "type": "text", "id": "footer_col2_title", "label": "Col 2 — titre", "default": "Infos & mentions" },
-    { "type": "textarea", "id": "footer_col2_text", "label": "Col 2 — texte", "default": "CGV · Politique de retour · Confidentialité" },
-    { "type": "text", "id": "footer_col3_title", "label": "Col 3 — titre", "default": "Contact" },
-    { "type": "textarea", "id": "footer_col3_text", "label": "Col 3 — texte", "default": "support@vyrae.co · Du lundi au samedi, 9h-18h" },
-    { "type": "text", "id": "footer_legal", "label": "Mention légale", "default": "© 2026 Vyrae. Tous droits réservés." }
+    { "type": "image_picker", "id": "footer_logo", "label": "Logo (sinon nom de marque)" },
+    { "type": "textarea", "id": "footer_about", "label": "À propos (texte sous le logo)", "default": "Vyrae conçoit des débardeurs gainants pensés pour les hommes : ventre lissé, dos soutenu et silhouette affinée, sous n'importe quelle tenue, en toute discrétion." },
+    { "type": "text", "id": "footer_info_title", "label": "Colonne liens — titre", "default": "Informations" },
+    { "type": "link_list", "id": "footer_menu", "label": "Colonne liens — menu Shopify", "info": "Choisissez un menu créé dans Boutique en ligne → Navigation (ex. Suivi de commande, Blog, Guide des tailles)." },
+    { "type": "text", "id": "footer_info_fallback", "label": "Liens (si aucun menu choisi)", "default": "Suivre ma commande · Blog · Guide des tailles" },
+    { "type": "text", "id": "footer_contact_title", "label": "Colonne contact — titre", "default": "Contact" },
+    { "type": "text", "id": "footer_email", "label": "E-mail", "default": "Assistance par e-mail : contact@vyrae.co" },
+    { "type": "textarea", "id": "footer_phone", "label": "Téléphone / horaires", "default": "Service client du lundi au vendredi, 9h-18h." },
+    { "type": "text", "id": "payment_badges", "label": "Moyens de paiement (séparés par des virgules)", "default": "Visa, Mastercard, American Express, PayPal, Apple Pay, Shop Pay, CB" },
+    { "type": "text", "id": "footer_legal", "label": "Copyright", "default": "© 2026 Vyrae. Tous droits réservés." },
+    { "type": "link_list", "id": "footer_legal_menu", "label": "Liens légaux — menu Shopify", "info": "Menu avec : Politique de confidentialité, Politique de remboursement, Politique d'expédition, Conditions d'utilisation, Mentions légales, CGV." },
+    { "type": "textarea", "id": "footer_disclaimer", "label": "Mention partenaires pub", "default": "Veuillez noter que nos partenaires publicitaires, notamment Google, Facebook, TikTok, Microsoft, Criteo, Taboola, Outbrain et d'autres, ne sont pas affiliés à notre boutique." }
   ],
   "blocks": [
     {

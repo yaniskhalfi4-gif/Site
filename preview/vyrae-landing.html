@@ -131,12 +131,23 @@
   .wld-faq__item summary::after{content:"+";position:absolute;right:0;top:12px;font-size:22px;color:var(--c-primary);font-weight:400}
   .wld-faq__item[open] summary::after{content:"–"}
   .wld-faq__a{font-size:14px;color:#54616b;padding:0 0 16px}
-  .wld-footer{background:var(--c-primary-dark);color:#d7e2ec;padding:48px 0 24px}
-  .wld-footer__grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:30px}
-  .wld-footer__name{font-family:'Syne',sans-serif;font-weight:800;font-size:26px;letter-spacing:.04em;text-transform:uppercase;color:#fff}
-  .wld-footer h4{color:#fff;font-size:14px;margin:0 0 10px}
-  .wld-footer p{font-size:13px;color:#aebecb;margin:0}
-  .wld-footer__legal{text-align:center;font-size:12px;color:#8499a8;margin:34px 0 0;border-top:1px solid rgba(255,255,255,.12);padding-top:18px}
+  .wld-footer{background:var(--c-primary-dark);color:#cdd9e2;padding:48px 0 24px}
+  .wld-footer__grid{display:grid;grid-template-columns:1.5fr 1fr 1.2fr;gap:40px}
+  .wld-footer__name{font-family:'Syne',sans-serif;font-weight:800;font-size:28px;letter-spacing:.04em;text-transform:uppercase;color:#fff}
+  .wld-footer__brand p{margin-top:12px}
+  .wld-footer h4{color:#fff;font-size:16px;margin:0 0 14px;font-weight:600}
+  .wld-footer p{font-size:14px;color:#aebfcb;margin:0 0 6px;line-height:1.6}
+  .wld-footer__links{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+  .wld-footer__links a{color:#cdd9e2;text-decoration:none;font-size:14px}
+  .wld-footer__links a:hover{color:#fff;text-decoration:underline}
+  .wld-footer__bottom{border-top:1px solid rgba(255,255,255,.12);margin-top:36px;padding-top:24px;text-align:center}
+  .wld-pay{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:0 0 18px}
+  .wld-pay__badge{background:#fff;color:#1a1f24;font-size:11px;font-weight:700;padding:6px 10px;border-radius:6px;letter-spacing:.02em;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+  .wld-footer__copy{font-size:12px;color:#9fb1bd;line-height:1.9}
+  .wld-footer__copy a{color:#9fb1bd;text-decoration:none}
+  .wld-footer__copy a:hover{color:#fff;text-decoration:underline}
+  .wld-footer__copy .wld-sep{margin:0 8px;opacity:.5}
+  .wld-footer__disclaimer{font-size:11px;color:#6f8290;margin:14px auto 0;max-width:900px}
   @media(max-width:900px){
     .wld-hero__grid,.wld-buybox,.wld-expert,.wld-story,.wld-method{grid-template-columns:1fr}
     .wld-cards4,.wld-grid8,.wld-stats,.wld-timeline{grid-template-columns:repeat(2,1fr)}
@@ -381,12 +392,35 @@
 <!-- FOOTER -->
 <div class="wld-footer">
   <div class="wld-wrap wld-footer__grid">
-    <div class="wld-footer__brand"><span class="wld-footer__name">Vyrae</span><p style="margin-top:10px">Le confort qui sculpte. La confiance qui se voit.</p></div>
-    <div class="wld-footer__col"><h4>À propos</h4><p>Notre histoire · Nos engagements · Guide des tailles</p></div>
-    <div class="wld-footer__col"><h4>Infos &amp; mentions</h4><p>CGV · Politique de retour · Confidentialité</p></div>
-    <div class="wld-footer__col"><h4>Contact</h4><p>support@vyrae.co · Du lundi au samedi, 9h-18h</p></div>
+    <div class="wld-footer__brand">
+      <span class="wld-footer__name">Vyrae</span>
+      <p>Vyrae conçoit des débardeurs gainants pensés pour les hommes : ventre lissé, dos soutenu et silhouette affinée, sous n'importe quelle tenue, en toute discrétion.</p>
+    </div>
+    <div class="wld-footer__col">
+      <h4>Informations</h4>
+      <ul class="wld-footer__links">
+        <li><a href="#">Suivre ma commande</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Guide des tailles</a></li>
+      </ul>
+    </div>
+    <div class="wld-footer__col">
+      <h4>Contact</h4>
+      <p>Assistance par e-mail : contact@vyrae.co</p>
+      <p>Service client du lundi au vendredi, 9h-18h.</p>
+    </div>
   </div>
-  <p class="wld-footer__legal">© 2026 Vyrae. Tous droits réservés.</p>
+
+  <div class="wld-footer__bottom">
+    <div class="wld-pay">
+      <span class="wld-pay__badge">Visa</span><span class="wld-pay__badge">Mastercard</span><span class="wld-pay__badge">American Express</span><span class="wld-pay__badge">PayPal</span><span class="wld-pay__badge">Apple Pay</span><span class="wld-pay__badge">Shop Pay</span><span class="wld-pay__badge">CB</span>
+    </div>
+    <p class="wld-footer__copy">
+      © 2026 Vyrae. Tous droits réservés.
+      <a href="#">Politique de confidentialité</a><span class="wld-sep">·</span><a href="#">Politique de remboursement</a><span class="wld-sep">·</span><a href="#">Politique d'expédition</a><span class="wld-sep">·</span><a href="#">Conditions d'utilisation</a><span class="wld-sep">·</span><a href="#">Mentions légales</a><span class="wld-sep">·</span><a href="#">CGV</a>
+    </p>
+    <p class="wld-footer__disclaimer">Veuillez noter que nos partenaires publicitaires, notamment Google, Facebook, TikTok, Microsoft, Criteo, Taboola, Outbrain et d'autres, ne sont pas affiliés à notre boutique.</p>
+  </div>
 </div>
 
 <script>
