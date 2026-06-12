@@ -48,6 +48,12 @@
   .wld-header__cta:hover{background:var(--c-primary-dark)}
   .wld-hero{background:var(--c-cream);padding:48px 0 60px}
   .wld-hero__grid{display:grid;grid-template-columns:1fr 1fr;gap:46px;align-items:center}
+  .wld-gallery__main img,.wld-gallery__main .wld-ph{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:14px}
+  .wld-gallery__thumbs{display:flex;gap:10px;margin-top:12px;overflow-x:auto;scrollbar-width:none}
+  .wld-gallery__thumbs::-webkit-scrollbar{display:none}
+  .wld-gallery__thumb{flex:0 0 auto;width:64px;height:64px;border:2px solid #dbe5ed;border-radius:10px;overflow:hidden;background:none;padding:0;cursor:pointer}
+  .wld-gallery__thumb.is-active{border-color:var(--c-primary)}
+  .wld-gallery__thumb .wld-ph{width:100%;height:100%;min-height:0;border-radius:0;font-size:14px}
   .wld-hero__pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
   .wld-hero__pills span{background:#fff;border:1px solid #dbe5ed;border-radius:999px;padding:7px 13px;font-size:12px;font-weight:600}
   .wld-hero__sub{font-size:16px;margin:0 0 16px;color:#54616b}
@@ -212,7 +218,16 @@
 <!-- HERO -->
 <div class="wld-hero" id="wld-top"><div class="wld-wrap wld-hero__grid">
   <div class="wld-hero__media">
-    <div class="wld-ph wld-ph--square">Image produit hero</div>
+    <div class="wld-gallery" data-gallery>
+      <div class="wld-gallery__main"><div class="wld-ph wld-ph--square">Photo 1 (principale)</div></div>
+      <div class="wld-gallery__thumbs">
+        <button type="button" class="wld-gallery__thumb is-active"><div class="wld-ph">1</div></button>
+        <button type="button" class="wld-gallery__thumb"><div class="wld-ph">2</div></button>
+        <button type="button" class="wld-gallery__thumb"><div class="wld-ph">3</div></button>
+        <button type="button" class="wld-gallery__thumb"><div class="wld-ph">4</div></button>
+        <button type="button" class="wld-gallery__thumb"><div class="wld-ph">5</div></button>
+      </div>
+    </div>
     <div class="wld-hero__pills"><span>Invisible sous les vêtements</span><span>Du XS au 3XL</span><span>Maintien ventre + dos</span></div>
   </div>
   <div class="wld-hero__box">
@@ -479,6 +494,10 @@
 </div>
 
 <script>
+  document.querySelectorAll('[data-gallery]').forEach(function(g){
+    var thumbs=g.querySelectorAll('.wld-gallery__thumb');
+    thumbs.forEach(function(t){t.addEventListener('click',function(){thumbs.forEach(function(x){x.classList.remove('is-active')});t.classList.add('is-active');});});
+  });
   document.querySelectorAll('[data-swatches]').forEach(function(group){
     var input=group.parentNode.querySelector('[data-color-input]');
     var val=group.parentNode.querySelector('[data-color-val]');

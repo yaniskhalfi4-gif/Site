@@ -45,13 +45,27 @@
   <div class="wld-hero" id="wld-top">
     <div class="wld-wrap wld-hero__grid">
       <div class="wld-hero__media">
-        {%- if section.settings.hero_video != blank -%}
-          {{ section.settings.hero_video | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, class: 'wld-hero__video' }}
-        {%- elsif section.settings.hero_image != blank -%}
-          <img src="{{ section.settings.hero_image | image_url: width: 1200 }}" alt="{{ section.settings.hero_title | escape }}" loading="eager" width="600" height="600">
-        {%- else -%}
-          <div class="wld-ph wld-ph--square">Image ou vidéo produit</div>
-        {%- endif -%}
+        <div class="wld-gallery" data-gallery>
+          <div class="wld-gallery__main">
+            {%- assign main_set = false -%}
+            {%- for i in (1..5) -%}
+              {%- assign k = 'hero_img_' | append: i -%}
+              {%- if section.settings[k] != blank and main_set == false -%}
+                <img data-gallery-main src="{{ section.settings[k] | image_url: width: 1200 }}" alt="{{ section.settings.hero_title | escape }}" width="600" height="600">
+                {%- assign main_set = true -%}
+              {%- endif -%}
+            {%- endfor -%}
+            {%- unless main_set -%}<div class="wld-ph wld-ph--square">Image produit (ajoutez 5 photos)</div>{%- endunless -%}
+          </div>
+          <div class="wld-gallery__thumbs">
+            {%- for i in (1..5) -%}
+              {%- assign k = 'hero_img_' | append: i -%}
+              {%- if section.settings[k] != blank -%}
+                <button type="button" class="wld-gallery__thumb" data-full="{{ section.settings[k] | image_url: width: 1200 }}"><img src="{{ section.settings[k] | image_url: width: 220 }}" alt="" loading="lazy"></button>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
         <div class="wld-hero__pills">
           <span>{{ section.settings.hero_pill_1 }}</span>
           <span>{{ section.settings.hero_pill_2 }}</span>
@@ -581,6 +595,12 @@
   #wld-{{ slug }}-{{ section.id }} .wld-hero{background:var(--c-cream);padding:48px 0 60px}
   #wld-{{ slug }}-{{ section.id }} .wld-hero__grid{display:grid;grid-template-columns:1fr 1fr;gap:46px;align-items:center}
   #wld-{{ slug }}-{{ section.id }} .wld-hero__video{width:100%;height:auto;display:block;border-radius:14px}
+  #wld-{{ slug }}-{{ section.id }} .wld-gallery__main img,#wld-{{ slug }}-{{ section.id }} .wld-gallery__main .wld-ph{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:14px}
+  #wld-{{ slug }}-{{ section.id }} .wld-gallery__thumbs{display:flex;gap:10px;margin-top:12px;overflow-x:auto;scrollbar-width:none}
+  #wld-{{ slug }}-{{ section.id }} .wld-gallery__thumbs::-webkit-scrollbar{display:none}
+  #wld-{{ slug }}-{{ section.id }} .wld-gallery__thumb{flex:0 0 auto;width:64px;height:64px;border:2px solid #dbe5ed;border-radius:10px;overflow:hidden;background:none;padding:0;cursor:pointer;transition:.15s}
+  #wld-{{ slug }}-{{ section.id }} .wld-gallery__thumb.is-active{border-color:var(--c-primary)}
+  #wld-{{ slug }}-{{ section.id }} .wld-gallery__thumb img{width:100%;height:100%;object-fit:cover;border-radius:0}
   #wld-{{ slug }}-{{ section.id }} .wld-hero__pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
   #wld-{{ slug }}-{{ section.id }} .wld-hero__pills span{background:#fff;border:1px solid #e3ddcf;border-radius:999px;padding:7px 13px;font-size:12px;font-weight:600}
   #wld-{{ slug }}-{{ section.id }} .wld-hero__sub{font-size:16px;margin:0 0 16px;color:#4a544f}
@@ -783,6 +803,19 @@
 (function(){
   function initSection(root){
     if(!root) return;
+    root.querySelectorAll('[data-gallery]').forEach(function(g){
+      var main = g.querySelector('[data-gallery-main]');
+      var thumbs = g.querySelectorAll('.wld-gallery__thumb');
+      thumbs.forEach(function(t){
+        t.addEventListener('click', function(){
+          var full = t.getAttribute('data-full');
+          if(main && full) main.src = full;
+          thumbs.forEach(function(x){ x.classList.remove('is-active'); });
+          t.classList.add('is-active');
+        });
+      });
+      if(thumbs[0]) thumbs[0].classList.add('is-active');
+    });
     root.querySelectorAll('[data-swatches]').forEach(function(group){
       var form = group.closest('form');
       var input = form ? form.querySelector('[data-color-input]') : null;
@@ -887,8 +920,12 @@
     { "type": "text", "id": "header_cta", "label": "Bouton en-tête (à droite)", "default": "-50% Aujourd'hui" },
 
     { "type": "header", "content": "🦸 Hero" },
-    { "type": "video", "id": "hero_video", "label": "Vidéo hero (autoplay, remplace l'image si remplie)" },
-    { "type": "image_picker", "id": "hero_image", "label": "Image produit hero (si pas de vidéo)" },
+    { "type": "paragraph", "content": "Galerie produit : ajoutez 5 photos (grande image + miniatures)." },
+    { "type": "image_picker", "id": "hero_img_1", "label": "Photo 1 (principale)" },
+    { "type": "image_picker", "id": "hero_img_2", "label": "Photo 2" },
+    { "type": "image_picker", "id": "hero_img_3", "label": "Photo 3" },
+    { "type": "image_picker", "id": "hero_img_4", "label": "Photo 4" },
+    { "type": "image_picker", "id": "hero_img_5", "label": "Photo 5" },
     { "type": "text", "id": "hero_reviews_label", "label": "Label avis", "default": "4,8/5 · premiers avis clients vérifiés" },
     { "type": "text", "id": "hero_title", "label": "Titre", "default": "Le Débardeur de Compression qui Sculpte Votre Silhouette en 1 Seconde" },
     { "type": "textarea", "id": "hero_subtitle", "label": "Sous-titre", "default": "Vyrae gaine le ventre, affine la taille et redresse le dos — sous n'importe quelle tenue, sans qu'on le voie." },
