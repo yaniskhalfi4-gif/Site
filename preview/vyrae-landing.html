@@ -105,14 +105,20 @@
   .wld-press__logos::-webkit-scrollbar{display:none}
   .wld-press__track{display:flex;flex-wrap:nowrap;align-items:center;gap:42px;width:max-content;margin:0 auto;padding:0 8px}
   .wld-press__track span{font-family:'DM Serif Display',serif;font-size:25px;line-height:1;color:var(--c-primary-dark);opacity:.92;white-space:nowrap}
-  .wld-story{display:grid;grid-template-columns:1fr auto;gap:44px;align-items:start}
+  .wld-story{display:grid;grid-template-columns:.82fr 1.18fr;align-items:stretch;background:#fff;border:1px solid #e6edf3;border-radius:22px;overflow:hidden;box-shadow:0 22px 55px -32px rgba(31,58,82,.45)}
+  .wld-story__brand{position:relative;overflow:hidden;background:linear-gradient(165deg,#2a5274 0%,var(--c-primary-dark) 100%);color:#fff;padding:46px 38px;display:flex;flex-direction:column;justify-content:space-between;gap:32px}
+  .wld-story__watermark{position:absolute;right:-34px;bottom:-46px;width:220px;height:220px;opacity:.07;pointer-events:none}
+  .wld-story__brand .wld-logo{position:relative;gap:13px}
+  .wld-story__brand .wld-logo__mark svg{width:48px;height:48px}
+  .wld-story__brand .wld-logo__word{font-size:34px}
+  .wld-story__brandtxt{position:relative}
+  .wld-story__tagline{font-family:'DM Serif Display',serif;font-size:23px;line-height:1.32;margin:0 0 18px}
+  .wld-story__tags{display:flex;flex-wrap:wrap;gap:8px}
+  .wld-story__tags span{font-size:12px;font-weight:600;letter-spacing:.03em;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:6px 13px}
+  .wld-story__txt{padding:46px 44px}
   .wld-story__txt p{font-size:15px;color:#54616b;margin:0 0 14px}
   .wld-story__sign{font-family:'DM Serif Display',serif;font-style:italic;color:var(--c-primary-dark)}
-  .wld-story__brand{justify-self:end}
-  .wld-logo--story{gap:14px}
-  .wld-logo--story .wld-logo__mark svg{width:56px;height:56px}
-  .wld-logo--story .wld-logo__word{font-size:38px}
-  @media(max-width:760px){.wld-story__brand{justify-self:start;order:-1;margin-bottom:4px}.wld-logo--story .wld-logo__mark svg{width:46px;height:46px}.wld-logo--story .wld-logo__word{font-size:32px}}
+  @media(max-width:760px){.wld-story{grid-template-columns:1fr}.wld-story__brand{padding:34px 26px;gap:24px}.wld-story__txt{padding:32px 26px}.wld-story__tagline{font-size:20px}.wld-story__brand .wld-logo__word{font-size:30px}.wld-story__brand .wld-logo__mark svg{width:44px;height:44px}}
   .wld-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin:0 0 36px}
   .wld-stat{background:var(--c-primary-dark);color:#fff;border-radius:16px;padding:24px 14px;text-align:center}
   .wld-stat__num{display:block;font-family:'DM Serif Display',serif;font-size:38px;line-height:1;color:#fff}
@@ -277,7 +283,15 @@
 </div></div>
 
 <!-- STORY -->
-<div class="wld-block"><div class="wld-wrap wld-story">
+<div class="wld-block"><div class="wld-wrap"><div class="wld-story">
+  <div class="wld-story__brand">
+    <svg class="wld-story__watermark" viewBox="0 0 40 40" aria-hidden="true"><path d="M9 11 L20 31 L31 11" fill="none" stroke="#fff" stroke-width="3"/></svg>
+    <span class="wld-logo wld-logo--footer wld-logo--story"><span class="wld-logo__mark"><svg viewBox="0 0 40 40" width="34" height="34" role="img" aria-label="Vyrae"><rect class="wld-tile" width="40" height="40" rx="9"/><path class="wld-vee" d="M11 12.5 L20 29 L29 12.5" fill="none" stroke-width="5" stroke-linejoin="miter"/></svg></span><span class="wld-logo__word">Vyrae</span></span>
+    <div class="wld-story__brandtxt">
+      <p class="wld-story__tagline">Le maintien d'une gaine, l'allure d'un vrai débardeur.</p>
+      <div class="wld-story__tags"><span>Maintien</span><span>Posture</span><span>Discrétion</span></div>
+    </div>
+  </div>
   <div class="wld-story__txt">
     <p class="wld-eyebrow">NOTRE HISTOIRE</p>
     <h2 class="wld-h2 wld-h2--left">Pourquoi nous avons créé Vyrae</h2>
@@ -286,10 +300,7 @@
     <p>Pendant des mois, nous avons testé tissus, coutures et zones de compression jusqu'à obtenir un maintien ferme au ventre, un soutien du dos et une coupe qui se fait oublier. Vyrae est né de cette obsession du détail.</p>
     <p class="wld-story__sign">— L'équipe Vyrae</p>
   </div>
-  <div class="wld-story__brand">
-    <span class="wld-logo wld-logo--story"><span class="wld-logo__mark"><svg viewBox="0 0 40 40" width="34" height="34" role="img" aria-label="Vyrae"><rect class="wld-tile" width="40" height="40" rx="9"/><path class="wld-vee" d="M11 12.5 L20 29 L29 12.5" fill="none" stroke-width="5" stroke-linejoin="miter"/></svg></span><span class="wld-logo__word">Vyrae</span></span>
-  </div>
-</div></div>
+</div></div></div>
 
 <!-- PROBLEM -->
 <div class="wld-block wld-block--cream"><div class="wld-wrap">
