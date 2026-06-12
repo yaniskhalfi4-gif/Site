@@ -139,10 +139,12 @@
     <div class="wld-wrap">
       <p class="wld-press__label">{{ section.settings.press_label }}</p>
       <div class="wld-press__logos">
-        <span>{{ section.settings.press_1 }}</span>
-        <span>{{ section.settings.press_2 }}</span>
-        <span>{{ section.settings.press_3 }}</span>
-        <span>{{ section.settings.press_4 }}</span>
+        <div class="wld-press__track">
+          <span>{{ section.settings.press_1 }}</span>
+          <span>{{ section.settings.press_2 }}</span>
+          <span>{{ section.settings.press_3 }}</span>
+          <span>{{ section.settings.press_4 }}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -492,12 +494,11 @@
               <li><a href="{{ link.url }}">{{ link.title }}</a></li>
             {%- endfor -%}
           {%- else -%}
-            {%- if shop.privacy_policy != blank -%}<li><a href="{{ shop.privacy_policy.url }}">{{ shop.privacy_policy.title }}</a></li>{%- endif -%}
-            {%- if shop.refund_policy != blank -%}<li><a href="{{ shop.refund_policy.url }}">{{ shop.refund_policy.title }}</a></li>{%- endif -%}
-            {%- if shop.shipping_policy != blank -%}<li><a href="{{ shop.shipping_policy.url }}">{{ shop.shipping_policy.title }}</a></li>{%- endif -%}
-            {%- if shop.terms_of_service != blank -%}<li><a href="{{ shop.terms_of_service.url }}">{{ shop.terms_of_service.title }}</a></li>{%- endif -%}
-            {%- if section.settings.footer_contact_url != blank -%}<li><a href="{{ section.settings.footer_contact_url }}">Coordonnées</a></li>{%- endif -%}
-            {%- if section.settings.footer_legal_url != blank -%}<li><a href="{{ section.settings.footer_legal_url }}">Mentions légales</a></li>{%- endif -%}
+            <li><a href="/policies/privacy-policy">Politique de confidentialité</a></li>
+            <li><a href="/policies/refund-policy">Politique de remboursement</a></li>
+            <li><a href="/policies/contact-information">Coordonnées</a></li>
+            <li><a href="/policies/shipping-policy">Politique d'expédition</a></li>
+            <li><a href="/policies/terms-of-service">Conditions d'utilisation</a></li>
           {%- endif -%}
         </ul>
       </div>
@@ -624,8 +625,10 @@
   #wld-{{ slug }}-{{ section.id }} .wld-press{padding:36px 0;background:var(--c-bg);border-top:1px solid #e6edf3;border-bottom:1px solid #e6edf3}
   #wld-{{ slug }}-{{ section.id }} .wld-press__label{display:flex;align-items:center;justify-content:center;gap:18px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#8a98a4;font-weight:700;margin:0 auto 24px;max-width:900px}
   #wld-{{ slug }}-{{ section.id }} .wld-press__label::before,#wld-{{ slug }}-{{ section.id }} .wld-press__label::after{content:"";height:1px;background:#cfd7de;flex:1}
-  #wld-{{ slug }}-{{ section.id }} .wld-press__logos{display:flex;flex-wrap:wrap;justify-content:center;gap:16px 46px;align-items:center}
-  #wld-{{ slug }}-{{ section.id }} .wld-press__logos span{font-family:'DM Serif Display',serif;font-size:27px;line-height:1;color:var(--c-primary-dark);opacity:.92}
+  #wld-{{ slug }}-{{ section.id }} .wld-press__logos{overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  #wld-{{ slug }}-{{ section.id }} .wld-press__logos::-webkit-scrollbar{display:none}
+  #wld-{{ slug }}-{{ section.id }} .wld-press__track{display:flex;flex-wrap:nowrap;align-items:center;gap:42px;width:max-content;margin:0 auto;padding:0 8px}
+  #wld-{{ slug }}-{{ section.id }} .wld-press__track span{font-family:'DM Serif Display',serif;font-size:25px;line-height:1;color:var(--c-primary-dark);opacity:.92;white-space:nowrap}
 
   /* story */
   #wld-{{ slug }}-{{ section.id }} .wld-story{display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;align-items:center}
@@ -759,8 +762,8 @@
     #wld-{{ slug }}-{{ section.id }} .wld-ba,
     #wld-{{ slug }}-{{ section.id }} .wld-footer__grid{grid-template-columns:1fr}
     #wld-{{ slug }}-{{ section.id }} .wld-grid8{grid-template-columns:repeat(2,1fr)}
-    #wld-{{ slug }}-{{ section.id }} .wld-press__logos{gap:20px}
-    #wld-{{ slug }}-{{ section.id }} .wld-press__logos span{font-size:17px}
+    #wld-{{ slug }}-{{ section.id }} .wld-press__track{gap:26px;margin:0}
+    #wld-{{ slug }}-{{ section.id }} .wld-press__track span{font-size:18px}
     #wld-{{ slug }}-{{ section.id }} .wld-h1{font-size:28px}
     #wld-{{ slug }}-{{ section.id }} .wld-header{padding:12px 16px;gap:10px}
     #wld-{{ slug }}-{{ section.id }} .wld-logo__word{font-size:19px;letter-spacing:.03em}
@@ -1115,8 +1118,6 @@
     { "type": "textarea", "id": "footer_about", "label": "À propos (texte sous le logo)", "default": "Vyrae conçoit des débardeurs gainants pensés pour les hommes : ventre lissé, dos soutenu et silhouette affinée, sous n'importe quelle tenue, en toute discrétion." },
     { "type": "text", "id": "footer_info_title", "label": "Colonne Légal — titre", "default": "Légal" },
     { "type": "link_list", "id": "footer_menu", "label": "Colonne Légal — menu Shopify (optionnel)", "info": "Si vide, les politiques Shopify (Paramètres → Politiques) s'affichent automatiquement." },
-    { "type": "url", "id": "footer_contact_url", "label": "Lien « Coordonnées » (page contact)" },
-    { "type": "url", "id": "footer_legal_url", "label": "Lien « Mentions légales » (page)" },
     { "type": "text", "id": "footer_contact_title", "label": "Colonne contact — titre", "default": "Contact" },
     { "type": "text", "id": "footer_email", "label": "E-mail", "default": "Assistance par e-mail : contact@vyrae.co" },
     { "type": "textarea", "id": "footer_phone", "label": "Téléphone / horaires", "default": "Service client du lundi au vendredi, 9h-18h." },

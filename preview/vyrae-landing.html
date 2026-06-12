@@ -91,8 +91,10 @@
   .wld-press{padding:36px 0;background:var(--c-bg);border-top:1px solid #e6edf3;border-bottom:1px solid #e6edf3}
   .wld-press__label{display:flex;align-items:center;justify-content:center;gap:18px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#8a98a4;font-weight:700;margin:0 auto 24px;max-width:900px}
   .wld-press__label::before,.wld-press__label::after{content:"";height:1px;background:#cfd7de;flex:1}
-  .wld-press__logos{display:flex;flex-wrap:wrap;justify-content:center;gap:16px 46px;align-items:center}
-  .wld-press__logos span{font-family:'DM Serif Display',serif;font-size:27px;line-height:1;color:var(--c-primary-dark);opacity:.92}
+  .wld-press__logos{overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .wld-press__logos::-webkit-scrollbar{display:none}
+  .wld-press__track{display:flex;flex-wrap:nowrap;align-items:center;gap:42px;width:max-content;margin:0 auto;padding:0 8px}
+  .wld-press__track span{font-family:'DM Serif Display',serif;font-size:25px;line-height:1;color:var(--c-primary-dark);opacity:.92;white-space:nowrap}
   .wld-story{display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;align-items:center}
   .wld-story__txt p{font-size:15px;color:#54616b;margin:0 0 14px}
   .wld-story__sign{font-family:'DM Serif Display',serif;font-style:italic;color:var(--c-primary-dark)}
@@ -185,7 +187,7 @@
     .wld-block{padding:44px 0}
     .wld-cards4,.wld-stats,.wld-timeline,.wld-ba,.wld-footer__grid{grid-template-columns:1fr}
     .wld-grid8{grid-template-columns:repeat(2,1fr)}
-    .wld-press__logos{gap:20px}.wld-press__logos span{font-size:17px}
+    .wld-press__track{gap:26px;margin:0}.wld-press__track span{font-size:18px}
     .wld-h1{font-size:28px}
     .wld-header{padding:12px 16px;gap:10px}
     .wld-logo__word{font-size:19px;letter-spacing:.03em}
@@ -255,7 +257,7 @@
 <!-- PRESS -->
 <div class="wld-press"><div class="wld-wrap">
   <p class="wld-press__label">Pensé avec des spécialistes du maintien masculin</p>
-  <div class="wld-press__logos"><span>Coachs posture</span><span>Préparateurs physiques</span><span>Experts textile technique</span><span>Tailleurs</span></div>
+  <div class="wld-press__logos"><div class="wld-press__track"><span>Coachs posture</span><span>Préparateurs physiques</span><span>Experts textile technique</span><span>Tailleurs</span></div></div>
 </div></div>
 
 <!-- STORY -->
@@ -448,12 +450,11 @@
     <div class="wld-footer__col">
       <h4>Légal</h4>
       <ul class="wld-footer__links">
-        <li><a href="#">Politique de confidentialité</a></li>
-        <li><a href="#">Politique de remboursement</a></li>
-        <li><a href="#">Coordonnées</a></li>
-        <li><a href="#">Politique d'expédition</a></li>
-        <li><a href="#">Conditions d'utilisation</a></li>
-        <li><a href="#">Mentions légales</a></li>
+        <li><a href="/policies/privacy-policy">Politique de confidentialité</a></li>
+        <li><a href="/policies/refund-policy">Politique de remboursement</a></li>
+        <li><a href="/policies/contact-information">Coordonnées</a></li>
+        <li><a href="/policies/shipping-policy">Politique d'expédition</a></li>
+        <li><a href="/policies/terms-of-service">Conditions d'utilisation</a></li>
       </ul>
     </div>
     <div class="wld-footer__col">
