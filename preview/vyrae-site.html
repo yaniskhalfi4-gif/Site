@@ -211,6 +211,7 @@
   .wld-gallery__thumb{flex:0 0 auto;width:64px;height:64px;border:2px solid #dbe5ed;border-radius:10px;overflow:hidden;background:none;padding:0;cursor:pointer}
   .wld-gallery__thumb.is-active{border-color:var(--c-primary)}
   .wld-gallery__thumb .wld-ph{width:100%;height:100%;min-height:0;border-radius:0;font-size:14px}
+  @media(max-width:540px){.wld-gallery__nav{width:34px;height:34px;font-size:20px}.wld-gallery__thumb{width:56px;height:56px}}
   .wld-hero__pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
   .wld-hero__pills span{background:#fff;border:1px solid #dbe5ed;border-radius:999px;padding:7px 13px;font-size:12px;font-weight:600}
   .wld-hero__sub{font-size:16px;margin:0 0 16px;color:#54616b}
@@ -860,11 +861,16 @@ document.querySelectorAll('[data-gallery]').forEach(function(g){
   var main=g.querySelector('[data-gallery-main]');
   var th=Array.prototype.slice.call(g.querySelectorAll('.wld-gallery__thumb'));
   var idx=0;
-  function show(i){idx=(i+th.length)%th.length;var f=th[idx].getAttribute('data-full');if(main&&f)main.src=f;th.forEach(function(x){x.classList.remove('is-active')});th[idx].classList.add('is-active');}
+  function show(i){idx=(i+th.length)%th.length;var f=th[idx].getAttribute('data-full');if(main&&f)main.src=f;th.forEach(function(x){x.classList.remove('is-active')});th[idx].classList.add('is-active');th[idx].scrollIntoView({inline:'center',block:'nearest'});}
   th.forEach(function(t,i){t.addEventListener('click',function(){show(i);});});
   var p=g.querySelector('.wld-gallery__nav--prev'),n=g.querySelector('.wld-gallery__nav--next');
   if(p)p.addEventListener('click',function(){show(idx-1);});
   if(n)n.addEventListener('click',function(){show(idx+1);});
+  // swipe mobile
+  var x0=null;
+  var box=g.querySelector('.wld-gallery__main');
+  if(box){box.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
+  box.addEventListener('touchend',function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40){show(dx<0?idx+1:idx-1);}x0=null;},{passive:true});}
 });
 </script>
 </body></html>
