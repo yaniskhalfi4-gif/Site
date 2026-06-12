@@ -68,7 +68,8 @@
           <li>{{ section.settings.hero_tick_3 }}</li>
         </ul>
 
-        {%- form 'product', p, class: 'wld-buy', id: 'wld-hero-form-' | append: section.id -%}
+        {%- assign hero_form_id = 'wld-hero-form-' | append: section.id -%}
+        {%- form 'product', p, class: 'wld-buy', id: hero_form_id -%}
           <div class="wld-selector">
             <div class="wld-selector__head"><span class="wld-selector__label">Couleur</span><span class="wld-selector__val" data-color-val></span></div>
             <div class="wld-swatches" data-swatches>
@@ -119,6 +120,7 @@
           </div>
 
           <input type="hidden" name="id" data-variant-input value="{{ section.settings.b2_variant }}">
+          {%- if section.settings.hero_stock_note != blank -%}<p class="wld-stock">⚡ {{ section.settings.hero_stock_note }}</p>{%- endif -%}
           <button type="submit" class="wld-cta wld-cta--block"{% unless p != blank %} disabled{% endunless %}>{{ section.settings.hero_cta }}</button>
           <p class="wld-buy__guarantee">{{ section.settings.hero_guarantee }}</p>
         {%- endform -%}
@@ -610,6 +612,7 @@
   #wld-{{ slug }}-{{ section.id }} .wld-cta[disabled]{opacity:.5;cursor:not-allowed}
   #wld-{{ slug }}-{{ section.id }} .wld-block .wld-cta{margin:30px auto 0;display:table}
   #wld-{{ slug }}-{{ section.id }} .wld-buy__guarantee{font-size:12px;color:#6b7570;text-align:center;margin:10px 0 0}
+  #wld-{{ slug }}-{{ section.id }} .wld-stock{display:flex;align-items:center;justify-content:center;gap:6px;background:#fff4e8;color:#9a4a00;border:1px solid #ffd9ad;border-radius:8px;padding:9px 12px;font-size:13px;font-weight:700;margin:0 0 12px;text-align:center}
 
   #wld-{{ slug }}-{{ section.id }} .wld-press{padding:26px 0;border-bottom:1px solid #ece7da;background:var(--c-bg)}
   #wld-{{ slug }}-{{ section.id }} .wld-press__label{text-align:center;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#9a917f;margin:0 0 14px}
@@ -883,6 +886,7 @@
     { "type": "text", "id": "hero_cta", "label": "Texte bouton", "default": "AJOUTER AU PANIER" },
     { "type": "text", "id": "hero_guarantee", "label": "Réassurance sous le bouton", "default": "Paiement 100% sécurisé · Rétractation légale 14 jours" },
     { "type": "text", "id": "hero_offer_note", "label": "Ligne explication offre (au-dessus des packs)", "default": "🎁 Plus vous prenez, plus c'est avantageux : 2 achetés = 1 offert · 3 achetés = 2 offerts" },
+    { "type": "text", "id": "hero_stock_note", "label": "Encart stock limité (avant le bouton)", "default": "Stock limité — édition homme en quantité réduite" },
 
     { "type": "header", "content": "👕 Couleurs & tailles (sélecteur cliquable)" },
     { "type": "text", "id": "color_opt_1_name", "label": "Couleur 1 — nom", "default": "Noir" },
