@@ -375,8 +375,9 @@
       <div class="wld-reviews">
         {%- for block in section.blocks -%}
           {%- if block.type == 'review' -%}
+            {%- assign r = block.settings.rating | default: '5' | times: 1 -%}
             <article class="wld-review" {{ block.shopify_attributes }}>
-              <div class="wld-stars wld-stars--sm">★★★★★</div>
+              <div class="wld-stars wld-stars--sm">{% for i in (1..5) %}{% if i <= r %}★{% else %}☆{% endif %}{% endfor %}</div>
               <p class="wld-review__body">{{ block.settings.body }}</p>
               <p class="wld-review__author">— {{ block.settings.author }} <span>✔ {{ block.settings.verified }}</span></p>
             </article>
@@ -828,21 +829,21 @@
     { "type": "text", "id": "mirror_title", "label": "Titre", "default": "Des résultats réels, vus dans le miroir" },
     { "type": "textarea", "id": "mirror_intro", "label": "Intro", "default": "Les premiers retours de nos clients après quelques semaines avec Vyrae." },
     { "type": "image_picker", "id": "mirror_img_1", "label": "Photo 1" },
-    { "type": "text", "id": "mirror_cap_1", "label": "Légende 1", "default": "Marc, 38 ans" },
+    { "type": "text", "id": "mirror_cap_1", "label": "Légende 1", "default": "Gérard, 57 ans" },
     { "type": "image_picker", "id": "mirror_img_2", "label": "Photo 2" },
-    { "type": "text", "id": "mirror_cap_2", "label": "Légende 2", "default": "Thomas, 44 ans" },
+    { "type": "text", "id": "mirror_cap_2", "label": "Légende 2", "default": "Enzo, 27 ans" },
     { "type": "image_picker", "id": "mirror_img_3", "label": "Photo 3" },
-    { "type": "text", "id": "mirror_cap_3", "label": "Légende 3", "default": "Julien, 31 ans" },
+    { "type": "text", "id": "mirror_cap_3", "label": "Légende 3", "default": "Bernard, 61 ans" },
     { "type": "image_picker", "id": "mirror_img_4", "label": "Photo 4" },
-    { "type": "text", "id": "mirror_cap_4", "label": "Légende 4", "default": "Karim, 47 ans" },
+    { "type": "text", "id": "mirror_cap_4", "label": "Légende 4", "default": "Lucas, 31 ans" },
     { "type": "image_picker", "id": "mirror_img_5", "label": "Photo 5" },
-    { "type": "text", "id": "mirror_cap_5", "label": "Légende 5", "default": "Nicolas, 35 ans" },
+    { "type": "text", "id": "mirror_cap_5", "label": "Légende 5", "default": "Michel, 54 ans" },
     { "type": "image_picker", "id": "mirror_img_6", "label": "Photo 6" },
-    { "type": "text", "id": "mirror_cap_6", "label": "Légende 6", "default": "Sébastien, 41 ans" },
+    { "type": "text", "id": "mirror_cap_6", "label": "Légende 6", "default": "Léo, 29 ans" },
     { "type": "image_picker", "id": "mirror_img_7", "label": "Photo 7" },
-    { "type": "text", "id": "mirror_cap_7", "label": "Légende 7", "default": "David, 49 ans" },
+    { "type": "text", "id": "mirror_cap_7", "label": "Légende 7", "default": "Patrick, 49 ans" },
     { "type": "image_picker", "id": "mirror_img_8", "label": "Photo 8" },
-    { "type": "text", "id": "mirror_cap_8", "label": "Légende 8", "default": "Alexandre, 36 ans" },
+    { "type": "text", "id": "mirror_cap_8", "label": "Légende 8", "default": "Mathéo, 24 ans" },
 
     { "type": "header", "content": "👩‍⚕️ Expert (médecin / kiné)" },
     { "type": "image_picker", "id": "expert_image", "label": "Photo médecin / kiné" },
@@ -859,16 +860,16 @@
     { "type": "textarea", "id": "timeline_intro", "label": "Intro", "default": "Voici ce que vivent la plupart de nos clients, semaine après semaine." },
     { "type": "text", "id": "timeline_step_1", "label": "Étape 1 — titre", "default": "Jour 1 à 3" },
     { "type": "textarea", "id": "timeline_text_1", "label": "Étape 1 — texte", "default": "Effet immédiat : ventre lissé et taille affinée dès l'enfilage." },
-    { "type": "text", "id": "timeline_quote_1", "label": "Étape 1 — avis client", "default": "(« Effet ventre plat dès la première minute, j'étais bluffé. » — Thomas L.)" },
+    { "type": "text", "id": "timeline_quote_1", "label": "Étape 1 — avis client", "default": "(« Effet ventre plat dès la première minute, j'étais bluffé. » — Enzo M.)" },
     { "type": "text", "id": "timeline_step_2", "label": "Étape 2 — titre", "default": "Jour 4 à 7" },
     { "type": "textarea", "id": "timeline_text_2", "label": "Étape 2 — texte", "default": "Vous prenez l'habitude de vous tenir plus droit, le dos moins fatigué le soir." },
-    { "type": "text", "id": "timeline_quote_2", "label": "Étape 2 — avis client", "default": "(« Au bout d'une semaine, mon dos me faisait beaucoup moins mal au bureau. » — Julien M.)" },
+    { "type": "text", "id": "timeline_quote_2", "label": "Étape 2 — avis client", "default": "(« Au bout d'une semaine, mon dos me faisait beaucoup moins mal au bureau. » — Bernard L.)" },
     { "type": "text", "id": "timeline_step_3", "label": "Étape 3 — titre", "default": "Semaines 2 à 4" },
     { "type": "textarea", "id": "timeline_text_3", "label": "Étape 3 — texte", "default": "La bonne posture devient un réflexe, même les jours où vous ne le portez pas." },
-    { "type": "text", "id": "timeline_quote_3", "label": "Étape 3 — avis client", "default": "(« Je me tiens naturellement mieux, même sans le mettre. » — Karim D.)" },
+    { "type": "text", "id": "timeline_quote_3", "label": "Étape 3 — avis client", "default": "(« Je me tiens naturellement mieux, même sans le mettre. » — Lucas D.)" },
     { "type": "text", "id": "timeline_step_4", "label": "Étape 4 — titre", "default": "Au quotidien" },
     { "type": "textarea", "id": "timeline_text_4", "label": "Étape 4 — texte", "default": "Plus de confiance sous chaque tenue, pour chaque occasion." },
-    { "type": "text", "id": "timeline_quote_4", "label": "Étape 4 — avis client", "default": "(« Je ne sors plus sans. C'est devenu mon indispensable. » — Marc B.)" },
+    { "type": "text", "id": "timeline_quote_4", "label": "Étape 4 — avis client", "default": "(« Je ne sors plus sans. C'est devenu mon indispensable. » — Gérard P.)" },
 
     { "type": "header", "content": "🪜 Comment l'utiliser (3 étapes)" },
     { "type": "text", "id": "how_title", "label": "Titre", "default": "Un geste simple à adopter dans votre quotidien" },
@@ -927,8 +928,9 @@
       "type": "review",
       "name": "Avis client",
       "settings": [
+        { "type": "select", "id": "rating", "label": "Note (étoiles)", "default": "5", "options": [ { "value": "5", "label": "5 étoiles" }, { "value": "4", "label": "4 étoiles" }, { "value": "3", "label": "3 étoiles" } ] },
         { "type": "textarea", "id": "body", "label": "Avis", "default": "J'étais sceptique mais l'effet est bluffant : mon ventre est lisse et je me tiens beaucoup plus droit. On ne le voit pas du tout sous mes chemises." },
-        { "type": "text", "id": "author", "label": "Auteur", "default": "Marc L." },
+        { "type": "text", "id": "author", "label": "Auteur", "default": "Gérard P." },
         { "type": "text", "id": "verified", "label": "Mention vérifié", "default": "Achat vérifié" }
       ]
     },
@@ -945,12 +947,12 @@
     {
       "name": "WLD — Vyrae Landing",
       "blocks": [
-        { "type": "review", "settings": { "body": "Effet ventre plat immédiat et je me sens enfin à l'aise dans mes chemises ajustées. Je ne le quitte plus.", "author": "Marc L.", "verified": "Achat vérifié" } },
-        { "type": "review", "settings": { "body": "Mon dos me faisait mal au bureau. Depuis que je porte Vyrae, je me tiens droit sans y penser. Confort top.", "author": "Julien M.", "verified": "Achat vérifié" } },
-        { "type": "review", "settings": { "body": "Enfin un gainant qui ne roule pas et qui ne serre pas trop. La taille est parfaite, je l'oublie toute la journée.", "author": "Karim D.", "verified": "Achat vérifié" } },
-        { "type": "review", "settings": { "body": "Je l'ai pris pour un mariage, résultat impeccable sous ma chemise. J'en ai recommandé deux autres depuis.", "author": "Thomas B.", "verified": "Achat vérifié" } },
-        { "type": "review", "settings": { "body": "Qualité bien meilleure que ce que j'avais essayé avant. La compression est ferme mais on respire très bien.", "author": "Nicolas R.", "verified": "Achat vérifié" } },
-        { "type": "review", "settings": { "body": "Le rendu est exactement comme sur les photos. Sous une chemise, ma silhouette paraît immédiatement plus affûtée.", "author": "David T.", "verified": "Achat vérifié" } },
+        { "type": "review", "settings": { "rating": "5", "body": "À 58 ans je cherchais à camoufler mon petit ventre sous mes chemises. Effet immédiat et très confortable, je me sens plus à l'aise.", "author": "Gérard P.", "verified": "Achat vérifié" } },
+        { "type": "review", "settings": { "rating": "5", "body": "Discret et stylé, ça se voit pas du tout sous un t-shirt. Exactement ce que je cherchais pour mes soirées.", "author": "Enzo M.", "verified": "Achat vérifié" } },
+        { "type": "review", "settings": { "rating": "4", "body": "Bon maintien et confortable. J'aurais dû prendre une taille au-dessus, pensez à vérifier le guide des tailles avant.", "author": "Bernard L.", "verified": "Achat vérifié" } },
+        { "type": "review", "settings": { "rating": "5", "body": "Effet ventre plat direct et je me tiens plus droit aussi. Parfait sous une chemise cintrée.", "author": "Lucas D.", "verified": "Achat vérifié" } },
+        { "type": "review", "settings": { "rating": "4", "body": "Bonne qualité, ça serre bien sans gêner la respiration. Un peu chaud en plein été mais ça fait le job.", "author": "Michel R.", "verified": "Achat vérifié" } },
+        { "type": "review", "settings": { "rating": "5", "body": "Pris avant un mariage, nickel sous la chemise. Ma silhouette paraît tout de suite plus affûtée, j'en ai repris un deuxième.", "author": "Noah B.", "verified": "Achat vérifié" } },
         { "type": "faq", "settings": { "q": "Le débardeur se voit-il sous les vêtements ?", "a": "Non. La microfibre est ultra-fine et les bords sont sans couture : il reste totalement invisible, même sous un haut ajusté." } },
         { "type": "faq", "settings": { "q": "Comment choisir ma taille ?", "a": "Référez-vous à notre guide des tailles (du XS au 3XL). En cas d'hésitation entre deux tailles, prenez la plus grande pour un confort optimal." } },
         { "type": "faq", "settings": { "q": "Est-il confortable toute la journée ?", "a": "Oui. La compression est ferme mais répartie, et le tissu respirant évacue l'humidité : la plupart de nos clients le portent du matin au soir." } },
