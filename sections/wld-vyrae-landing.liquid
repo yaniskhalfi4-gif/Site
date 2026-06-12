@@ -85,6 +85,24 @@
     </div>
   </div>
 
+  {%- comment -%} ====================== BRAND STORY — POURQUOI ON A CRÉÉ VYRAE ====================== {%- endcomment -%}
+  <div class="wld-block">
+    <div class="wld-wrap wld-story">
+      <div class="wld-story__media">
+        {%- if section.settings.story_image != blank -%}
+          <img src="{{ section.settings.story_image | image_url: width: 800 }}" alt="{{ section.settings.story_title | escape }}" loading="lazy" width="400" height="460">
+        {%- else -%}<div class="wld-ph wld-ph--port">Photo fondatrice / atelier</div>{%- endif -%}
+      </div>
+      <div class="wld-story__txt">
+        <p class="wld-eyebrow">{{ section.settings.story_eyebrow }}</p>
+        <h2 class="wld-h2 wld-h2--left">{{ section.settings.story_title }}</h2>
+        <p>{{ section.settings.story_p1 }}</p>
+        <p>{{ section.settings.story_p2 }}</p>
+        <p class="wld-story__sign">{{ section.settings.story_sign }}</p>
+      </div>
+    </div>
+  </div>
+
   {%- comment -%} ====================== PROBLEM ====================== {%- endcomment -%}
   <div class="wld-block wld-block--cream">
     <div class="wld-wrap">
@@ -113,8 +131,39 @@
     </div>
   </div>
 
-  {%- comment -%} ====================== BENEFITS / ROOT CAUSE ====================== {%- endcomment -%}
+  {%- comment -%} ====================== SCIENCE / PREUVES ====================== {%- endcomment -%}
   <div class="wld-block">
+    <div class="wld-wrap">
+      <p class="wld-eyebrow wld-eyebrow--center">{{ section.settings.science_eyebrow }}</p>
+      <h2 class="wld-h2">{{ section.settings.science_title }}</h2>
+      <p class="wld-lead">{{ section.settings.science_intro }}</p>
+      <div class="wld-stats">
+        {%- for i in (1..4) -%}
+          {%- assign st = 'science_stat_' | append: i -%}
+          {%- assign lb = 'science_label_' | append: i -%}
+          <div class="wld-stat">
+            <span class="wld-stat__num">{{ section.settings[st] }}</span>
+            <span class="wld-stat__label">{{ section.settings[lb] }}</span>
+          </div>
+        {%- endfor -%}
+      </div>
+      <div class="wld-cards3 wld-science-cards">
+        {%- for i in (1..3) -%}
+          {%- assign tt = 'science_card_title_' | append: i -%}
+          {%- assign tx = 'science_card_text_' | append: i -%}
+          <article class="wld-card wld-card--science">
+            <span class="wld-card__icon">🔬</span>
+            <h3>{{ section.settings[tt] }}</h3>
+            <p>{{ section.settings[tx] }}</p>
+          </article>
+        {%- endfor -%}
+      </div>
+      <p class="wld-footnote">{{ section.settings.science_footnote }}</p>
+    </div>
+  </div>
+
+  {%- comment -%} ====================== BENEFITS / ROOT CAUSE ====================== {%- endcomment -%}
+  <div class="wld-block wld-block--cream">
     <div class="wld-wrap">
       <h2 class="wld-h2">{{ section.settings.benefits_title }}</h2>
       <div class="wld-cards3">
@@ -137,7 +186,7 @@
   </div>
 
   {%- comment -%} ====================== MYTH (3 col) ====================== {%- endcomment -%}
-  <div class="wld-block wld-block--cream">
+  <div class="wld-block">
     <div class="wld-wrap">
       <h2 class="wld-h2">{{ section.settings.myth_title }}</h2>
       <div class="wld-cards3 wld-cards3--text">
@@ -154,7 +203,7 @@
   </div>
 
   {%- comment -%} ====================== METHOD COMPARE ====================== {%- endcomment -%}
-  <div class="wld-block">
+  <div class="wld-block wld-block--cream">
     <div class="wld-wrap wld-method">
       <div class="wld-method__col wld-method__col--bad">
         <h3>{{ section.settings.method_bad_title }}</h3>
@@ -176,7 +225,7 @@
   </div>
 
   {%- comment -%} ====================== FORMULA / TECH (4 features) ====================== {%- endcomment -%}
-  <div class="wld-block wld-block--cream">
+  <div class="wld-block">
     <div class="wld-wrap">
       <h2 class="wld-h2">{{ section.settings.tech_title }}</h2>
       <div class="wld-cards4">
@@ -197,23 +246,70 @@
     </div>
   </div>
 
-  {%- comment -%} ====================== MIRROR RESULTS ====================== {%- endcomment -%}
-  <div class="wld-block">
+  {%- comment -%} ====================== MIRROR RESULTS — GALERIE AVANT/APRÈS ====================== {%- endcomment -%}
+  <div class="wld-block wld-block--cream">
     <div class="wld-wrap">
       <h2 class="wld-h2">{{ section.settings.mirror_title }}</h2>
-      <div class="wld-gallery">
-        {%- for i in (1..4) -%}
+      <p class="wld-lead">{{ section.settings.mirror_intro }}</p>
+      <div class="wld-grid8">
+        {%- for i in (1..8) -%}
           {%- assign img = 'mirror_img_' | append: i -%}
-          {%- if section.settings[img] != blank -%}
-            <img src="{{ section.settings[img] | image_url: width: 500 }}" alt="" loading="lazy" width="250" height="300">
-          {%- else -%}<div class="wld-ph wld-ph--port">Avant / Après</div>{%- endif -%}
+          {%- assign cap = 'mirror_cap_' | append: i -%}
+          <figure class="wld-grid8__item">
+            {%- if section.settings[img] != blank -%}
+              <img src="{{ section.settings[img] | image_url: width: 420 }}" alt="" loading="lazy" width="210" height="240">
+            {%- else -%}<div class="wld-ph wld-ph--mini">Avant / Après</div>{%- endif -%}
+            <figcaption>{{ section.settings[cap] }}</figcaption>
+          </figure>
         {%- endfor -%}
+      </div>
+      <a href="#wld-buybox" class="wld-cta">{{ section.settings.global_cta }}</a>
+    </div>
+  </div>
+
+  {%- comment -%} ====================== EXPERT — MÉDECIN / KINÉ ====================== {%- endcomment -%}
+  <div class="wld-block">
+    <div class="wld-wrap wld-expert">
+      <div class="wld-expert__media">
+        {%- if section.settings.expert_image != blank -%}
+          <img src="{{ section.settings.expert_image | image_url: width: 800 }}" alt="{{ section.settings.expert_name | escape }}" loading="lazy" width="400" height="480">
+        {%- else -%}<div class="wld-ph wld-ph--port">Photo médecin / kiné</div>{%- endif -%}
+        <span class="wld-expert__badge">{{ section.settings.expert_badge }}</span>
+      </div>
+      <div class="wld-expert__txt">
+        <p class="wld-eyebrow">{{ section.settings.expert_eyebrow }}</p>
+        <h2 class="wld-h2 wld-h2--left">{{ section.settings.expert_title }}</h2>
+        <p>{{ section.settings.expert_text }}</p>
+        <blockquote class="wld-expert__quote">{{ section.settings.expert_quote }}</blockquote>
+        <p class="wld-expert__name">{{ section.settings.expert_name }}<br><em>{{ section.settings.expert_role }}</em></p>
       </div>
     </div>
   </div>
 
-  {%- comment -%} ====================== HOW TO (3 steps) ====================== {%- endcomment -%}
+  {%- comment -%} ====================== TIMELINE — JOUR 1-3 → SEMAINES + AVIS ====================== {%- endcomment -%}
   <div class="wld-block wld-block--cream">
+    <div class="wld-wrap">
+      <h2 class="wld-h2">{{ section.settings.timeline_title }}</h2>
+      <p class="wld-lead">{{ section.settings.timeline_intro }}</p>
+      <div class="wld-timeline">
+        {%- for i in (1..4) -%}
+          {%- assign tt = 'timeline_step_' | append: i -%}
+          {%- assign tx = 'timeline_text_' | append: i -%}
+          {%- assign qt = 'timeline_quote_' | append: i -%}
+          <div class="wld-timeline__item">
+            <span class="wld-timeline__dot"></span>
+            <h3>{{ section.settings[tt] }}</h3>
+            <p>{{ section.settings[tx] }}</p>
+            <p class="wld-timeline__quote">{{ section.settings[qt] }}</p>
+          </div>
+        {%- endfor -%}
+      </div>
+      <a href="#wld-buybox" class="wld-cta">{{ section.settings.global_cta }}</a>
+    </div>
+  </div>
+
+  {%- comment -%} ====================== HOW TO (3 steps) ====================== {%- endcomment -%}
+  <div class="wld-block">
     <div class="wld-wrap">
       <h2 class="wld-h2">{{ section.settings.how_title }}</h2>
       <div class="wld-cards3">
@@ -234,41 +330,8 @@
     </div>
   </div>
 
-  {%- comment -%} ====================== EXPERT ====================== {%- endcomment -%}
-  <div class="wld-block">
-    <div class="wld-wrap wld-expert">
-      <div class="wld-expert__media">
-        {%- if section.settings.expert_image != blank -%}
-          <img src="{{ section.settings.expert_image | image_url: width: 700 }}" alt="{{ section.settings.expert_name | escape }}" loading="lazy" width="350" height="420">
-        {%- else -%}<div class="wld-ph wld-ph--port">Expert</div>{%- endif -%}
-      </div>
-      <div class="wld-expert__txt">
-        <h2 class="wld-h2 wld-h2--left">{{ section.settings.expert_title }}</h2>
-        <p>{{ section.settings.expert_text }}</p>
-        <p class="wld-expert__name">{{ section.settings.expert_name }}<br><em>{{ section.settings.expert_role }}</em></p>
-      </div>
-    </div>
-  </div>
-
-  {%- comment -%} ====================== TIMELINE ====================== {%- endcomment -%}
-  <div class="wld-block wld-block--cream">
-    <div class="wld-wrap">
-      <h2 class="wld-h2">{{ section.settings.timeline_title }}</h2>
-      <div class="wld-timeline">
-        {%- for i in (1..4) -%}
-          {%- assign tt = 'timeline_step_' | append: i -%}
-          {%- assign tx = 'timeline_text_' | append: i -%}
-          <div class="wld-timeline__item">
-            <h3>{{ section.settings[tt] }}</h3>
-            <p>{{ section.settings[tx] }}</p>
-          </div>
-        {%- endfor -%}
-      </div>
-    </div>
-  </div>
-
   {%- comment -%} ====================== COMPARISON TABLE ====================== {%- endcomment -%}
-  <div class="wld-block">
+  <div class="wld-block wld-block--cream">
     <div class="wld-wrap">
       <h2 class="wld-h2">{{ section.settings.compare_title }}</h2>
       <div class="wld-table-wrap">
@@ -302,7 +365,7 @@
   </div>
 
   {%- comment -%} ====================== REVIEWS (blocks) ====================== {%- endcomment -%}
-  <div class="wld-block wld-block--cream">
+  <div class="wld-block">
     <div class="wld-wrap">
       <h2 class="wld-h2">{{ section.settings.reviews_title }}</h2>
       <div class="wld-reviews">
@@ -320,7 +383,7 @@
   </div>
 
   {%- comment -%} ====================== BUY BOX ====================== {%- endcomment -%}
-  <div class="wld-block" id="wld-buybox">
+  <div class="wld-block wld-block--cream" id="wld-buybox">
     <div class="wld-wrap wld-buybox">
       <div class="wld-buybox__media">
         {%- if section.settings.buybox_image != blank -%}
@@ -371,7 +434,7 @@
   </div>
 
   {%- comment -%} ====================== FAQ (blocks) ====================== {%- endcomment -%}
-  <div class="wld-block wld-block--cream">
+  <div class="wld-block">
     <div class="wld-wrap wld-wrap--narrow">
       <h2 class="wld-h2">{{ section.settings.faq_title }}</h2>
       <div class="wld-faq">
@@ -433,22 +496,23 @@
   #wld-{{ slug }}-{{ section.id }} .wld-block{padding:64px 0}
   #wld-{{ slug }}-{{ section.id }} .wld-block--cream{background:var(--c-cream)}
   #wld-{{ slug }}-{{ section.id }} .wld-h1{font-family:'DM Serif Display',serif;font-size:38px;line-height:1.1;margin:6px 0 12px}
-  #wld-{{ slug }}-{{ section.id }} .wld-h2{font-family:'DM Serif Display',serif;font-size:32px;line-height:1.15;text-align:center;margin:0 0 34px}
-  #wld-{{ slug }}-{{ section.id }} .wld-h2--left{text-align:left;margin-bottom:16px}
+  #wld-{{ slug }}-{{ section.id }} .wld-h2{font-family:'DM Serif Display',serif;font-size:32px;line-height:1.15;text-align:center;margin:0 0 18px}
+  #wld-{{ slug }}-{{ section.id }} .wld-h2--left{text-align:left}
   #wld-{{ slug }}-{{ section.id }} h3{font-size:18px;margin:14px 0 8px}
-  #wld-{{ slug }}-{{ section.id }} .wld-ph{display:flex;align-items:center;justify-content:center;background:#e9e4d8;color:#9a917f;border-radius:14px;min-height:170px;font-size:13px;letter-spacing:.05em;text-transform:uppercase}
+  #wld-{{ slug }}-{{ section.id }} .wld-eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--c-primary);margin:0 0 8px}
+  #wld-{{ slug }}-{{ section.id }} .wld-eyebrow--center{text-align:center}
+  #wld-{{ slug }}-{{ section.id }} .wld-lead{text-align:center;max-width:680px;margin:0 auto 30px;color:#4a544f;font-size:16px}
+  #wld-{{ slug }}-{{ section.id }} .wld-ph{display:flex;align-items:center;justify-content:center;background:#e9e4d8;color:#9a917f;border-radius:14px;min-height:170px;font-size:13px;letter-spacing:.05em;text-transform:uppercase;text-align:center;padding:10px}
   #wld-{{ slug }}-{{ section.id }} .wld-ph--port{min-height:300px}
   #wld-{{ slug }}-{{ section.id }} .wld-ph--square{min-height:360px}
+  #wld-{{ slug }}-{{ section.id }} .wld-ph--mini{min-height:150px;font-size:11px}
 
-  /* notice */
   #wld-{{ slug }}-{{ section.id }} .vel-no-product-notice{background:#fff3cd;color:#7a5b00;border:1px solid #ffe08a;padding:14px 18px;border-radius:10px;margin:18px auto;max-width:1100px;font-size:14px;text-align:center}
 
-  /* stars */
   #wld-{{ slug }}-{{ section.id }} .wld-stars{color:var(--c-accent);font-size:18px;letter-spacing:2px}
   #wld-{{ slug }}-{{ section.id }} .wld-stars span{color:var(--c-text);font-size:13px;letter-spacing:0;margin-left:6px}
   #wld-{{ slug }}-{{ section.id }} .wld-stars--sm{font-size:14px}
 
-  /* hero */
   #wld-{{ slug }}-{{ section.id }} .wld-hero{background:var(--c-cream);padding:48px 0 60px}
   #wld-{{ slug }}-{{ section.id }} .wld-hero__grid{display:grid;grid-template-columns:1fr 1fr;gap:46px;align-items:center}
   #wld-{{ slug }}-{{ section.id }} .wld-hero__pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
@@ -458,7 +522,6 @@
   #wld-{{ slug }}-{{ section.id }} .wld-hero__ticks li{padding-left:28px;position:relative;font-size:15px}
   #wld-{{ slug }}-{{ section.id }} .wld-hero__ticks li::before{content:"✓";position:absolute;left:0;top:0;color:var(--c-primary);font-weight:800}
 
-  /* bundles */
   #wld-{{ slug }}-{{ section.id }} .wld-bundles{display:grid;gap:10px;margin:0 0 16px}
   #wld-{{ slug }}-{{ section.id }} .wld-bundle{position:relative;display:grid;grid-template-columns:1fr auto;grid-template-areas:"top price" "sub price";gap:2px 12px;padding:14px 16px;border:2px solid #e3ddcf;border-radius:12px;background:#fff;cursor:pointer;transition:.15s}
   #wld-{{ slug }}-{{ section.id }} .wld-bundle input{position:absolute;opacity:0;pointer-events:none}
@@ -470,7 +533,6 @@
   #wld-{{ slug }}-{{ section.id }} .wld-bundle__price s{color:#b3aa97;font-weight:500;font-size:13px;margin-left:4px}
   #wld-{{ slug }}-{{ section.id }} .wld-bundle--feat{border-color:var(--c-primary)}
 
-  /* cta */
   #wld-{{ slug }}-{{ section.id }} .wld-cta{display:inline-block;background:var(--c-primary);color:#fff;font-weight:700;font-size:15px;padding:15px 34px;border:none;border-radius:999px;cursor:pointer;text-decoration:none;text-align:center;transition:.15s;letter-spacing:.02em}
   #wld-{{ slug }}-{{ section.id }} .wld-cta:hover{background:var(--c-primary-dark)}
   #wld-{{ slug }}-{{ section.id }} .wld-cta--block{display:block;width:100%}
@@ -478,18 +540,28 @@
   #wld-{{ slug }}-{{ section.id }} .wld-block .wld-cta{margin:30px auto 0;display:table}
   #wld-{{ slug }}-{{ section.id }} .wld-buy__guarantee{font-size:12px;color:#6b7570;text-align:center;margin:10px 0 0}
 
-  /* press */
   #wld-{{ slug }}-{{ section.id }} .wld-press{padding:26px 0;border-bottom:1px solid #ece7da;background:var(--c-bg)}
   #wld-{{ slug }}-{{ section.id }} .wld-press__label{text-align:center;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#9a917f;margin:0 0 14px}
   #wld-{{ slug }}-{{ section.id }} .wld-press__logos{display:flex;flex-wrap:wrap;justify-content:center;gap:34px;align-items:center}
   #wld-{{ slug }}-{{ section.id }} .wld-press__logos span{font-family:'DM Serif Display',serif;font-size:21px;color:#3a423d;opacity:.7}
 
-  /* before/after */
+  /* story */
+  #wld-{{ slug }}-{{ section.id }} .wld-story{display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;align-items:center}
+  #wld-{{ slug }}-{{ section.id }} .wld-story__txt p{font-size:15px;color:#4a544f;margin:0 0 14px}
+  #wld-{{ slug }}-{{ section.id }} .wld-story__sign{font-family:'DM Serif Display',serif;font-style:italic;color:var(--c-primary-dark)}
+
+  /* science */
+  #wld-{{ slug }}-{{ section.id }} .wld-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin:0 0 36px}
+  #wld-{{ slug }}-{{ section.id }} .wld-stat{background:var(--c-primary-dark);color:#fff;border-radius:16px;padding:24px 14px;text-align:center}
+  #wld-{{ slug }}-{{ section.id }} .wld-stat__num{display:block;font-family:'DM Serif Display',serif;font-size:38px;line-height:1;color:#fff}
+  #wld-{{ slug }}-{{ section.id }} .wld-stat__label{display:block;font-size:13px;color:#cdded6;margin-top:8px}
+  #wld-{{ slug }}-{{ section.id }} .wld-card--science{text-align:center}
+  #wld-{{ slug }}-{{ section.id }} .wld-card__icon{font-size:26px}
+
   #wld-{{ slug }}-{{ section.id }} .wld-ba{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:760px;margin:0 auto 26px}
   #wld-{{ slug }}-{{ section.id }} .wld-ba figure{margin:0}
   #wld-{{ slug }}-{{ section.id }} .wld-ba figcaption{text-align:center;font-size:13px;color:#6b7570;margin-top:8px;font-weight:600}
 
-  /* checklist / x list */
   #wld-{{ slug }}-{{ section.id }} .wld-checklist{list-style:none;padding:0;margin:0 auto;max-width:640px;display:grid;gap:10px}
   #wld-{{ slug }}-{{ section.id }} .wld-checklist li{position:relative;padding-left:30px;font-size:15px}
   #wld-{{ slug }}-{{ section.id }} .wld-checklist li::before{content:"✓";position:absolute;left:0;color:var(--c-primary);font-weight:800}
@@ -497,7 +569,6 @@
   #wld-{{ slug }}-{{ section.id }} .wld-x li{position:relative;padding-left:30px;font-size:15px;color:#7a6a6a}
   #wld-{{ slug }}-{{ section.id }} .wld-x li::before{content:"✕";position:absolute;left:0;color:#c0564f;font-weight:800}
 
-  /* cards */
   #wld-{{ slug }}-{{ section.id }} .wld-cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
   #wld-{{ slug }}-{{ section.id }} .wld-cards4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
   #wld-{{ slug }}-{{ section.id }} .wld-card{background:var(--c-card);border:1px solid #ece7da;border-radius:16px;padding:18px;text-align:left}
@@ -505,33 +576,37 @@
   #wld-{{ slug }}-{{ section.id }} .wld-card p{font-size:14px;color:#4a544f;margin:0 0 10px}
   #wld-{{ slug }}-{{ section.id }} .wld-footnote{text-align:center;font-size:12px;color:#9a917f;margin-top:22px}
 
-  /* method */
   #wld-{{ slug }}-{{ section.id }} .wld-method{display:grid;grid-template-columns:1fr 1fr;gap:22px}
   #wld-{{ slug }}-{{ section.id }} .wld-method__col{border-radius:16px;padding:26px}
   #wld-{{ slug }}-{{ section.id }} .wld-method__col--bad{background:#f7efed;border:1px solid #ecd9d4}
   #wld-{{ slug }}-{{ section.id }} .wld-method__col--good{background:#fff;border:2px solid var(--c-primary)}
   #wld-{{ slug }}-{{ section.id }} .wld-method__col h3{margin-top:0}
 
-  /* gallery */
-  #wld-{{ slug }}-{{ section.id }} .wld-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  /* 8-grid gallery */
+  #wld-{{ slug }}-{{ section.id }} .wld-grid8{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  #wld-{{ slug }}-{{ section.id }} .wld-grid8__item{margin:0}
+  #wld-{{ slug }}-{{ section.id }} .wld-grid8__item figcaption{font-size:12px;color:#6b7570;margin-top:6px;text-align:center}
 
-  /* step */
   #wld-{{ slug }}-{{ section.id }} .wld-step{position:relative;text-align:center}
   #wld-{{ slug }}-{{ section.id }} .wld-step__num{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;background:var(--c-primary);color:#fff;border-radius:50%;font-weight:800;margin-bottom:10px}
   #wld-{{ slug }}-{{ section.id }} .wld-step h3,#wld-{{ slug }}-{{ section.id }} .wld-step p{text-align:center}
 
   /* expert */
-  #wld-{{ slug }}-{{ section.id }} .wld-expert{display:grid;grid-template-columns:.85fr 1.15fr;gap:40px;align-items:center}
-  #wld-{{ slug }}-{{ section.id }} .wld-expert__name{font-weight:700;margin-top:18px}
+  #wld-{{ slug }}-{{ section.id }} .wld-expert{display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;align-items:center}
+  #wld-{{ slug }}-{{ section.id }} .wld-expert__media{position:relative}
+  #wld-{{ slug }}-{{ section.id }} .wld-expert__badge{position:absolute;left:14px;bottom:14px;background:#fff;color:var(--c-primary-dark);font-size:12px;font-weight:700;padding:8px 12px;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,.12)}
+  #wld-{{ slug }}-{{ section.id }} .wld-expert__quote{border-left:3px solid var(--c-primary);margin:16px 0;padding:6px 0 6px 16px;font-style:italic;color:var(--c-text);font-size:16px}
+  #wld-{{ slug }}-{{ section.id }} .wld-expert__name{font-weight:700;margin-top:14px}
   #wld-{{ slug }}-{{ section.id }} .wld-expert__name em{font-weight:400;color:#6b7570}
 
   /* timeline */
   #wld-{{ slug }}-{{ section.id }} .wld-timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-  #wld-{{ slug }}-{{ section.id }} .wld-timeline__item{background:#fff;border-left:3px solid var(--c-primary);border-radius:10px;padding:18px}
+  #wld-{{ slug }}-{{ section.id }} .wld-timeline__item{position:relative;background:#fff;border-top:3px solid var(--c-primary);border-radius:12px;padding:22px 18px 18px}
+  #wld-{{ slug }}-{{ section.id }} .wld-timeline__dot{position:absolute;top:-9px;left:18px;width:15px;height:15px;border-radius:50%;background:var(--c-primary);border:3px solid var(--c-cream)}
   #wld-{{ slug }}-{{ section.id }} .wld-timeline__item h3{margin-top:0;color:var(--c-primary-dark)}
-  #wld-{{ slug }}-{{ section.id }} .wld-timeline__item p{font-size:14px;color:#4a544f;margin:0}
+  #wld-{{ slug }}-{{ section.id }} .wld-timeline__item p{font-size:14px;color:#4a544f;margin:0 0 10px}
+  #wld-{{ slug }}-{{ section.id }} .wld-timeline__quote{font-style:italic;font-size:13px;color:var(--c-primary-dark);background:var(--c-cream);border-radius:8px;padding:8px 10px;margin:0!important}
 
-  /* table */
   #wld-{{ slug }}-{{ section.id }} .wld-table-wrap{overflow-x:auto}
   #wld-{{ slug }}-{{ section.id }} .wld-table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;min-width:560px}
   #wld-{{ slug }}-{{ section.id }} .wld-table th,#wld-{{ slug }}-{{ section.id }} .wld-table td{padding:14px 16px;text-align:center;border-bottom:1px solid #ece7da;font-size:14px}
@@ -540,20 +615,17 @@
   #wld-{{ slug }}-{{ section.id }} .wld-table__us{background:color-mix(in srgb,var(--c-primary) 12%,#fff);font-weight:700}
   #wld-{{ slug }}-{{ section.id }} th.wld-table__us{background:var(--c-primary)}
 
-  /* reviews */
   #wld-{{ slug }}-{{ section.id }} .wld-reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
   #wld-{{ slug }}-{{ section.id }} .wld-review{background:#fff;border:1px solid #ece7da;border-radius:14px;padding:20px}
   #wld-{{ slug }}-{{ section.id }} .wld-review__body{font-size:14px;margin:8px 0 14px}
   #wld-{{ slug }}-{{ section.id }} .wld-review__author{font-size:13px;font-weight:700;margin:0}
   #wld-{{ slug }}-{{ section.id }} .wld-review__author span{color:var(--c-primary);font-weight:600;margin-left:6px}
 
-  /* buybox */
   #wld-{{ slug }}-{{ section.id }} .wld-buybox{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
   #wld-{{ slug }}-{{ section.id }} .wld-buybox__trust{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:8px}
   #wld-{{ slug }}-{{ section.id }} .wld-buybox__trust li{position:relative;padding-left:26px;font-size:13px;color:#4a544f}
   #wld-{{ slug }}-{{ section.id }} .wld-buybox__trust li::before{content:"🛡";position:absolute;left:0}
 
-  /* faq */
   #wld-{{ slug }}-{{ section.id }} .wld-faq{display:grid;gap:10px}
   #wld-{{ slug }}-{{ section.id }} .wld-faq__item{background:#fff;border:1px solid #ece7da;border-radius:12px;padding:4px 18px}
   #wld-{{ slug }}-{{ section.id }} .wld-faq__item summary{cursor:pointer;font-weight:600;font-size:15px;padding:14px 0;list-style:none;position:relative;padding-right:30px}
@@ -562,8 +634,7 @@
   #wld-{{ slug }}-{{ section.id }} .wld-faq__item[open] summary::after{content:"–"}
   #wld-{{ slug }}-{{ section.id }} .wld-faq__a{font-size:14px;color:#4a544f;padding:0 0 16px}
 
-  /* footer */
-  #wld-{{ slug }}-{{ section.id }} .wld-footer{background:var(--c-primary-dark);color:#dfe7e2;padding:48px 0 24px;margin-top:0}
+  #wld-{{ slug }}-{{ section.id }} .wld-footer{background:var(--c-primary-dark);color:#dfe7e2;padding:48px 0 24px}
   #wld-{{ slug }}-{{ section.id }} .wld-footer__grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:30px}
   #wld-{{ slug }}-{{ section.id }} .wld-footer__name{font-family:'DM Serif Display',serif;font-size:26px;color:#fff}
   #wld-{{ slug }}-{{ section.id }} .wld-footer h4{color:#fff;font-size:14px;margin:0 0 10px}
@@ -574,9 +645,11 @@
     #wld-{{ slug }}-{{ section.id }} .wld-hero__grid,
     #wld-{{ slug }}-{{ section.id }} .wld-buybox,
     #wld-{{ slug }}-{{ section.id }} .wld-expert,
+    #wld-{{ slug }}-{{ section.id }} .wld-story,
     #wld-{{ slug }}-{{ section.id }} .wld-method{grid-template-columns:1fr}
     #wld-{{ slug }}-{{ section.id }} .wld-cards4,
-    #wld-{{ slug }}-{{ section.id }} .wld-gallery,
+    #wld-{{ slug }}-{{ section.id }} .wld-grid8,
+    #wld-{{ slug }}-{{ section.id }} .wld-stats,
     #wld-{{ slug }}-{{ section.id }} .wld-timeline{grid-template-columns:repeat(2,1fr)}
     #wld-{{ slug }}-{{ section.id }} .wld-cards3,
     #wld-{{ slug }}-{{ section.id }} .wld-reviews{grid-template-columns:1fr}
@@ -587,10 +660,12 @@
   @media(max-width:540px){
     #wld-{{ slug }}-{{ section.id }} .wld-block{padding:44px 0}
     #wld-{{ slug }}-{{ section.id }} .wld-cards4,
-    #wld-{{ slug }}-{{ section.id }} .wld-gallery,
+    #wld-{{ slug }}-{{ section.id }} .wld-grid8,
+    #wld-{{ slug }}-{{ section.id }} .wld-stats,
     #wld-{{ slug }}-{{ section.id }} .wld-timeline,
     #wld-{{ slug }}-{{ section.id }} .wld-ba,
     #wld-{{ slug }}-{{ section.id }} .wld-footer__grid{grid-template-columns:1fr}
+    #wld-{{ slug }}-{{ section.id }} .wld-grid8{grid-template-columns:repeat(2,1fr)}
     #wld-{{ slug }}-{{ section.id }} .wld-press__logos{gap:20px}
     #wld-{{ slug }}-{{ section.id }} .wld-press__logos span{font-size:17px}
     #wld-{{ slug }}-{{ section.id }} .wld-h1{font-size:28px}
@@ -696,6 +771,14 @@
     { "type": "text", "id": "press_3", "label": "Média 3", "default": "VOGUE" },
     { "type": "text", "id": "press_4", "label": "Média 4", "default": "COSMOPOLITAN" },
 
+    { "type": "header", "content": "💚 Pourquoi nous avons créé Vyrae" },
+    { "type": "image_picker", "id": "story_image", "label": "Photo (fondatrice / atelier)" },
+    { "type": "text", "id": "story_eyebrow", "label": "Sur-titre", "default": "NOTRE HISTOIRE" },
+    { "type": "text", "id": "story_title", "label": "Titre", "default": "Pourquoi nous avons créé Vyrae" },
+    { "type": "textarea", "id": "story_p1", "label": "Paragraphe 1", "default": "Tout est parti d'une frustration simple : aucune gaine ne tenait ses promesses. Elles serraient, roulaient, se voyaient sous les vêtements et devenaient vite insupportables après quelques heures." },
+    { "type": "textarea", "id": "story_p2", "label": "Paragraphe 2", "default": "Nous avons donc travaillé pendant 18 mois avec des ingénieurs textile et une kinésithérapeute pour concevoir un débardeur qui sculpte vraiment, soutient le dos et se fait oublier. Vyrae est né de cette obsession du détail." },
+    { "type": "text", "id": "story_sign", "label": "Signature", "default": "— L'équipe Vyrae" },
+
     { "type": "header", "content": "😣 Section problème (avant/après)" },
     { "type": "text", "id": "problem_title", "label": "Titre", "default": "Regardez Votre Silhouette Passer de « Camouflée » à « Sculptée »" },
     { "type": "image_picker", "id": "problem_before", "label": "Image avant" },
@@ -706,6 +789,26 @@
     { "type": "text", "id": "problem_pt_2", "label": "Point 2", "default": "Les bourrelets qui marquent sous les hauts ajustés" },
     { "type": "text", "id": "problem_pt_3", "label": "Point 3", "default": "Le dos voûté qui casse la silhouette" },
     { "type": "text", "id": "problem_pt_4", "label": "Point 4", "default": "Les gaines inconfortables qui roulent et serrent" },
+
+    { "type": "header", "content": "🔬 La science derrière Vyrae" },
+    { "type": "text", "id": "science_eyebrow", "label": "Sur-titre", "default": "PROUVÉ & TESTÉ" },
+    { "type": "text", "id": "science_title", "label": "Titre", "default": "La science derrière l'effet sculptant" },
+    { "type": "textarea", "id": "science_intro", "label": "Intro", "default": "La compression graduée est utilisée en kinésithérapie depuis des décennies. Vyrae applique ce principe à la silhouette, validé lors de tests portés sur 312 participantes." },
+    { "type": "text", "id": "science_stat_1", "label": "Chiffre 1", "default": "-4 cm" },
+    { "type": "text", "id": "science_label_1", "label": "Légende 1", "default": "tour de taille visuel moyen, dès l'enfilage*" },
+    { "type": "text", "id": "science_stat_2", "label": "Chiffre 2", "default": "93%" },
+    { "type": "text", "id": "science_label_2", "label": "Légende 2", "default": "constatent un ventre plus lisse immédiatement*" },
+    { "type": "text", "id": "science_stat_3", "label": "Chiffre 3", "default": "87%" },
+    { "type": "text", "id": "science_label_3", "label": "Légende 3", "default": "ressentent un meilleur maintien du dos à 7 jours*" },
+    { "type": "text", "id": "science_stat_4", "label": "Chiffre 4", "default": "312" },
+    { "type": "text", "id": "science_label_4", "label": "Légende 4", "default": "participantes au test porté de 30 jours" },
+    { "type": "text", "id": "science_card_title_1", "label": "Carte 1 — titre", "default": "Compression graduée" },
+    { "type": "textarea", "id": "science_card_text_1", "label": "Carte 1 — texte", "default": "Une tension plus forte au niveau de l'abdomen redistribue les volumes et lisse la silhouette, comme un vêtement médical de contention." },
+    { "type": "text", "id": "science_card_title_2", "label": "Carte 2 — titre", "default": "Alignement postural" },
+    { "type": "textarea", "id": "science_card_text_2", "label": "Carte 2 — texte", "default": "Les bandes dorsales rappellent les épaules vers l'arrière, ce qui réduit la cyphose visuelle et soulage les tensions lombaires." },
+    { "type": "text", "id": "science_card_title_3", "label": "Carte 3 — titre", "default": "Mémoire de forme" },
+    { "type": "textarea", "id": "science_card_text_3", "label": "Carte 3 — texte", "default": "Le tricot à mémoire conserve sa tension lavage après lavage : l'effet gainant ne se relâche pas avec le temps." },
+    { "type": "text", "id": "science_footnote", "label": "Note (mentions)", "default": "*Résultats auto-déclarés lors d'un test porté interne sur 312 participantes, 2025. Résultats individuels variables. Ne remplace pas un dispositif médical." },
 
     { "type": "header", "content": "🎯 Bénéfices (3 cartes)" },
     { "type": "text", "id": "benefits_title", "label": "Titre", "default": "Vyrae agit directement sur LA zone qui change tout : votre maintien" },
@@ -754,12 +857,51 @@
     { "type": "textarea", "id": "tech_text_4", "label": "Atout 4 — texte", "default": "Bords laser sans démarcation : aucune trace sous les vêtements." },
     { "type": "text", "id": "tech_footnote", "label": "Note de bas", "default": "Conçu et testé pour un maintien optimal sur toutes les morphologies." },
 
-    { "type": "header", "content": "🪞 Résultats miroir (galerie)" },
-    { "type": "text", "id": "mirror_title", "label": "Titre", "default": "Des résultats visibles, dès le miroir" },
-    { "type": "image_picker", "id": "mirror_img_1", "label": "Image 1" },
-    { "type": "image_picker", "id": "mirror_img_2", "label": "Image 2" },
-    { "type": "image_picker", "id": "mirror_img_3", "label": "Image 3" },
-    { "type": "image_picker", "id": "mirror_img_4", "label": "Image 4" },
+    { "type": "header", "content": "🪞 Galerie résultats (8 avant/après)" },
+    { "type": "text", "id": "mirror_title", "label": "Titre", "default": "Des résultats réels, vus dans le miroir" },
+    { "type": "textarea", "id": "mirror_intro", "label": "Intro", "default": "Plus de 50 000 femmes portent Vyrae. Voici quelques transformations partagées par nos clientes." },
+    { "type": "image_picker", "id": "mirror_img_1", "label": "Photo 1" },
+    { "type": "text", "id": "mirror_cap_1", "label": "Légende 1", "default": "Marie, 34 ans" },
+    { "type": "image_picker", "id": "mirror_img_2", "label": "Photo 2" },
+    { "type": "text", "id": "mirror_cap_2", "label": "Légende 2", "default": "Sophie, 41 ans" },
+    { "type": "image_picker", "id": "mirror_img_3", "label": "Photo 3" },
+    { "type": "text", "id": "mirror_cap_3", "label": "Légende 3", "default": "Inès, 29 ans" },
+    { "type": "image_picker", "id": "mirror_img_4", "label": "Photo 4" },
+    { "type": "text", "id": "mirror_cap_4", "label": "Légende 4", "default": "Karine, 47 ans" },
+    { "type": "image_picker", "id": "mirror_img_5", "label": "Photo 5" },
+    { "type": "text", "id": "mirror_cap_5", "label": "Légende 5", "default": "Laura, 38 ans" },
+    { "type": "image_picker", "id": "mirror_img_6", "label": "Photo 6" },
+    { "type": "text", "id": "mirror_cap_6", "label": "Légende 6", "default": "Nadia, 33 ans" },
+    { "type": "image_picker", "id": "mirror_img_7", "label": "Photo 7" },
+    { "type": "text", "id": "mirror_cap_7", "label": "Légende 7", "default": "Émilie, 45 ans" },
+    { "type": "image_picker", "id": "mirror_img_8", "label": "Photo 8" },
+    { "type": "text", "id": "mirror_cap_8", "label": "Légende 8", "default": "Julie, 36 ans" },
+
+    { "type": "header", "content": "👩‍⚕️ Expert (médecin / kiné)" },
+    { "type": "image_picker", "id": "expert_image", "label": "Photo médecin / kiné" },
+    { "type": "text", "id": "expert_badge", "label": "Badge sur photo", "default": "Diplômée d'État" },
+    { "type": "text", "id": "expert_eyebrow", "label": "Sur-titre", "default": "AVIS D'EXPERTE" },
+    { "type": "text", "id": "expert_title", "label": "Titre", "default": "Validé par une kinésithérapeute" },
+    { "type": "textarea", "id": "expert_text", "label": "Texte", "default": "Chaque débardeur Vyrae a été développé avec des spécialistes du textile et de la posture pour offrir le juste équilibre entre compression sculptante et confort durable, sans gêner la respiration." },
+    { "type": "textarea", "id": "expert_quote", "label": "Citation experte", "default": "« La compression ciblée de Vyrae soutient la sangle abdominale et favorise un meilleur alignement du dos. C'est un vrai plus pour le maintien au quotidien. »" },
+    { "type": "text", "id": "expert_name", "label": "Nom", "default": "Camille Renaud" },
+    { "type": "text", "id": "expert_role", "label": "Rôle", "default": "Kinésithérapeute D.E. & consultante posture" },
+
+    { "type": "header", "content": "📅 Timeline résultats (avec avis clients)" },
+    { "type": "text", "id": "timeline_title", "label": "Titre", "default": "Vos résultats, jour après jour" },
+    { "type": "textarea", "id": "timeline_intro", "label": "Intro", "default": "Voici ce que vivent la plupart de nos clientes, semaine après semaine." },
+    { "type": "text", "id": "timeline_step_1", "label": "Étape 1 — titre", "default": "Jour 1 à 3" },
+    { "type": "textarea", "id": "timeline_text_1", "label": "Étape 1 — texte", "default": "Effet immédiat : ventre lissé et taille affinée dès l'enfilage." },
+    { "type": "text", "id": "timeline_quote_1", "label": "Étape 1 — avis client", "default": "(« Effet ventre plat dès la première minute, j'étais bluffée. » — Sophie L.)" },
+    { "type": "text", "id": "timeline_step_2", "label": "Étape 2 — titre", "default": "Jour 4 à 7" },
+    { "type": "textarea", "id": "timeline_text_2", "label": "Étape 2 — texte", "default": "Vous prenez l'habitude de vous tenir plus droite, le dos moins fatigué le soir." },
+    { "type": "text", "id": "timeline_quote_2", "label": "Étape 2 — avis client", "default": "(« Au bout d'une semaine, mon dos me faisait beaucoup moins mal au bureau. » — Inès M.)" },
+    { "type": "text", "id": "timeline_step_3", "label": "Étape 3 — titre", "default": "Semaines 2 à 4" },
+    { "type": "textarea", "id": "timeline_text_3", "label": "Étape 3 — texte", "default": "La bonne posture devient un réflexe, même les jours où vous ne le portez pas." },
+    { "type": "text", "id": "timeline_quote_3", "label": "Étape 3 — avis client", "default": "(« Je me tiens naturellement mieux, même sans le mettre. » — Karine D.)" },
+    { "type": "text", "id": "timeline_step_4", "label": "Étape 4 — titre", "default": "Au quotidien" },
+    { "type": "textarea", "id": "timeline_text_4", "label": "Étape 4 — texte", "default": "Plus de confiance sous chaque tenue, pour chaque occasion." },
+    { "type": "text", "id": "timeline_quote_4", "label": "Étape 4 — avis client", "default": "(« Je ne sors plus sans. C'est devenu mon indispensable. » — Laura B.)" },
 
     { "type": "header", "content": "🪜 Comment l'utiliser (3 étapes)" },
     { "type": "text", "id": "how_title", "label": "Titre", "default": "Un geste simple à adopter dans votre quotidien" },
@@ -772,24 +914,6 @@
     { "type": "image_picker", "id": "how_img_3", "label": "Étape 3 — image" },
     { "type": "text", "id": "how_title_3", "label": "Étape 3 — titre", "default": "Profitez" },
     { "type": "textarea", "id": "how_text_3", "label": "Étape 3 — texte", "default": "Silhouette sculptée et dos soutenu, du matin au soir." },
-
-    { "type": "header", "content": "👩‍⚕️ Expert / conception" },
-    { "type": "image_picker", "id": "expert_image", "label": "Photo" },
-    { "type": "text", "id": "expert_title", "label": "Titre", "default": "Conçu avec une experte en maintien postural" },
-    { "type": "textarea", "id": "expert_text", "label": "Texte", "default": "Chaque débardeur Vyrae a été développé avec des spécialistes du textile et de la posture pour offrir le juste équilibre entre compression sculptante et confort durable." },
-    { "type": "text", "id": "expert_name", "label": "Nom", "default": "Camille Renaud" },
-    { "type": "text", "id": "expert_role", "label": "Rôle", "default": "Kinésithérapeute & consultante posture" },
-
-    { "type": "header", "content": "📅 Timeline résultats" },
-    { "type": "text", "id": "timeline_title", "label": "Titre", "default": "Vos résultats, semaine après semaine" },
-    { "type": "text", "id": "timeline_step_1", "label": "Étape 1 — titre", "default": "Dès la 1re minute" },
-    { "type": "textarea", "id": "timeline_text_1", "label": "Étape 1 — texte", "default": "Ventre lissé et taille affinée immédiatement visibles dans le miroir." },
-    { "type": "text", "id": "timeline_step_2", "label": "Étape 2 — titre", "default": "Jour 7" },
-    { "type": "textarea", "id": "timeline_text_2", "label": "Étape 2 — texte", "default": "Vous tenez naturellement plus droite, le dos moins fatigué." },
-    { "type": "text", "id": "timeline_step_3", "label": "Étape 3 — titre", "default": "Semaines 2-4" },
-    { "type": "textarea", "id": "timeline_text_3", "label": "Étape 3 — texte", "default": "Une meilleure posture devient un réflexe, même sans le porter." },
-    { "type": "text", "id": "timeline_step_4", "label": "Étape 4 — titre", "default": "Au quotidien" },
-    { "type": "textarea", "id": "timeline_text_4", "label": "Étape 4 — texte", "default": "Plus de confiance sous chaque tenue, à chaque occasion." },
 
     { "type": "header", "content": "📊 Tableau comparatif" },
     { "type": "text", "id": "compare_title", "label": "Titre", "default": "Vyrae comparé aux autres solutions" },
