@@ -69,7 +69,7 @@
         </ul>
 
         {%- assign hero_form_id = 'wld-hero-form-' | append: section.id -%}
-        {%- form 'product', p, class: 'wld-buy', id: hero_form_id -%}
+        {%- capture buy_inner -%}
           <div class="wld-selector">
             <div class="wld-selector__head"><span class="wld-selector__label">Couleur</span><span class="wld-selector__val" data-color-val></span></div>
             <div class="wld-swatches" data-swatches>
@@ -123,7 +123,13 @@
           {%- if section.settings.hero_stock_note != blank -%}<p class="wld-stock">⚡ {{ section.settings.hero_stock_note }}</p>{%- endif -%}
           <button type="submit" class="wld-cta wld-cta--block"{% unless p != blank %} disabled{% endunless %}>{{ section.settings.hero_cta }}</button>
           <p class="wld-buy__guarantee">{{ section.settings.hero_guarantee }}</p>
-        {%- endform -%}
+        {%- endcapture -%}
+
+        {%- if p != blank -%}
+          {%- form 'product', p, class: 'wld-buy', id: hero_form_id -%}{{ buy_inner }}{%- endform -%}
+        {%- else -%}
+          <div class="wld-buy">{{ buy_inner }}</div>
+        {%- endif -%}
       </div>
     </div>
   </div>
