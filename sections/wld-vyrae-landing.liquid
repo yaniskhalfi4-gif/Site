@@ -45,10 +45,12 @@
   <div class="wld-hero" id="wld-top">
     <div class="wld-wrap wld-hero__grid">
       <div class="wld-hero__media">
-        {%- if section.settings.hero_image != blank -%}
+        {%- if section.settings.hero_video != blank -%}
+          {{ section.settings.hero_video | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, class: 'wld-hero__video' }}
+        {%- elsif section.settings.hero_image != blank -%}
           <img src="{{ section.settings.hero_image | image_url: width: 1200 }}" alt="{{ section.settings.hero_title | escape }}" loading="eager" width="600" height="600">
         {%- else -%}
-          <div class="wld-ph wld-ph--square">Image produit</div>
+          <div class="wld-ph wld-ph--square">Image ou vidéo produit</div>
         {%- endif -%}
         <div class="wld-hero__pills">
           <span>{{ section.settings.hero_pill_1 }}</span>
@@ -578,6 +580,7 @@
 
   #wld-{{ slug }}-{{ section.id }} .wld-hero{background:var(--c-cream);padding:48px 0 60px}
   #wld-{{ slug }}-{{ section.id }} .wld-hero__grid{display:grid;grid-template-columns:1fr 1fr;gap:46px;align-items:center}
+  #wld-{{ slug }}-{{ section.id }} .wld-hero__video{width:100%;height:auto;display:block;border-radius:14px}
   #wld-{{ slug }}-{{ section.id }} .wld-hero__pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
   #wld-{{ slug }}-{{ section.id }} .wld-hero__pills span{background:#fff;border:1px solid #e3ddcf;border-radius:999px;padding:7px 13px;font-size:12px;font-weight:600}
   #wld-{{ slug }}-{{ section.id }} .wld-hero__sub{font-size:16px;margin:0 0 16px;color:#4a544f}
@@ -884,7 +887,8 @@
     { "type": "text", "id": "header_cta", "label": "Bouton en-tête (à droite)", "default": "-50% Aujourd'hui" },
 
     { "type": "header", "content": "🦸 Hero" },
-    { "type": "image_picker", "id": "hero_image", "label": "Image produit hero" },
+    { "type": "video", "id": "hero_video", "label": "Vidéo hero (autoplay, remplace l'image si remplie)" },
+    { "type": "image_picker", "id": "hero_image", "label": "Image produit hero (si pas de vidéo)" },
     { "type": "text", "id": "hero_reviews_label", "label": "Label avis", "default": "4,8/5 · premiers avis clients vérifiés" },
     { "type": "text", "id": "hero_title", "label": "Titre", "default": "Le Débardeur de Compression qui Sculpte Votre Silhouette en 1 Seconde" },
     { "type": "textarea", "id": "hero_subtitle", "label": "Sous-titre", "default": "Vyrae gaine le ventre, affine la taille et redresse le dos — sous n'importe quelle tenue, sans qu'on le voie." },
