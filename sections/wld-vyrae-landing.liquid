@@ -522,8 +522,10 @@
     --c-card:#ffffff;
     font-family:'Inter',system-ui,-apple-system,sans-serif;
     color:var(--c-text);background:var(--c-bg);line-height:1.55;
+    overflow-x:hidden;
   }
   #wld-{{ slug }}-{{ section.id }} *{box-sizing:border-box}
+  #wld-{{ slug }}-{{ section.id }} .wld-logo__word{overflow-wrap:anywhere}
   #wld-{{ slug }}-{{ section.id }} img{max-width:100%;height:auto;display:block;border-radius:14px}
   #wld-{{ slug }}-{{ section.id }} .wld-wrap{max-width:1140px;margin:0 auto;padding:0 22px}
   #wld-{{ slug }}-{{ section.id }} .wld-wrap--narrow{max-width:820px}
@@ -749,6 +751,14 @@
     #wld-{{ slug }}-{{ section.id }} .wld-press__logos{gap:20px}
     #wld-{{ slug }}-{{ section.id }} .wld-press__logos span{font-size:17px}
     #wld-{{ slug }}-{{ section.id }} .wld-h1{font-size:28px}
+    #wld-{{ slug }}-{{ section.id }} .wld-header{padding:12px 16px;gap:10px}
+    #wld-{{ slug }}-{{ section.id }} .wld-logo__word{font-size:19px;letter-spacing:.03em}
+    #wld-{{ slug }}-{{ section.id }} .wld-logo__mark svg{width:28px;height:28px}
+    #wld-{{ slug }}-{{ section.id }} .wld-logo{gap:7px}
+    #wld-{{ slug }}-{{ section.id }} .wld-header__cta{font-size:11px;padding:8px 12px}
+    #wld-{{ slug }}-{{ section.id }} .wld-hero{padding:32px 0 44px}
+    #wld-{{ slug }}-{{ section.id }} .wld-wrap{padding:0 16px}
+    #wld-{{ slug }}-{{ section.id }} .wld-announce{font-size:11px;padding:8px 12px}
   }
 </style>
 
