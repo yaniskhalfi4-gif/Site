@@ -76,6 +76,21 @@
   .section--cream{background:var(--c-cream)}
   .h2{font-family:'DM Serif Display',serif;font-size:30px;text-align:center;margin:0 0 34px}
 
+  /* ====== Produit unique (capsule) ====== */
+  .solo{max-width:780px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;background:#fff;border:1px solid #e6edf3;border-radius:16px;overflow:hidden}
+  .solo__img{display:block}
+  .solo__img .ph{height:100%;min-height:320px}
+  .solo__info{padding:28px;display:flex;flex-direction:column;justify-content:center;position:relative}
+  .solo__badge{position:absolute;top:18px;right:18px;background:var(--c-primary);color:#fff;font-size:11px;font-weight:800;letter-spacing:.04em;padding:5px 10px;border-radius:999px}
+  .solo__stars{color:var(--c-accent);letter-spacing:1px;font-size:15px}
+  .solo__stars small{color:#54616b;letter-spacing:0;font-size:12px;font-weight:600;margin-left:6px}
+  .solo__name{font-size:20px;margin:10px 0 10px}
+  .solo__colors{display:flex;align-items:center;gap:8px;font-size:13px;color:#54616b;margin:0 0 14px}
+  .solo__colors i{width:16px;height:16px;border-radius:50%;display:inline-block}
+  .solo__price{font-weight:800;font-size:20px;color:var(--c-primary-dark);margin:0 0 16px}
+  .solo__price s{color:#a9b6c0;font-weight:500;font-size:14px;margin-left:8px}
+  @media(max-width:700px){.solo{grid-template-columns:1fr}.solo__img .ph{min-height:280px}}
+
   /* ====== Cartes produits ====== */
   .prods{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
   .prod{background:var(--c-card);border:1px solid #e6edf3;border-radius:14px;padding:16px;text-align:center;position:relative}
@@ -201,32 +216,20 @@
   </div>
 </section>
 
-<!-- GAMME PRODUITS -->
+<!-- PRODUIT UNIQUE -->
 <section class="section" id="produits">
   <div class="wrap">
-    <h2 class="h2" style="font-family:'Syne',sans-serif;letter-spacing:.04em;color:var(--c-primary-dark)">LA GAMME VYRAE</h2>
-    <div class="prods">
-      <article class="prod">
-        <div class="prod__badge">2+1<small>OFFERT</small></div>
-        <a href="vyrae-landing.html" class="prod__img"><div class="ph">Débardeur NOIR — packshot</div></a>
-        <p class="prod__name">Vyrae — Débardeur de Compression Gainant (Noir)</p>
-        <p class="prod__price">34,90 € <s>49,90 €</s></p>
+    <h2 class="h2" style="font-family:'Syne',sans-serif;letter-spacing:.04em;color:var(--c-primary-dark)">LE DÉBARDEUR VYRAE</h2>
+    <div class="solo">
+      <a href="vyrae-landing.html" class="solo__img"><div class="ph">Débardeur — 3 coloris</div></a>
+      <div class="solo__info">
+        <span class="solo__badge">2+1 OFFERT</span>
+        <span class="solo__stars">★★★★★ <small>4,8/5 · +883 avis</small></span>
+        <h3 class="solo__name">Débardeur de Compression Gainant</h3>
+        <p class="solo__colors">Coloris : <i style="background:#1A1A1A"></i><i style="background:#B7BCC2"></i><i style="background:#fff;border:1px solid #ccc"></i> Noir · Gris · Blanc</p>
+        <p class="solo__price">34,90 € <s>49,90 €</s></p>
         <a href="vyrae-landing.html" class="btn btn--block">CHOISIR LA TAILLE / LA COULEUR</a>
-      </article>
-      <article class="prod">
-        <div class="prod__badge">2+1<small>OFFERT</small></div>
-        <a href="vyrae-landing.html" class="prod__img"><div class="ph">Débardeur GRIS — packshot</div></a>
-        <p class="prod__name">Vyrae — Débardeur de Compression Gainant (Gris)</p>
-        <p class="prod__price">34,90 € <s>49,90 €</s></p>
-        <a href="vyrae-landing.html" class="btn btn--block">CHOISIR LA TAILLE / LA COULEUR</a>
-      </article>
-      <article class="prod">
-        <div class="prod__badge">2+1<small>OFFERT</small></div>
-        <a href="vyrae-landing.html" class="prod__img"><div class="ph">Débardeur BLANC — packshot</div></a>
-        <p class="prod__name">Vyrae — Débardeur de Compression Gainant (Blanc)</p>
-        <p class="prod__price">34,90 € <s>49,90 €</s></p>
-        <a href="vyrae-landing.html" class="btn btn--block">CHOISIR LA TAILLE / LA COULEUR</a>
-      </article>
+      </div>
     </div>
   </div>
 </section>
