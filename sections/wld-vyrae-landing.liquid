@@ -23,7 +23,7 @@
     {%- if section.settings.footer_logo != blank -%}
       <img src="{{ section.settings.footer_logo | image_url: width: 320 }}" alt="{{ section.settings.brand_name | escape }}" width="150" height="44">
     {%- else -%}
-      <span class="wld-logo__mark"><svg viewBox="0 0 32 32" width="26" height="26" role="img" aria-label="{{ section.settings.brand_name | escape }}"><path d="M5 7.5 L16 24.5 L27 7.5" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span class="wld-logo__mark"><svg viewBox="0 0 40 40" width="34" height="34" role="img" aria-label="{{ section.settings.brand_name | escape }}"><rect class="wld-tile" width="40" height="40" rx="9"/><path class="wld-vee" d="M11 12.5 L20 29 L29 12.5" fill="none" stroke-width="5" stroke-linejoin="miter"/></svg></span>
       <span class="wld-logo__word">{{ section.settings.brand_name }}</span>
     {%- endif -%}
   {%- endcapture -%}
@@ -482,15 +482,16 @@
       </div>
       <div class="wld-footer__col">
         <h4>{{ section.settings.footer_info_title }}</h4>
-        {%- if section.settings.footer_menu != blank -%}
-          <ul class="wld-footer__links">
+        <ul class="wld-footer__links">
+          {%- if section.settings.footer_menu != blank -%}
             {%- for link in linklists[section.settings.footer_menu].links -%}
               <li><a href="{{ link.url }}">{{ link.title }}</a></li>
             {%- endfor -%}
-          </ul>
-        {%- else -%}
-          <p>{{ section.settings.footer_info_fallback }}</p>
-        {%- endif -%}
+          {%- else -%}
+            {%- assign info_items = section.settings.footer_info_fallback | split: ',' -%}
+            {%- for it in info_items -%}<li>{{ it | strip }}</li>{%- endfor -%}
+          {%- endif -%}
+        </ul>
       </div>
       <div class="wld-footer__col">
         <h4>{{ section.settings.footer_contact_title }}</h4>
@@ -502,14 +503,7 @@
     <div class="wld-footer__bottom">
       <div class="wld-pay">{{ pay_badges }}</div>
 
-      <p class="wld-footer__copy">
-        {{ section.settings.footer_legal }}
-        {%- if section.settings.footer_legal_menu != blank -%}
-          {%- for link in linklists[section.settings.footer_legal_menu].links -%}
-            <a href="{{ link.url }}">{{ link.title }}</a>{%- unless forloop.last -%}<span class="wld-sep">·</span>{%- endunless -%}
-          {%- endfor -%}
-        {%- endif -%}
-      </p>
+      <p class="wld-footer__copy">{{ section.settings.footer_legal }}</p>
 
       {%- if section.settings.footer_disclaimer != blank -%}
         <p class="wld-footer__disclaimer">{{ section.settings.footer_disclaimer }}</p>
@@ -553,14 +547,17 @@
   /* bande annonce + header */
   #wld-{{ slug }}-{{ section.id }} .wld-announce{background:var(--c-primary-dark);color:#fff;text-align:center;font-size:13px;font-weight:600;letter-spacing:.05em;padding:9px 16px}
   #wld-{{ slug }}-{{ section.id }} .wld-header{display:flex;align-items:center;justify-content:space-between;max-width:1140px;margin:0 auto;padding:16px 22px;border-bottom:1px solid #e6edf3;background:var(--c-bg)}
-  #wld-{{ slug }}-{{ section.id }} .wld-logo{display:inline-flex;align-items:center;gap:8px;color:var(--c-primary-dark);text-decoration:none}
-  #wld-{{ slug }}-{{ section.id }} .wld-logo__mark{display:inline-flex;color:var(--c-primary)}
+  #wld-{{ slug }}-{{ section.id }} .wld-logo{display:inline-flex;align-items:center;gap:10px;color:var(--c-primary-dark);text-decoration:none}
+  #wld-{{ slug }}-{{ section.id }} .wld-logo__mark{display:inline-flex}
+  #wld-{{ slug }}-{{ section.id }} .wld-logo__mark .wld-tile{fill:var(--c-primary-dark)}
+  #wld-{{ slug }}-{{ section.id }} .wld-logo__mark .wld-vee{stroke:#fff}
   #wld-{{ slug }}-{{ section.id }} .wld-logo__word{font-family:'Syne',sans-serif;font-weight:800;font-size:25px;letter-spacing:.06em;text-transform:uppercase;line-height:1}
   #wld-{{ slug }}-{{ section.id }} .wld-logo img{height:40px;width:auto}
   #wld-{{ slug }}-{{ section.id }} .wld-logo--footer{color:#fff}
-  #wld-{{ slug }}-{{ section.id }} .wld-logo--footer .wld-logo__mark{color:#fff}
+  #wld-{{ slug }}-{{ section.id }} .wld-logo--footer .wld-logo__mark .wld-tile{fill:#fff}
+  #wld-{{ slug }}-{{ section.id }} .wld-logo--footer .wld-logo__mark .wld-vee{stroke:var(--c-primary-dark)}
   #wld-{{ slug }}-{{ section.id }} .wld-pay--sm .wld-pay__badge{height:24px;min-width:36px;padding:0 6px}
-  #wld-{{ slug }}-{{ section.id }} .wld-pay--buy{justify-content:center;gap:7px;margin:12px 0 0}
+  #wld-{{ slug }}-{{ section.id }} .wld-pay--buy{justify-content:center;gap:7px;margin:22px 0 0}
   #wld-{{ slug }}-{{ section.id }} .wld-header__cta{background:var(--c-primary);color:#fff;font-size:13px;font-weight:700;padding:9px 18px;border-radius:999px;text-decoration:none;white-space:nowrap}
   #wld-{{ slug }}-{{ section.id }} .wld-header__cta:hover{background:var(--c-primary-dark)}
 
@@ -1114,9 +1111,9 @@
     { "type": "header", "content": "🦶 Footer" },
     { "type": "image_picker", "id": "footer_logo", "label": "Logo (sinon nom de marque)" },
     { "type": "textarea", "id": "footer_about", "label": "À propos (texte sous le logo)", "default": "Vyrae conçoit des débardeurs gainants pensés pour les hommes : ventre lissé, dos soutenu et silhouette affinée, sous n'importe quelle tenue, en toute discrétion." },
-    { "type": "text", "id": "footer_info_title", "label": "Colonne liens — titre", "default": "Informations" },
-    { "type": "link_list", "id": "footer_menu", "label": "Colonne liens — menu Shopify", "info": "Choisissez un menu créé dans Boutique en ligne → Navigation (ex. Suivi de commande, Blog, Guide des tailles)." },
-    { "type": "text", "id": "footer_info_fallback", "label": "Liens (si aucun menu choisi)", "default": "Suivre ma commande · Blog · Guide des tailles" },
+    { "type": "text", "id": "footer_info_title", "label": "Colonne Légal — titre", "default": "Légal" },
+    { "type": "link_list", "id": "footer_menu", "label": "Colonne Légal — menu Shopify", "info": "Choisissez un menu créé dans Boutique en ligne → Navigation (politiques, mentions, CGV…)." },
+    { "type": "textarea", "id": "footer_info_fallback", "label": "Liens (si aucun menu choisi, séparés par des virgules)", "default": "Politique de confidentialité, Politique de remboursement, Coordonnées, Politique d'expédition, Conditions d'utilisation, Mentions légales" },
     { "type": "text", "id": "footer_contact_title", "label": "Colonne contact — titre", "default": "Contact" },
     { "type": "text", "id": "footer_email", "label": "E-mail", "default": "Assistance par e-mail : contact@vyrae.co" },
     { "type": "textarea", "id": "footer_phone", "label": "Téléphone / horaires", "default": "Service client du lundi au vendredi, 9h-18h." },
@@ -1129,7 +1126,6 @@
     { "type": "checkbox", "id": "pay_shoppay", "label": "Shop Pay", "default": true },
     { "type": "checkbox", "id": "pay_cb", "label": "Carte Bancaire (CB)", "default": true },
     { "type": "text", "id": "footer_legal", "label": "Copyright", "default": "© 2026 Vyrae. Tous droits réservés." },
-    { "type": "link_list", "id": "footer_legal_menu", "label": "Liens légaux — menu Shopify", "info": "Menu avec : Politique de confidentialité, Politique de remboursement, Politique d'expédition, Conditions d'utilisation, Mentions légales, CGV." },
     { "type": "textarea", "id": "footer_disclaimer", "label": "Mention partenaires pub", "default": "Veuillez noter que nos partenaires publicitaires, notamment Google, Facebook, TikTok, Microsoft, Criteo, Taboola, Outbrain et d'autres, ne sont pas affiliés à notre boutique." }
   ],
   "blocks": [

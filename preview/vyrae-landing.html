@@ -34,13 +34,16 @@
   /* announce + header */
   .wld-announce{background:var(--c-primary-dark);color:#fff;text-align:center;font-size:13px;font-weight:600;letter-spacing:.05em;padding:9px 16px}
   .wld-header{display:flex;align-items:center;justify-content:space-between;max-width:1140px;margin:0 auto;padding:16px 22px;border-bottom:1px solid #e6edf3;background:var(--c-bg)}
-  .wld-logo{display:inline-flex;align-items:center;gap:8px;color:var(--c-primary-dark);text-decoration:none}
-  .wld-logo__mark{display:inline-flex;color:var(--c-primary)}
+  .wld-logo{display:inline-flex;align-items:center;gap:10px;color:var(--c-primary-dark);text-decoration:none}
+  .wld-logo__mark{display:inline-flex}
+  .wld-logo__mark .wld-tile{fill:var(--c-primary-dark)}
+  .wld-logo__mark .wld-vee{stroke:#fff}
   .wld-logo__word{font-family:'Syne',sans-serif;font-weight:800;font-size:25px;letter-spacing:.06em;text-transform:uppercase;line-height:1}
   .wld-logo--footer{color:#fff}
-  .wld-logo--footer .wld-logo__mark{color:#fff}
+  .wld-logo--footer .wld-logo__mark .wld-tile{fill:#fff}
+  .wld-logo--footer .wld-logo__mark .wld-vee{stroke:var(--c-primary-dark)}
   .wld-pay--sm .wld-pay__badge{height:24px;min-width:36px;padding:0 6px}
-  .wld-pay--buy{justify-content:center;gap:7px;margin:12px 0 0}
+  .wld-pay--buy{justify-content:center;gap:7px;margin:22px 0 0}
   .wld-header__cta{background:var(--c-primary);color:#fff;font-size:13px;font-weight:700;padding:9px 18px;border-radius:999px;text-decoration:none;white-space:nowrap}
   .wld-header__cta:hover{background:var(--c-primary-dark)}
   .wld-hero{background:var(--c-cream);padding:48px 0 60px}
@@ -190,7 +193,7 @@
 <!-- ANNONCE + HEADER -->
 <div class="wld-announce">SOLDES -50% AUJOURD'HUI · ÉDITION HOMME · STOCK LIMITÉ</div>
 <header class="wld-header">
-  <a href="#wld-top" class="wld-logo"><span class="wld-logo__mark"><svg viewBox="0 0 32 32" width="26" height="26" role="img" aria-label="Vyrae"><path d="M5 7.5 L16 24.5 L27 7.5" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="wld-logo__word">Vyrae</span></a>
+  <a href="#wld-top" class="wld-logo"><span class="wld-logo__mark"><svg viewBox="0 0 40 40" width="34" height="34" role="img" aria-label="Vyrae"><rect class="wld-tile" width="40" height="40" rx="9"/><path class="wld-vee" d="M11 12.5 L20 29 L29 12.5" fill="none" stroke-width="5" stroke-linejoin="miter"/></svg></span><span class="wld-logo__word">Vyrae</span></a>
   <a href="#wld-top" class="wld-header__cta">-50% Aujourd'hui</a>
 </header>
 
@@ -445,15 +448,18 @@
 <div class="wld-footer">
   <div class="wld-wrap wld-footer__grid">
     <div class="wld-footer__brand">
-      <span class="wld-logo wld-logo--footer"><span class="wld-logo__mark"><svg viewBox="0 0 32 32" width="26" height="26" role="img" aria-label="Vyrae"><path d="M5 7.5 L16 24.5 L27 7.5" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="wld-logo__word">Vyrae</span></span>
+      <span class="wld-logo wld-logo--footer"><span class="wld-logo__mark"><svg viewBox="0 0 40 40" width="34" height="34" role="img" aria-label="Vyrae"><rect class="wld-tile" width="40" height="40" rx="9"/><path class="wld-vee" d="M11 12.5 L20 29 L29 12.5" fill="none" stroke-width="5" stroke-linejoin="miter"/></svg></span><span class="wld-logo__word">Vyrae</span></span>
       <p>Vyrae conçoit des débardeurs gainants pensés pour les hommes : ventre lissé, dos soutenu et silhouette affinée, sous n'importe quelle tenue, en toute discrétion.</p>
     </div>
     <div class="wld-footer__col">
-      <h4>Informations</h4>
+      <h4>Légal</h4>
       <ul class="wld-footer__links">
-        <li><a href="#">Suivre ma commande</a></li>
-        <li><a href="#">Blog</a></li>
-        <li><a href="#">Guide des tailles</a></li>
+        <li><a href="#">Politique de confidentialité</a></li>
+        <li><a href="#">Politique de remboursement</a></li>
+        <li><a href="#">Coordonnées</a></li>
+        <li><a href="#">Politique d'expédition</a></li>
+        <li><a href="#">Conditions d'utilisation</a></li>
+        <li><a href="#">Mentions légales</a></li>
       </ul>
     </div>
     <div class="wld-footer__col">
@@ -473,10 +479,7 @@
       <span class="wld-pay__badge"><svg height="16" viewBox="0 0 74 24" role="img" aria-label="Shop Pay"><rect width="44" height="24" rx="6" fill="#5A31F4"/><text x="22" y="17" text-anchor="middle" font-family="Arial" font-weight="700" font-size="13" fill="#fff">shop</text><text x="48" y="17" font-family="Arial" font-weight="700" font-size="13" fill="#5A31F4">Pay</text></svg></span>
       <span class="wld-pay__badge"><svg height="16" viewBox="0 0 34 24" role="img" aria-label="Carte Bancaire"><text x="1" y="19" font-family="Arial" font-weight="800" font-size="19" fill="#214B8C">C</text><text x="15" y="19" font-family="Arial" font-weight="800" font-size="19" fill="#3AA935">B</text></svg></span>
     </div>
-    <p class="wld-footer__copy">
-      © 2026 Vyrae. Tous droits réservés.
-      <a href="#">Politique de confidentialité</a><span class="wld-sep">·</span><a href="#">Politique de remboursement</a><span class="wld-sep">·</span><a href="#">Politique d'expédition</a><span class="wld-sep">·</span><a href="#">Conditions d'utilisation</a><span class="wld-sep">·</span><a href="#">Mentions légales</a><span class="wld-sep">·</span><a href="#">CGV</a>
-    </p>
+    <p class="wld-footer__copy">© 2026 Vyrae. Tous droits réservés.</p>
     <p class="wld-footer__disclaimer">Veuillez noter que nos partenaires publicitaires, notamment Google, Facebook, TikTok, Microsoft, Criteo, Taboola, Outbrain et d'autres, ne sont pas affiliés à notre boutique.</p>
   </div>
 </div>
