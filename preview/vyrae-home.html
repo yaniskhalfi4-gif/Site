@@ -97,8 +97,22 @@
   .pay span{background:#fff;border-radius:5px;height:28px;min-width:40px;padding:0 7px;display:inline-flex;align-items:center;justify-content:center}
   .footer__legal{text-align:center;font-size:12px;color:#7e878f;border-top:1px solid #2a2a2a;padding-top:16px}
 
+  /* ====== Bande spécialistes ====== */
+  .press{padding:32px 0;border-top:1px solid #e6edf3;border-bottom:1px solid #e6edf3;background:var(--c-bg)}
+  .press__label{display:flex;align-items:center;justify-content:center;gap:18px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#8a98a4;font-weight:700;max-width:900px;margin:0 auto 22px}
+  .press__label::before,.press__label::after{content:"";height:1px;background:#cfd7de;flex:1}
+  .press__logos{display:flex;flex-wrap:wrap;justify-content:center;gap:16px 46px}
+  .press__logos span{font-family:'DM Serif Display',serif;font-size:26px;color:var(--c-primary-dark);opacity:.92}
+  /* ====== Notre histoire ====== */
+  .story{display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;align-items:center}
+  .story .ph{min-height:320px;border-radius:14px}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--c-primary);margin:0}
+  .story h2{font-family:'DM Serif Display',serif;font-size:30px;margin:6px 0 16px}
+  .story p{color:#54616b;margin:0 0 14px;font-size:15px}
+  .story__sign{font-family:'DM Serif Display',serif;font-style:italic;color:var(--c-primary-dark)}
+
   @media(max-width:900px){
-    .prods,.reviews{grid-template-columns:1fr}
+    .prods,.reviews,.story{grid-template-columns:1fr}
     .feat{grid-template-columns:1fr 1fr}
     .footer__grid{grid-template-columns:1fr 1fr}
     .header{grid-template-columns:auto 1fr;gap:10px}
@@ -119,7 +133,6 @@
     <a href="#">Accueil</a>
     <a href="#produits">Le Débardeur</a>
     <a href="#contact">Contact</a>
-    <a href="#">Suivre ma commande</a>
   </nav>
   <a href="#" class="logo">
     <svg viewBox="0 0 40 40" width="30" height="30"><rect class="tile" width="40" height="40" rx="9"/><path class="vee" d="M11 12.5 L20 29 L29 12.5" fill="none" stroke-width="5" stroke-linejoin="miter"/></svg>
@@ -137,6 +150,26 @@
       <h1 class="hero__title">Summer Sale</h1>
       <p class="hero__sale">JUSQU'À <b>-50%</b> + CADEAUX</p>
       <a href="#produits" class="btn">JE DÉCOUVRE</a>
+    </div>
+  </div>
+</section>
+
+<!-- BANDE SPÉCIALISTES -->
+<div class="press"><div class="wrap">
+  <p class="press__label">Pensé avec des spécialistes du maintien masculin</p>
+  <div class="press__logos"><span>Coachs posture</span><span>Préparateurs physiques</span><span>Experts textile technique</span><span>Tailleurs</span></div>
+</div></div>
+
+<!-- NOTRE HISTOIRE -->
+<section class="section">
+  <div class="wrap story">
+    <div class="ph">Photo fondateur / atelier</div>
+    <div>
+      <p class="eyebrow">Notre histoire</p>
+      <h2>Pourquoi nous avons créé Vyrae</h2>
+      <p>Tout est parti d'une frustration simple : aucune gaine ne tenait ses promesses. Elles serraient, roulaient, se voyaient sous les vêtements et devenaient vite insupportables après quelques heures.</p>
+      <p>Nous avons donc travaillé pendant 18 mois avec des ingénieurs textile et une kinésithérapeute pour concevoir un débardeur qui sculpte vraiment, soutient le dos et se fait oublier. Vyrae est né de cette obsession du détail.</p>
+      <p class="story__sign">— L'équipe Vyrae</p>
     </div>
   </div>
 </section>
