@@ -5,7 +5,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 
 <section id="wld-{{ slug }}-{{ section.id }}" class="wld-{{ slug }}">
 
@@ -15,8 +15,15 @@
     </div>
   {%- endunless -%}
 
+  {%- comment -%} ====================== BANDE ANNONCE + HEADER ====================== {%- endcomment -%}
+  <div class="wld-announce">{{ section.settings.announce_text }}</div>
+  <header class="wld-header">
+    <a href="#wld-top" class="wld-logo">{{ section.settings.brand_name }}</a>
+    <a href="#wld-top" class="wld-header__cta">{{ section.settings.header_cta }}</a>
+  </header>
+
   {%- comment -%} ====================== HERO ====================== {%- endcomment -%}
-  <div class="wld-hero">
+  <div class="wld-hero" id="wld-top">
     <div class="wld-wrap wld-hero__grid">
       <div class="wld-hero__media">
         {%- if section.settings.hero_image != blank -%}
@@ -44,14 +51,14 @@
 
         {%- form 'product', p, class: 'wld-buy', id: 'wld-hero-form-' | append: section.id -%}
           <div class="wld-bundles" data-bundles>
-            <label class="wld-bundle" data-variant="{{ section.settings.b1_variant }}" data-default="true">
-              <input type="radio" name="hero-bundle" checked>
+            <label class="wld-bundle" data-variant="{{ section.settings.b1_variant }}">
+              <input type="radio" name="hero-bundle">
               <span class="wld-bundle__top"><strong>{{ section.settings.b1_title }}</strong>{% if section.settings.b1_tag != blank %}<em class="wld-bundle__tag">{{ section.settings.b1_tag }}</em>{% endif %}</span>
               <span class="wld-bundle__sub">{{ section.settings.b1_sub }}</span>
               <span class="wld-bundle__price">{{ section.settings.b1_price }} <s>{{ section.settings.b1_compare }}</s></span>
             </label>
-            <label class="wld-bundle wld-bundle--feat" data-variant="{{ section.settings.b2_variant }}">
-              <input type="radio" name="hero-bundle">
+            <label class="wld-bundle wld-bundle--feat" data-variant="{{ section.settings.b2_variant }}" data-default="true">
+              <input type="radio" name="hero-bundle" checked>
               <span class="wld-bundle__top"><strong>{{ section.settings.b2_title }}</strong>{% if section.settings.b2_tag != blank %}<em class="wld-bundle__tag">{{ section.settings.b2_tag }}</em>{% endif %}</span>
               <span class="wld-bundle__sub">{{ section.settings.b2_sub }}</span>
               <span class="wld-bundle__price">{{ section.settings.b2_price }} <s>{{ section.settings.b2_compare }}</s></span>
@@ -64,7 +71,7 @@
             </label>
           </div>
 
-          <input type="hidden" name="id" data-variant-input value="{{ section.settings.b1_variant }}">
+          <input type="hidden" name="id" data-variant-input value="{{ section.settings.b2_variant }}">
           <button type="submit" class="wld-cta wld-cta--block"{% unless p != blank %} disabled{% endunless %}>{{ section.settings.hero_cta }}</button>
           <p class="wld-buy__guarantee">{{ section.settings.hero_guarantee }}</p>
         {%- endform -%}
@@ -127,7 +134,7 @@
         <li>{{ section.settings.problem_pt_3 }}</li>
         <li>{{ section.settings.problem_pt_4 }}</li>
       </ul>
-      <a href="#wld-buybox" class="wld-cta">{{ section.settings.global_cta }}</a>
+      <a href="#wld-top" class="wld-cta">{{ section.settings.global_cta }}</a>
     </div>
   </div>
 
@@ -181,7 +188,7 @@
           </article>
         {%- endfor -%}
       </div>
-      <a href="#wld-buybox" class="wld-cta">{{ section.settings.global_cta }}</a>
+      <a href="#wld-top" class="wld-cta">{{ section.settings.global_cta }}</a>
     </div>
   </div>
 
@@ -263,7 +270,7 @@
           </figure>
         {%- endfor -%}
       </div>
-      <a href="#wld-buybox" class="wld-cta">{{ section.settings.global_cta }}</a>
+      <a href="#wld-top" class="wld-cta">{{ section.settings.global_cta }}</a>
     </div>
   </div>
 
@@ -304,7 +311,7 @@
           </div>
         {%- endfor -%}
       </div>
-      <a href="#wld-buybox" class="wld-cta">{{ section.settings.global_cta }}</a>
+      <a href="#wld-top" class="wld-cta">{{ section.settings.global_cta }}</a>
     </div>
   </div>
 
@@ -360,7 +367,7 @@
           </tbody>
         </table>
       </div>
-      <a href="#wld-buybox" class="wld-cta">{{ section.settings.global_cta }}</a>
+      <a href="#wld-top" class="wld-cta">{{ section.settings.global_cta }}</a>
     </div>
   </div>
 
@@ -382,57 +389,6 @@
     </div>
   </div>
 
-  {%- comment -%} ====================== BUY BOX ====================== {%- endcomment -%}
-  <div class="wld-block wld-block--cream" id="wld-buybox">
-    <div class="wld-wrap wld-buybox">
-      <div class="wld-buybox__media">
-        {%- if section.settings.buybox_image != blank -%}
-          <img src="{{ section.settings.buybox_image | image_url: width: 900 }}" alt="{{ section.settings.hero_title | escape }}" loading="lazy" width="450" height="450">
-        {%- elsif section.settings.hero_image != blank -%}
-          <img src="{{ section.settings.hero_image | image_url: width: 900 }}" alt="{{ section.settings.hero_title | escape }}" loading="lazy" width="450" height="450">
-        {%- else -%}<div class="wld-ph wld-ph--square">Image produit</div>{%- endif -%}
-      </div>
-      <div class="wld-buybox__box">
-        <div class="wld-stars">★★★★★ <span>{{ section.settings.hero_reviews_label }}</span></div>
-        <h2 class="wld-h2 wld-h2--left">{{ section.settings.buybox_title }}</h2>
-        <p class="wld-hero__sub">{{ section.settings.buybox_subtitle }}</p>
-
-        {%- form 'product', p, class: 'wld-buy', id: 'wld-buybox-form-' | append: section.id -%}
-          <div class="wld-bundles" data-bundles>
-            <label class="wld-bundle" data-variant="{{ section.settings.b1_variant }}" data-default="true">
-              <input type="radio" name="bb-bundle" checked>
-              <span class="wld-bundle__top"><strong>{{ section.settings.b1_title }}</strong>{% if section.settings.b1_tag != blank %}<em class="wld-bundle__tag">{{ section.settings.b1_tag }}</em>{% endif %}</span>
-              <span class="wld-bundle__sub">{{ section.settings.b1_sub }}</span>
-              <span class="wld-bundle__price">{{ section.settings.b1_price }} <s>{{ section.settings.b1_compare }}</s></span>
-            </label>
-            <label class="wld-bundle wld-bundle--feat" data-variant="{{ section.settings.b2_variant }}">
-              <input type="radio" name="bb-bundle">
-              <span class="wld-bundle__top"><strong>{{ section.settings.b2_title }}</strong>{% if section.settings.b2_tag != blank %}<em class="wld-bundle__tag">{{ section.settings.b2_tag }}</em>{% endif %}</span>
-              <span class="wld-bundle__sub">{{ section.settings.b2_sub }}</span>
-              <span class="wld-bundle__price">{{ section.settings.b2_price }} <s>{{ section.settings.b2_compare }}</s></span>
-            </label>
-            <label class="wld-bundle" data-variant="{{ section.settings.b3_variant }}">
-              <input type="radio" name="bb-bundle">
-              <span class="wld-bundle__top"><strong>{{ section.settings.b3_title }}</strong>{% if section.settings.b3_tag != blank %}<em class="wld-bundle__tag">{{ section.settings.b3_tag }}</em>{% endif %}</span>
-              <span class="wld-bundle__sub">{{ section.settings.b3_sub }}</span>
-              <span class="wld-bundle__price">{{ section.settings.b3_price }} <s>{{ section.settings.b3_compare }}</s></span>
-            </label>
-          </div>
-
-          <input type="hidden" name="id" data-variant-input value="{{ section.settings.b1_variant }}">
-          <button type="submit" class="wld-cta wld-cta--block"{% unless p != blank %} disabled{% endunless %}>{{ section.settings.buybox_cta }}</button>
-          <p class="wld-buy__guarantee">{{ section.settings.buybox_guarantee }}</p>
-        {%- endform -%}
-
-        <ul class="wld-buybox__trust">
-          <li>{{ section.settings.trust_1 }}</li>
-          <li>{{ section.settings.trust_2 }}</li>
-          <li>{{ section.settings.trust_3 }}</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
   {%- comment -%} ====================== FAQ (blocks) ====================== {%- endcomment -%}
   <div class="wld-block">
     <div class="wld-wrap wld-wrap--narrow">
@@ -447,7 +403,7 @@
           {%- endif -%}
         {%- endfor -%}
       </div>
-      <a href="#wld-buybox" class="wld-cta">{{ section.settings.global_cta }}</a>
+      <a href="#wld-top" class="wld-cta">{{ section.settings.global_cta }}</a>
     </div>
   </div>
 
@@ -508,6 +464,13 @@
   #wld-{{ slug }}-{{ section.id }} .wld-ph--mini{min-height:150px;font-size:11px}
 
   #wld-{{ slug }}-{{ section.id }} .vel-no-product-notice{background:#fff3cd;color:#7a5b00;border:1px solid #ffe08a;padding:14px 18px;border-radius:10px;margin:18px auto;max-width:1100px;font-size:14px;text-align:center}
+
+  /* bande annonce + header */
+  #wld-{{ slug }}-{{ section.id }} .wld-announce{background:var(--c-primary-dark);color:#fff;text-align:center;font-size:13px;font-weight:600;letter-spacing:.05em;padding:9px 16px}
+  #wld-{{ slug }}-{{ section.id }} .wld-header{display:flex;align-items:center;justify-content:space-between;max-width:1140px;margin:0 auto;padding:16px 22px;border-bottom:1px solid #e6edf3;background:var(--c-bg)}
+  #wld-{{ slug }}-{{ section.id }} .wld-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:26px;letter-spacing:.04em;color:var(--c-primary-dark);text-transform:uppercase;text-decoration:none}
+  #wld-{{ slug }}-{{ section.id }} .wld-header__cta{background:var(--c-primary);color:#fff;font-size:13px;font-weight:700;padding:9px 18px;border-radius:999px;text-decoration:none;white-space:nowrap}
+  #wld-{{ slug }}-{{ section.id }} .wld-header__cta:hover{background:var(--c-primary-dark)}
 
   #wld-{{ slug }}-{{ section.id }} .wld-stars{color:var(--c-accent);font-size:18px;letter-spacing:2px}
   #wld-{{ slug }}-{{ section.id }} .wld-stars span{color:var(--c-text);font-size:13px;letter-spacing:0;margin-left:6px}
@@ -719,15 +682,20 @@
     { "type": "product", "id": "product", "label": "Produit lié (panier)" },
 
     { "type": "header", "content": "🎨 Couleurs de la marque" },
-    { "type": "color", "id": "color_primary", "label": "Primaire", "default": "#2E6E5A" },
-    { "type": "color", "id": "color_primary_dark", "label": "Primaire foncé / footer", "default": "#1C3D34" },
-    { "type": "color", "id": "color_bg", "label": "Fond global", "default": "#FBFAF6" },
-    { "type": "color", "id": "color_cream", "label": "Fond crème (sections)", "default": "#F4EFE4" },
-    { "type": "color", "id": "color_text", "label": "Texte", "default": "#23302B" },
-    { "type": "color", "id": "color_accent", "label": "Accent (étoiles)", "default": "#C8A15A" },
+    { "type": "color", "id": "color_primary", "label": "Primaire", "default": "#3E7CA8" },
+    { "type": "color", "id": "color_primary_dark", "label": "Primaire foncé / footer", "default": "#1F3A52" },
+    { "type": "color", "id": "color_bg", "label": "Fond global", "default": "#FBFCFD" },
+    { "type": "color", "id": "color_cream", "label": "Fond doux (sections)", "default": "#EEF3F8" },
+    { "type": "color", "id": "color_text", "label": "Texte", "default": "#1E2A33" },
+    { "type": "color", "id": "color_accent", "label": "Accent (étoiles)", "default": "#E0A94F" },
 
     { "type": "header", "content": "🔁 Textes globaux" },
     { "type": "text", "id": "global_cta", "label": "CTA répété", "default": "COMMENCER MA TRANSFORMATION" },
+
+    { "type": "header", "content": "🏷️ Bande annonce + en-tête" },
+    { "type": "text", "id": "announce_text", "label": "Bande d'annonce (haut)", "default": "SOLDES -50% AUJOURD'HUI · LIVRAISON OFFERTE 🚚 · STOCK LIMITÉ" },
+    { "type": "text", "id": "brand_name", "label": "Nom de marque (à gauche)", "default": "Vyrae" },
+    { "type": "text", "id": "header_cta", "label": "Bouton en-tête (à droite)", "default": "-50% Aujourd'hui" },
 
     { "type": "header", "content": "🦸 Hero" },
     { "type": "image_picker", "id": "hero_image", "label": "Image produit hero" },
@@ -748,20 +716,20 @@
     { "type": "text", "id": "b1_title", "label": "Bundle 1 — titre", "default": "1 Débardeur" },
     { "type": "text", "id": "b1_sub", "label": "Bundle 1 — sous-titre", "default": "Pour tester" },
     { "type": "text", "id": "b1_tag", "label": "Bundle 1 — badge", "default": "" },
-    { "type": "text", "id": "b1_price", "label": "Bundle 1 — prix", "default": "39€" },
-    { "type": "text", "id": "b1_compare", "label": "Bundle 1 — prix barré", "default": "59€" },
+    { "type": "text", "id": "b1_price", "label": "Bundle 1 — prix", "default": "34,90€" },
+    { "type": "text", "id": "b1_compare", "label": "Bundle 1 — prix barré", "default": "49,90€" },
     { "type": "text", "id": "b1_variant", "label": "Bundle 1 — ID variante" },
     { "type": "text", "id": "b2_title", "label": "Bundle 2 — titre", "default": "2 Débardeurs" },
-    { "type": "text", "id": "b2_sub", "label": "Bundle 2 — sous-titre", "default": "Le plus choisi" },
+    { "type": "text", "id": "b2_sub", "label": "Bundle 2 — sous-titre", "default": "soit 29,95€ l'unité" },
     { "type": "text", "id": "b2_tag", "label": "Bundle 2 — badge", "default": "POPULAIRE" },
-    { "type": "text", "id": "b2_price", "label": "Bundle 2 — prix", "default": "69€" },
-    { "type": "text", "id": "b2_compare", "label": "Bundle 2 — prix barré", "default": "118€" },
+    { "type": "text", "id": "b2_price", "label": "Bundle 2 — prix", "default": "59,90€" },
+    { "type": "text", "id": "b2_compare", "label": "Bundle 2 — prix barré", "default": "99,80€" },
     { "type": "text", "id": "b2_variant", "label": "Bundle 2 — ID variante" },
     { "type": "text", "id": "b3_title", "label": "Bundle 3 — titre", "default": "3 Débardeurs" },
-    { "type": "text", "id": "b3_sub", "label": "Bundle 3 — sous-titre", "default": "Meilleure valeur" },
-    { "type": "text", "id": "b3_tag", "label": "Bundle 3 — badge", "default": "-50%" },
-    { "type": "text", "id": "b3_price", "label": "Bundle 3 — prix", "default": "89€" },
-    { "type": "text", "id": "b3_compare", "label": "Bundle 3 — prix barré", "default": "177€" },
+    { "type": "text", "id": "b3_sub", "label": "Bundle 3 — sous-titre", "default": "2 achetés = 1 offert · soit 23,30€ l'unité" },
+    { "type": "text", "id": "b3_tag", "label": "Bundle 3 — badge", "default": "2+1 OFFERT" },
+    { "type": "text", "id": "b3_price", "label": "Bundle 3 — prix", "default": "69,80€" },
+    { "type": "text", "id": "b3_compare", "label": "Bundle 3 — prix barré", "default": "104,70€" },
     { "type": "text", "id": "b3_variant", "label": "Bundle 3 — ID variante" },
 
     { "type": "header", "content": "📰 Bandeau presse" },
@@ -939,16 +907,6 @@
 
     { "type": "header", "content": "💬 Avis (titre)" },
     { "type": "text", "id": "reviews_title", "label": "Titre", "default": "Des transformations réelles, racontées par elles" },
-
-    { "type": "header", "content": "🛒 Buy box finale" },
-    { "type": "image_picker", "id": "buybox_image", "label": "Image (sinon image hero)" },
-    { "type": "text", "id": "buybox_title", "label": "Titre", "default": "Sculptez votre silhouette dès aujourd'hui" },
-    { "type": "textarea", "id": "buybox_subtitle", "label": "Sous-titre", "default": "Rejoignez plus de 50 000 femmes qui ont retrouvé confiance avec Vyrae." },
-    { "type": "text", "id": "buybox_cta", "label": "Texte bouton", "default": "JE COMMANDE MON VYRAE" },
-    { "type": "text", "id": "buybox_guarantee", "label": "Garantie", "default": "Satisfait ou remboursé 30 jours · Retours gratuits" },
-    { "type": "text", "id": "trust_1", "label": "Trust 1", "default": "Paiement 100% sécurisé" },
-    { "type": "text", "id": "trust_2", "label": "Trust 2", "default": "Livraison suivie 48h" },
-    { "type": "text", "id": "trust_3", "label": "Trust 3", "default": "Service client 7j/7" },
 
     { "type": "header", "content": "❓ FAQ (titre)" },
     { "type": "text", "id": "faq_title", "label": "Titre", "default": "Des réponses à vos questions" },
