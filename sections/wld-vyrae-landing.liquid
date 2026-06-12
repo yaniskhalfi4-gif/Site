@@ -134,7 +134,6 @@
         <li>{{ section.settings.problem_pt_3 }}</li>
         <li>{{ section.settings.problem_pt_4 }}</li>
       </ul>
-      <a href="#wld-top" class="wld-cta">{{ section.settings.global_cta }}</a>
     </div>
   </div>
 
@@ -188,7 +187,6 @@
           </article>
         {%- endfor -%}
       </div>
-      <a href="#wld-top" class="wld-cta">{{ section.settings.global_cta }}</a>
     </div>
   </div>
 
@@ -270,7 +268,7 @@
           </figure>
         {%- endfor -%}
       </div>
-      <a href="#wld-top" class="wld-cta">{{ section.settings.global_cta }}</a>
+      <a href="#wld-top" class="wld-cta">{{ section.settings.cta_gallery }}</a>
     </div>
   </div>
 
@@ -311,7 +309,6 @@
           </div>
         {%- endfor -%}
       </div>
-      <a href="#wld-top" class="wld-cta">{{ section.settings.global_cta }}</a>
     </div>
   </div>
 
@@ -367,7 +364,7 @@
           </tbody>
         </table>
       </div>
-      <a href="#wld-top" class="wld-cta">{{ section.settings.global_cta }}</a>
+      <a href="#wld-top" class="wld-cta">{{ section.settings.cta_compare }}</a>
     </div>
   </div>
 
@@ -403,7 +400,7 @@
           {%- endif -%}
         {%- endfor -%}
       </div>
-      <a href="#wld-top" class="wld-cta">{{ section.settings.global_cta }}</a>
+      <a href="#wld-top" class="wld-cta">{{ section.settings.cta_faq }}</a>
     </div>
   </div>
 
@@ -689,8 +686,10 @@
     { "type": "color", "id": "color_text", "label": "Texte", "default": "#1E2A33" },
     { "type": "color", "id": "color_accent", "label": "Accent (étoiles)", "default": "#E0A94F" },
 
-    { "type": "header", "content": "🔁 Textes globaux" },
-    { "type": "text", "id": "global_cta", "label": "CTA répété", "default": "COMMENCER MA TRANSFORMATION" },
+    { "type": "header", "content": "🔁 Boutons d'appel (variés)" },
+    { "type": "text", "id": "cta_gallery", "label": "CTA après galerie résultats", "default": "J'EN PROFITE -50%" },
+    { "type": "text", "id": "cta_compare", "label": "CTA après comparatif", "default": "CHOISIR MON PACK" },
+    { "type": "text", "id": "cta_faq", "label": "CTA après FAQ", "default": "PROFITER DE L'OFFRE DU JOUR" },
 
     { "type": "header", "content": "🏷️ Bande annonce + en-tête" },
     { "type": "text", "id": "announce_text", "label": "Bande d'annonce (haut)", "default": "SOLDES -50% AUJOURD'HUI · LIVRAISON OFFERTE 🚚 · STOCK LIMITÉ" },
@@ -719,25 +718,25 @@
     { "type": "text", "id": "b1_price", "label": "Bundle 1 — prix", "default": "34,90€" },
     { "type": "text", "id": "b1_compare", "label": "Bundle 1 — prix barré", "default": "49,90€" },
     { "type": "text", "id": "b1_variant", "label": "Bundle 1 — ID variante" },
-    { "type": "text", "id": "b2_title", "label": "Bundle 2 — titre", "default": "2 Débardeurs" },
-    { "type": "text", "id": "b2_sub", "label": "Bundle 2 — sous-titre", "default": "soit 29,95€ l'unité" },
+    { "type": "text", "id": "b2_title", "label": "Bundle 2 — titre", "default": "2 achetés, 1 offert" },
+    { "type": "text", "id": "b2_sub", "label": "Bundle 2 — sous-titre", "default": "3 débardeurs · soit 23,30€ l'unité" },
     { "type": "text", "id": "b2_tag", "label": "Bundle 2 — badge", "default": "POPULAIRE" },
-    { "type": "text", "id": "b2_price", "label": "Bundle 2 — prix", "default": "59,90€" },
-    { "type": "text", "id": "b2_compare", "label": "Bundle 2 — prix barré", "default": "99,80€" },
+    { "type": "text", "id": "b2_price", "label": "Bundle 2 — prix", "default": "69,80€" },
+    { "type": "text", "id": "b2_compare", "label": "Bundle 2 — prix barré", "default": "104,70€" },
     { "type": "text", "id": "b2_variant", "label": "Bundle 2 — ID variante" },
-    { "type": "text", "id": "b3_title", "label": "Bundle 3 — titre", "default": "3 Débardeurs" },
-    { "type": "text", "id": "b3_sub", "label": "Bundle 3 — sous-titre", "default": "2 achetés = 1 offert · soit 23,30€ l'unité" },
-    { "type": "text", "id": "b3_tag", "label": "Bundle 3 — badge", "default": "2+1 OFFERT" },
-    { "type": "text", "id": "b3_price", "label": "Bundle 3 — prix", "default": "69,80€" },
-    { "type": "text", "id": "b3_compare", "label": "Bundle 3 — prix barré", "default": "104,70€" },
+    { "type": "text", "id": "b3_title", "label": "Bundle 3 — titre", "default": "3 achetés, 2 offerts" },
+    { "type": "text", "id": "b3_sub", "label": "Bundle 3 — sous-titre", "default": "5 débardeurs · soit 20,90€ l'unité" },
+    { "type": "text", "id": "b3_tag", "label": "Bundle 3 — badge", "default": "MEILLEURE OFFRE" },
+    { "type": "text", "id": "b3_price", "label": "Bundle 3 — prix", "default": "104,70€" },
+    { "type": "text", "id": "b3_compare", "label": "Bundle 3 — prix barré", "default": "174,50€" },
     { "type": "text", "id": "b3_variant", "label": "Bundle 3 — ID variante" },
 
     { "type": "header", "content": "📰 Bandeau presse" },
     { "type": "text", "id": "press_label", "label": "Label", "default": "Vu et recommandé dans" },
-    { "type": "text", "id": "press_1", "label": "Média 1", "default": "marie claire" },
-    { "type": "text", "id": "press_2", "label": "Média 2", "default": "ELLE" },
-    { "type": "text", "id": "press_3", "label": "Média 3", "default": "VOGUE" },
-    { "type": "text", "id": "press_4", "label": "Média 4", "default": "COSMOPOLITAN" },
+    { "type": "text", "id": "press_1", "label": "Média 1", "default": "Doctissimo" },
+    { "type": "text", "id": "press_2", "label": "Média 2", "default": "Top Santé" },
+    { "type": "text", "id": "press_3", "label": "Média 3", "default": "Men's Health" },
+    { "type": "text", "id": "press_4", "label": "Média 4", "default": "Femme Actuelle" },
 
     { "type": "header", "content": "💚 Pourquoi nous avons créé Vyrae" },
     { "type": "image_picker", "id": "story_image", "label": "Photo (fondatrice / atelier)" },
