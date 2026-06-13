@@ -93,6 +93,11 @@
   .solo__colors i{width:16px;height:16px;border-radius:50%;display:inline-block}
   .solo__price{font-weight:800;font-size:20px;color:var(--c-primary-dark);margin:0 0 16px}
   .solo__price s{color:#a9b6c0;font-weight:500;font-size:14px;margin-left:8px}
+  .solo__desc{font-size:14px;color:#54616b;line-height:1.5;margin:0 0 14px}
+  .solo__list{list-style:none;padding:0;margin:0 0 16px;display:grid;gap:8px}
+  .solo__list li{position:relative;padding-left:26px;font-size:13.5px;color:#3a4751}
+  .solo__list li::before{content:"✓";position:absolute;left:0;top:1px;color:#fff;background:var(--c-primary);width:18px;height:18px;border-radius:50%;font-size:11px;display:inline-flex;align-items:center;justify-content:center;font-weight:700}
+  .solo__reassure{margin:12px 0 0;font-size:12px;color:#7a8791;text-align:center}
   @media(max-width:700px){.solo{grid-template-columns:1fr}.solo__img .ph{min-height:280px}}
 
   /* ====== Cartes produits ====== */
@@ -220,9 +225,11 @@
         <span class="solo__badge">2+1 OFFERT</span>
         <span class="solo__stars">★★★★★ <small>4,8/5 · +883 avis</small></span>
         <h3 class="solo__name">Débardeur de Compression Gainant</h3>
+        <p class="solo__desc">Ventre lissé, dos soutenu et silhouette redessinée — instantanément, sous n'importe quelle tenue.</p>
+        <ul class="solo__list"><li>Compression ciblée ventre, taille &amp; flancs</li><li>Maintien du dos, posture plus droite</li><li>Invisible et respirant toute la journée</li></ul>
         <p class="solo__colors">Coloris : <i style="background:#1A1A1A"></i><i style="background:#B7BCC2"></i><i style="background:#fff;border:1px solid #ccc"></i> Noir · Gris · Blanc</p>
         <p class="solo__price">34,90 € <s>49,90 €</s></p>
-        <a href="vyrae-landing.html" class="btn btn--block">CHOISIR LA TAILLE / LA COULEUR</a>
+        <a href="vyrae-landing.html" class="btn btn--block">CHOISIR LA TAILLE / LA COULEUR</a><p class="solo__reassure">Paiement sécurisé · Rétractation 14 jours · Vendu &amp; expédié par Vyrae</p>
       </div>
     </div>
   </div>
