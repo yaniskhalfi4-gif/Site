@@ -50,3 +50,45 @@ Boutique en ligne → **Personnaliser** :
 
 ## Point important — bouton « Ajouter au panier »
 Le bouton est aujourd'hui **visuel** (c'est la maquette/landing). Pour encaisser de vraies commandes, il faut le **relier à un produit Shopify** (formulaire produit + variantes couleur/taille). Je peux le câbler ensuite : dis-le-moi et je te livre la version avec ajout au panier réel.
+
+---
+
+# Ajout au panier réel — à faire AVANT de coller la section produit
+
+## 1. Créer le produit
+Produits → Ajouter un produit : **Débardeur de Compression Gainant**.
+- **Prix : 34,90 €** · **Comparer à : 49,90 €** (pour que l'affichage corresponde au design).
+- **Variantes** — crée 2 options, libellés des valeurs **exactement** comme ci-dessous :
+  - Option 1 — nom **Couleur** → valeurs : **Noir**, **Gris**, **Blanc**
+  - Option 2 — nom **Taille** → valeurs : **S**, **M**, **L**, **XL**, **2XL**, **3XL**
+- Ça génère 18 variantes. Renseigne le **stock** de chacune.
+
+> Mon code reconnaît la variante par ses valeurs (Noir/Gris/Blanc + S…3XL), peu importe l'ordre des options et la casse. Garde juste ces libellés.
+
+## 2. Brancher le produit sur la section
+Après avoir collé `vyrae-product.liquid` et l'avoir ajoutée à une page :
+- Dans **Personnaliser**, clique sur la section **Vyrae Produit** → réglage **« Produit Vyrae (pour l'ajout au panier) »** → choisis le produit créé.
+- (Si tu places la section directement sur le **modèle de page produit**, elle détecte le produit automatiquement.)
+
+## 3. Comment ça marche
+- Le visiteur choisit **couleur + taille** → le bouton **Ajouter au panier** ajoute la bonne variante.
+- Le **pack choisi** définit la **quantité** ajoutée : 1 débardeur = 1 · « 2 achetés, 1 offert » = 3 · « 3 achetés, 2 offerts » = 5.
+- Si aucune taille n'est choisie, le bouton affiche l'erreur (pas d'ajout).
+- L'ajout se fait en AJAX puis redirige vers le panier.
+
+## 4. Prix des packs = remises automatiques (sinon le « offert » ne s'applique pas)
+Le code ajoute la quantité ; ce sont des **remises automatiques Shopify** qui rendent les articles « offerts ».
+Réductions → **Créer une remise** → **Remise automatique** → **Achetez X, obtenez Y** :
+- **Remise A — « 2 achetés = 1 offert »** : le client **achète 2** [ce produit] → **obtient 1** [ce produit] à **100 %**. Coche « Nombre max. d'utilisations par commande = 1 ».
+- **Remise B — « 3 achetés = 2 offerts »** : le client **achète 3** → **obtient 2** à **100 %**.
+
+Avec un prix unitaire à 34,90 €, le panier affichera alors :
+- pack de 3 → **69,80 €**, pack de 5 → **104,70 €** (Shopify applique automatiquement la meilleure remise selon la quantité).
+
+> Si tu préfères ne pas gérer les remises, une app de bundles (ex. Shopify Bundles, gratuite) fait la même chose. Sans remise ni app, les 3/5 articles seront facturés plein tarif.
+
+## Récap ordre des opérations
+1. Uploader les images (Réglages → Fichiers).
+2. Créer le produit + variantes (étape 1 ci-dessus).
+3. Créer les remises automatiques A et B.
+4. Coller les sections, les ajouter aux pages, brancher le produit + le lien produit.
