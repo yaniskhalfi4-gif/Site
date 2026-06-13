@@ -229,6 +229,26 @@
   .brand-logo{height:28px;width:auto;display:block}
   .brand-logo--lg{height:44px}
   @media(max-width:540px){.brand-logo{height:24px}}
+
+  .wld-guarantee{display:flex;align-items:flex-start;gap:10px;justify-content:center;max-width:430px;margin:16px auto 0;color:#46535d;font-size:12.5px;line-height:1.45;text-align:left}
+  .wld-guarantee svg{width:22px;height:22px;color:var(--c-primary);flex:0 0 auto;margin-top:1px}
+  .wld-guarantee strong{color:var(--c-primary-dark);font-weight:700}
+  .wld-bundle__save{color:var(--c-primary);font-weight:700}
+  .wld-trust{background:var(--c-bg);border-top:1px solid #e6edf3;padding:46px 0}
+  .wld-trust__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;max-width:1000px;margin:0 auto}
+  .wld-trust__item{text-align:center}
+  .wld-trust__item svg{width:30px;height:30px;color:var(--c-primary)}
+  .wld-trust__item h4{font-size:14px;margin:12px 0 5px;color:var(--c-primary-dark)}
+  .wld-trust__item p{font-size:12.5px;color:#6b7882;margin:0;line-height:1.45}
+  .wld-stickybar{display:none}
+  @media(max-width:760px){
+    .wld-trust__grid{grid-template-columns:1fr 1fr;gap:24px}
+    .wld-footer{padding-bottom:84px}
+    .wld-stickybar{display:flex;align-items:center;justify-content:space-between;gap:12px;position:fixed;left:0;right:0;bottom:0;z-index:60;background:#fff;border-top:1px solid #e1e8ee;padding:10px 14px;box-shadow:0 -6px 20px rgba(31,58,82,.12)}
+    .wld-stickybar__price{font-weight:800;color:var(--c-primary-dark);font-size:16px}
+    .wld-stickybar__price s{color:#a9b6c0;font-weight:500;font-size:12px;margin-left:6px}
+    .wld-stickybar__cta{background:var(--c-primary);color:#fff;font-weight:700;font-size:14px;padding:12px 20px;border-radius:999px;border:none;white-space:nowrap;cursor:pointer}
+  }
 </style>
 </head>
 <body>
@@ -275,12 +295,12 @@
     <p class="wld-offer-note">🎁 Plus vous prenez, plus c'est avantageux : 2 achetés = 1 offert · 3 achetés = 2 offerts</p>
     <div class="wld-bundles" data-bundles>
       <label class="wld-bundle"><input type="radio" name="hero-bundle"><span class="wld-bundle__top"><strong>1 Débardeur</strong></span><span class="wld-bundle__sub">Pour tester</span><span class="wld-bundle__price">34,90€ <s>49,90€</s></span></label>
-      <label class="wld-bundle wld-bundle--feat" data-default="true"><input type="radio" name="hero-bundle" checked><span class="wld-bundle__top"><strong>2 achetés, 1 offert</strong><em class="wld-bundle__tag">POPULAIRE</em></span><span class="wld-bundle__sub">3 débardeurs · soit 23,30€ l'unité</span><span class="wld-bundle__price">69,80€ <s>104,70€</s></span></label>
-      <label class="wld-bundle"><input type="radio" name="hero-bundle"><span class="wld-bundle__top"><strong>3 achetés, 2 offerts</strong><em class="wld-bundle__tag">MEILLEURE OFFRE</em></span><span class="wld-bundle__sub">5 débardeurs · soit 20,90€ l'unité</span><span class="wld-bundle__price">104,70€ <s>174,50€</s></span></label>
+      <label class="wld-bundle wld-bundle--feat" data-default="true"><input type="radio" name="hero-bundle" checked><span class="wld-bundle__top"><strong>2 achetés, 1 offert</strong><em class="wld-bundle__tag">POPULAIRE</em></span><span class="wld-bundle__sub">3 débardeurs · soit 23,30€ l'unité <span class="wld-bundle__save">Économisez 34,90€</span></span><span class="wld-bundle__price">69,80€ <s>104,70€</s></span></label>
+      <label class="wld-bundle"><input type="radio" name="hero-bundle"><span class="wld-bundle__top"><strong>3 achetés, 2 offerts</strong><em class="wld-bundle__tag">MEILLEURE OFFRE</em></span><span class="wld-bundle__sub">5 débardeurs · soit 20,90€ l'unité <span class="wld-bundle__save">Économisez 69,80€</span></span><span class="wld-bundle__price">104,70€ <s>174,50€</s></span></label>
     </div>
     <p class="wld-stock">⚡ Stock limité — édition homme en quantité réduite</p>
     <button class="wld-cta wld-cta--block">AJOUTER AU PANIER</button><div class="wld-pay wld-pay--sm wld-pay--buy"><span class="wld-pay__badge"><svg height="18" viewBox="0 0 40 25"><circle cx="16" cy="12.5" r="10" fill="#EB001B"/><circle cx="24" cy="12.5" r="10" fill="#F79E1B"/><path d="M20 5.2a10 10 0 0 1 0 14.6 10 10 0 0 1 0-14.6z" fill="#FF5F00"/></svg></span><span class="wld-pay__badge"><svg height="18" viewBox="0 0 40 25"><rect width="40" height="25" rx="3" fill="#2E77BC"/><text x="20" y="11" text-anchor="middle" font-family="Arial" font-weight="700" font-size="6.5" fill="#fff">AMERICAN</text><text x="20" y="20" text-anchor="middle" font-family="Arial" font-weight="700" font-size="6.5" fill="#fff">EXPRESS</text></svg></span><span class="wld-pay__badge"><svg height="13" viewBox="0 0 76 20"><text x="0" y="16" font-family="Arial" font-weight="700" font-style="italic" font-size="18" fill="#003087">Pay</text><text x="35" y="16" font-family="Arial" font-weight="700" font-style="italic" font-size="18" fill="#009CDE">Pal</text></svg></span><span class="wld-pay__badge"><svg height="15" viewBox="0 0 60 24"><path fill="#000" d="M11.79 5.66c.5-.62.84-1.46.75-2.31-.72.03-1.6.48-2.12 1.1-.46.54-.87 1.41-.76 2.24.81.06 1.63-.41 2.13-1.03z M12.53 6.84c-1.18-.07-2.18.67-2.74.67-.56 0-1.42-.64-2.34-.62-1.2.02-2.31.7-2.93 1.78-1.25 2.17-.32 5.38.9 7.14.6.86 1.31 1.83 2.24 1.79.9-.04 1.24-.58 2.33-.58 1.08 0 1.39.58 2.34.56.97-.02 1.58-.87 2.17-1.74.69-1 .97-1.97.98-2.02-.02-.01-1.88-.72-1.9-2.86-.02-1.79 1.46-2.64 1.53-2.69-.84-1.23-2.14-1.37-2.6-1.4z"/><text x="20" y="18" font-family="Arial" font-weight="500" font-size="17" fill="#000">Pay</text></svg></span><span class="wld-pay__badge"><svg height="15" viewBox="0 0 74 24"><rect width="44" height="24" rx="6" fill="#5A31F4"/><text x="22" y="17" text-anchor="middle" font-family="Arial" font-weight="700" font-size="13" fill="#fff">shop</text><text x="48" y="17" font-family="Arial" font-weight="700" font-size="13" fill="#5A31F4">Pay</text></svg></span><span class="wld-pay__badge"><svg height="15" viewBox="0 0 34 24"><text x="1" y="19" font-family="Arial" font-weight="800" font-size="19" fill="#214B8C">C</text><text x="15" y="19" font-family="Arial" font-weight="800" font-size="19" fill="#3AA935">B</text></svg></span></div>
-    <p class="wld-buy__guarantee">Paiement 100% sécurisé · Rétractation légale 14 jours</p>
+    <div class="wld-guarantee"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg><span><strong>Satisfait ou remboursé sous 30 jours.</strong> Paiement 100% sécurisé · Délais de livraison indiqués à la commande.</span></div>
   </div>
 </div></div>
 
@@ -455,6 +475,10 @@
   <a href="#wld-top" class="wld-cta">PROFITER DE L'OFFRE DU JOUR</a>
 </div></div>
 
+<!-- TRUST -->
+<div class="wld-trust"><div class="wld-wrap"><div class="wld-trust__grid"><div class="wld-trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg><h4>Satisfait ou remboursé</h4><p>30 jours pour changer d'avis.</p></div><div class="wld-trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V8a4 4 0 0 1 8 0v2"/></svg><h4>Paiement sécurisé</h4><p>Transactions chiffrées et protégées.</p></div><div class="wld-trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 7v10l9 4 9-4V7"/><path d="M12 11v10"/></svg><h4>Expédition soignée</h4><p>Commande préparée avec soin.</p></div><div class="wld-trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.3 7.6L3 21l1.9-5.7A8.5 8.5 0 1 1 21 11.5z"/></svg><h4>Service client</h4><p>Une équipe en France à votre écoute.</p></div></div></div></div>
+<!-- STICKY -->
+<div class="wld-stickybar"><span class="wld-stickybar__price">Dès 34,90€ <s>49,90€</s></span><button type="button" class="wld-stickybar__cta" onclick="var b=document.querySelector('.wld-cta--block');if(b)b.scrollIntoView({behavior:'smooth',block:'center'})">Ajouter au panier</button></div>
 <!-- FOOTER -->
 <div class="wld-footer">
   <div class="wld-wrap wld-footer__grid">
