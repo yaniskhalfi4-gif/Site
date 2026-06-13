@@ -860,7 +860,14 @@
     function bind(el,fn){
       if(!el)return;
       el.addEventListener('mousedown',function(e){e.preventDefault();});
-      el.addEventListener('click',function(e){e.preventDefault();var sx=window.pageXOffset,sy=window.pageYOffset;fn();window.scrollTo(sx,sy);});
+      el.addEventListener('click',function(e){
+        e.preventDefault();
+        var x=window.pageXOffset,y=window.pageYOffset;
+        fn();
+        try{el.blur();}catch(_){}
+        window.scrollTo(x,y);
+        var n=0,id=setInterval(function(){window.scrollTo(x,y);if(++n>8)clearInterval(id);},10);
+      });
     }
     thumbs.forEach(function(t,i){bind(t,function(){show(i);});});
     bind(g.querySelector('.wld-gallery__nav--prev'),function(){show(idx-1);});
