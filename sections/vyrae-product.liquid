@@ -227,7 +227,7 @@
 <!-- TRUST -->
 <div class="wld-trust"><div class="wld-wrap"><div class="wld-trust__grid"><div class="wld-trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg><h4>Satisfait ou remboursé</h4><p>30 jours pour changer d'avis.</p></div><div class="wld-trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V8a4 4 0 0 1 8 0v2"/></svg><h4>Paiement sécurisé</h4><p>Transactions chiffrées et protégées.</p></div><div class="wld-trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 7v10l9 4 9-4V7"/><path d="M12 11v10"/></svg><h4>Expédition soignée</h4><p>Commande préparée avec soin.</p></div><div class="wld-trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.3 7.6L3 21l1.9-5.7A8.5 8.5 0 1 1 21 11.5z"/></svg><h4>Service client</h4><p>Une équipe en France à votre écoute.</p></div></div></div></div>
 <!-- STICKY -->
-<div class="wld-stickybar"><span class="wld-stickybar__price">Dès 34,90€ <s>49,90€</s></span><button type="button" class="wld-stickybar__cta" onclick="var b=document.querySelector('.wld-cta--block');if(b)b.scrollIntoView({behavior:'smooth',block:'center'})">Ajouter au panier</button></div>
+<div class="wld-stickybar"><span class="wld-stickybar__price">Dès 34,90€ <s>49,90€</s></span><button type="button" class="wld-stickybar__cta" data-add-cart>Ajouter au panier</button></div>
 <!-- FOOTER -->
 <div class="wld-footer">
   <div class="wld-wrap wld-footer__grid">
@@ -345,7 +345,6 @@
     var sizeInput=root.querySelector('[data-size-input]');
     var sizeErr=root.querySelector('[data-size-error]');
     var sizesBox=root.querySelector('[data-sizes]');
-    var btn=root.querySelector('[data-add-cart]');
     function qty(){ var b=root.querySelector('.wld-bundle.is-active'); var q=b&&b.getAttribute('data-qty'); return q?parseInt(q,10):1; }
     function findVariant(color,size){
       color=(color||'').trim().toLowerCase(); size=(size||'').trim().toLowerCase();
@@ -355,11 +354,11 @@
       }
       return null;
     }
-    if(btn){ btn.addEventListener('click',function(e){
+    function handler(btn){ return function(e){
       e.preventDefault();
       if(!variants.length){ window.location='/cart'; return; }
       var size=sizeInput?sizeInput.value:'';
-      if(!size){ if(sizeErr)sizeErr.style.display='block'; if(sizesBox)sizesBox.classList.add('wld-sizes--error'); if(sizesBox)sizesBox.scrollIntoView({block:'nearest'}); return; }
+      if(!size){ if(sizeErr)sizeErr.style.display='block'; if(sizesBox){sizesBox.classList.add('wld-sizes--error'); sizesBox.scrollIntoView({behavior:'smooth',block:'center'});} return; }
       var v=findVariant(colorInput?colorInput.value:'', size);
       if(!v){ alert('Cette combinaison couleur / taille n\'est pas disponible.'); return; }
       if(v.available===false){ alert('Cette taille / couleur est en rupture de stock.'); return; }
@@ -368,7 +367,8 @@
         .then(function(r){ return r.json().then(function(d){ return {ok:r.ok,d:d}; }); })
         .then(function(res){ if(res.ok){ window.location='/cart'; } else { alert((res.d&&res.d.description)||'Ajout impossible.'); btn.disabled=false; btn.textContent=old; } })
         .catch(function(){ alert('Erreur reseau, reessayez.'); btn.disabled=false; btn.textContent=old; });
-    }); }
+    }; }
+    Array.prototype.slice.call(root.querySelectorAll('[data-add-cart]')).forEach(function(btn){ btn.addEventListener('click', handler(btn)); });
   })();
 </script>
 {% schema %}
