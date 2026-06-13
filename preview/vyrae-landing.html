@@ -529,7 +529,7 @@
       main.src=t.getAttribute('data-full');
       thumbs.forEach(function(x){x.classList.remove('is-active')});
       t.classList.add('is-active');
-      t.scrollIntoView({block:'nearest',inline:'nearest'});
+      var strip=t.parentNode;strip.scrollLeft=t.offsetLeft-strip.offsetLeft-(strip.clientWidth-t.offsetWidth)/2;
     }
     thumbs.forEach(function(t,i){t.addEventListener('click',function(){show(i)});});
     var prev=g.querySelector('.wld-gallery__nav--prev'), next=g.querySelector('.wld-gallery__nav--next');
