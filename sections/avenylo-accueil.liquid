@@ -1,0 +1,1186 @@
+{%- comment -%} Avenylo — Avenylo accueil {%- endcomment -%}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --ink:#171334;--ink-soft:#3B3660;--violet:#6B62CE;--violet-deep:#4A41A8;
+  --halo:#C9C4F5;--paper:#FBFAFE;--line:#E6E3F5;--grey:#6E6B85;
+  --green:#00A36C;
+  --radius:18px;--max:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Instrument Sans",system-ui,sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 22px}
+h1,h2,h3,.wordmark{font-family:"Poppins",sans-serif;font-weight:600;text-transform:lowercase;letter-spacing:-.035em;line-height:1.06;margin:0}
+h1{font-size:clamp(2.3rem,5.4vw,3.8rem)}
+h2{font-size:clamp(1.85rem,3.8vw,2.8rem)}
+h3{font-size:1.15rem;letter-spacing:-.02em}
+p{margin:0}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--violet);margin-bottom:16px}
+.lead{color:var(--grey);font-size:1.05rem;max-width:56ch}
+:focus-visible{outline:2.5px solid var(--violet);outline-offset:3px;border-radius:6px}
+
+/* ---------- EMPLACEMENTS PHOTO ---------- */
+.ph{position:relative;background:linear-gradient(135deg,#EFEDFB,#DEDAF6);border-radius:var(--radius);
+  display:grid;place-items:center;text-align:center;padding:20px;overflow:hidden}
+.ph::before{content:"";position:absolute;inset:10px;border:1.5px dashed rgba(107,98,206,.45);border-radius:12px}
+.ph span{position:relative;font-family:"IBM Plex Mono",monospace;font-size:.7rem;letter-spacing:.08em;
+  color:var(--violet-deep);max-width:24ch;line-height:1.5;text-transform:uppercase}
+
+.topbar{background:var(--ink);color:#fff;font-size:.8rem;text-align:center;padding:9px 16px}
+.topbar span{opacity:.55;margin:0 10px}
+/* ---------- panier ---------- */
+.cart{position:relative;display:inline-grid;place-items:center;width:44px;height:44px;border-radius:12px;
+  color:var(--ink);text-decoration:none;transition:background .15s}
+.cart:hover{background:rgba(107,98,206,.09);color:var(--violet)}
+.cart svg{width:24px;height:24px;display:block}
+.cart .count{position:absolute;top:2px;right:2px;background:var(--ink);color:#fff;min-width:18px;height:18px;
+  border-radius:50%;font-size:.65rem;font-weight:700;display:grid;place-items:center;padding:0 4px;border:2px solid var(--paper)}
+header{position:sticky;top:0;z-index:60;background:rgba(251,250,254,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+.wordmark{font-size:1.5rem;letter-spacing:-.055em;color:var(--violet);text-decoration:none;text-shadow:0 1.5px 0 rgba(74,65,168,.35)}
+.nav-links{display:flex;gap:28px;font-size:.93rem;color:var(--ink-soft)}
+.nav-links a{text-decoration:none}
+.nav-links a:hover{color:var(--violet)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--violet);color:#fff;text-decoration:none;font-weight:600;font-size:.97rem;padding:16px 28px;border-radius:100px;border:0;cursor:pointer;box-shadow:0 6px 18px -6px rgba(107,98,206,.65);transition:transform .15s,background .15s;font-family:inherit}
+.btn:hover{background:var(--violet-deep);transform:translateY(-1px)}
+.btn--sm{padding:11px 20px;font-size:.9rem}
+.btn--light{background:#fff;color:var(--ink);box-shadow:0 6px 18px -8px rgba(23,19,52,.35)}
+.btn--light:hover{background:var(--halo);color:var(--ink)}
+.btn--ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.5);box-shadow:none}
+.btn--ghost:hover{background:rgba(255,255,255,.14)}
+@media(max-width:880px){.nav-links{display:none}}
+
+/* ============ A — ATTENTION : photo + accroche collée à gauche ============ */
+.hero{position:relative;width:100%;margin:0;overflow:hidden;background:#EFEDFB}
+/* pleine largeur, pleine hauteur du bandeau */
+.hero-img{display:block;width:100%;height:min(72vh,680px);object-fit:cover;object-position:center 46%}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:120px;z-index:2;pointer-events:none;
+  background:linear-gradient(180deg,rgba(11,8,30,0),rgba(11,8,30,.55) 55%,rgba(11,8,30,.92))}
+.hero-overlay{position:absolute;inset:0;z-index:2;display:flex;align-items:flex-end;justify-content:flex-start;
+  padding:0 0 50px 0;
+  background:linear-gradient(90deg,rgba(11,8,30,.90) 0%,rgba(11,8,30,.74) 18%,rgba(11,8,30,.34) 32%,rgba(11,8,30,0) 46%)}
+.hero-txt{width:min(40%,400px);margin-left:clamp(20px,3vw,48px)}
+.hero-overlay .eyebrow{color:var(--halo);margin-bottom:12px}
+.hero h1{color:#fff;font-size:clamp(1.9rem,3.4vw,3rem);text-shadow:0 2px 22px rgba(11,8,30,.6)}
+.hero h1 em{font-style:normal;color:var(--halo)}
+.hero-sub{color:rgba(255,255,255,.92);font-size:1rem;margin-top:14px;text-shadow:0 1px 14px rgba(11,8,30,.7)}
+.hero-cta{display:flex;gap:10px;margin-top:26px;flex-wrap:wrap}
+.hero-trust{display:flex;flex-direction:column;gap:6px;margin-top:22px;font-size:.84rem;color:rgba(255,255,255,.85);text-shadow:0 1px 10px rgba(11,8,30,.7)}
+.hero-trust i{color:var(--halo);font-style:normal;margin-right:7px}
+.btn--outline{background:#fff;color:var(--ink);border:1.5px solid var(--line);box-shadow:none}
+.btn--outline:hover{background:#fff;color:var(--violet);border-color:var(--halo)}
+@media(max-width:900px){
+  .hero-img{height:min(52vh,380px);object-fit:cover;object-position:70% 48%}
+  .hero-overlay{position:static;background:var(--ink);padding:32px 22px 38px;display:block}
+  .hero-txt{width:auto;margin-left:0}
+  .hero-trust{flex-direction:row;flex-wrap:wrap;gap:8px 22px}
+}
+
+
+/* ---------- timeline "à quoi s'attendre" ---------- */
+.tl{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.tl-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+  display:flex;flex-direction:column}
+.tl-media{position:relative}
+.tl-media img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.tl-num{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;background:var(--violet);
+  color:#fff;display:grid;place-items:center;font-family:"IBM Plex Mono",monospace;font-size:.78rem;
+  box-shadow:0 4px 12px -4px rgba(11,8,30,.6)}
+.tl-body{padding:20px 22px 24px}
+.tl-day{display:block;font-family:"IBM Plex Mono",monospace;font-size:.74rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--violet);margin-bottom:6px}
+.tl-body h3{margin-bottom:8px}
+.tl-body p{color:var(--grey);font-size:.92rem}
+.tl-note{margin:26px auto 0;max-width:70ch;text-align:center;font-size:.86rem;color:var(--grey)}
+@media(max-width:1000px){.tl{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.tl{grid-template-columns:1fr}}
+.split-img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--radius);display:block}
+
+
+/* ---------- sécurité ---------- */
+.safety{background:var(--ink);color:#fff;border-radius:26px;padding:50px 44px}
+.safety h2{color:#fff}.safety .lead{color:rgba(255,255,255,.62)}.safety .eyebrow{color:var(--halo)}
+.safety-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:36px}
+.safety-item{border-top:2px solid rgba(201,196,245,.45);padding-top:20px}
+.safety-item .ico{font-size:1.7rem;display:block;margin-bottom:12px}
+.safety-item h3{color:#fff;margin-bottom:6px}
+.safety-item p{color:rgba(255,255,255,.6);font-size:.92rem}
+.safety-item.warn{border-top-color:#E9B44C}
+@media(max-width:860px){.safety{padding:34px 24px}.safety-grid{grid-template-columns:1fr}}
+
+/* ---------- packs ---------- */
+.packs{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.pack{position:relative;background:#fff;border:1.5px solid var(--line);border-radius:var(--radius);padding:30px 26px;text-align:center;
+  display:flex;flex-direction:column;transition:border-color .15s,transform .15s}
+.pack:hover{border-color:var(--halo);transform:translateY(-2px)}
+.pack.best{border-color:var(--violet);box-shadow:0 18px 40px -30px rgba(107,98,206,.9)}
+.pack .flag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;
+  font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px;border-radius:100px}
+.pack h3{font-size:1.3rem;margin-bottom:6px}
+.pack .p-sub{color:var(--grey);font-size:.9rem;min-height:42px}
+.pack .p-price{font-family:"Poppins",sans-serif;font-weight:600;font-size:2.1rem;letter-spacing:-.04em;margin:16px 0 2px}
+.pack .p-strike{color:var(--grey);text-decoration:line-through;font-size:.92rem}
+.pack .p-unit{color:var(--violet);font-size:.85rem;margin-top:8px;font-weight:600}
+.pack .btn{margin-top:22px;width:100%}
+@media(max-width:860px){.packs{grid-template-columns:1fr}}
+
+/* ---------- packshot en filigrane dans les packs ---------- */
+.pack{overflow:hidden}
+.pack::before{content:"";position:absolute;right:-30%;bottom:-20%;width:84%;aspect-ratio:1/1;
+  z-index:0;pointer-events:none;opacity:.5;mix-blend-mode:multiply;
+  background:url({{ 'avenylo-7faca4eb.jpg' | asset_url }}) no-repeat center/contain}
+.pack > *{position:relative;z-index:1}
+/* toute la carte est cliquable */
+.pack{cursor:pointer}
+.pack .btn:hover{transform:none}
+.pack:hover::before{opacity:.62}
+.p-qty-unused{position:absolute;top:10px;right:10px;background:rgba(255,255,255,.94);color:var(--ink);
+  font-family:"Poppins",sans-serif;font-weight:600;font-size:.8rem;letter-spacing:-.02em;
+  padding:5px 11px;border-radius:100px;box-shadow:0 6px 18px -10px rgba(11,8,30,.7)}
+
+/* ---------- en-tête d'avis ---------- */
+.rv-hero{display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;
+  background:linear-gradient(120deg,var(--ink) 0%,#241E52 55%,var(--violet-deep) 100%);
+  color:#fff;border-radius:var(--radius);padding:30px 34px;margin-bottom:24px}
+.rv-hero .eyebrow{color:var(--halo);margin-bottom:8px}
+.rv-hero h2{color:#fff;font-size:clamp(1.6rem,2.8vw,2.15rem);margin:0}
+.rv-hero-score{text-align:right;flex-shrink:0}
+.rv-hero-score .gstars{margin-bottom:8px}
+.rv-hero-num{font-family:"Poppins",sans-serif;font-weight:600;font-size:2.3rem;letter-spacing:-.04em;line-height:1}
+.rv-hero-num span{font-size:1.1rem;color:rgba(255,255,255,.5);margin-left:2px}
+.rv-hero-sub{font-size:.84rem;color:rgba(255,255,255,.62);margin-top:6px}
+@media(max-width:700px){.rv-hero{padding:24px;justify-content:flex-start}.rv-hero-score{text-align:left}}
+
+
+/* ---------- sécurité (clair, dans le thème) ---------- */
+.safe2{display:grid;grid-template-columns:1fr 1fr;gap:0;background:linear-gradient(140deg,#F3F1FD,#E6E2FA);
+  border:1px solid var(--line);border-radius:26px;overflow:hidden}
+.safe2-ph{min-height:460px}
+.safe2-txt{padding:48px 44px}
+.safe2 h2{margin-bottom:16px}
+.safe2 .lead{color:var(--ink-soft)}
+.safe-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}
+.safe-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 16px 18px}
+.safe-card .dot{width:22px;height:22px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;
+  font-size:.72rem;margin-bottom:10px}
+.safe-card.warn .dot{background:#E9A93C}
+.safe-card h3{font-size:.98rem;margin-bottom:4px}
+.safe-card p{font-size:.82rem;color:var(--grey)}
+@media(max-width:900px){.safe2{grid-template-columns:1fr}.safe2-ph{min-height:0;aspect-ratio:4/3}.safe2-txt{padding:32px 24px}
+  .safe-cards{grid-template-columns:1fr}}
+
+/* ---------- bandeau garantie sur fond d'ondes ---------- */
+.wave{position:relative;border-radius:26px;overflow:hidden;text-align:center}
+.wave img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.wave-tint{position:absolute;inset:0;background:linear-gradient(180deg,rgba(74,65,168,.55),rgba(43,36,110,.75))}
+.wave-in{position:relative;padding:86px 26px}
+.wave h2{color:#fff;max-width:18ch;margin:0 auto 18px}
+.wave p{color:rgba(255,255,255,.82);max-width:52ch;margin:0 auto 30px}
+.wave .btn{background:#fff;color:var(--violet-deep)}
+.wave .btn:hover{background:var(--halo);color:var(--ink)}
+.wave small{display:block;margin-top:20px;color:rgba(255,255,255,.7);font-size:.85rem}
+@media(max-width:700px){.wave-in{padding:56px 20px}}
+
+/* ---------- avis façon plateforme ---------- */
+.rv-top{text-align:center;margin-bottom:30px}
+.rv-score{display:inline-flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center}
+.rv-score b{font-family:"Poppins",sans-serif;font-size:1.6rem;letter-spacing:-.03em}
+.rv-score small{color:var(--grey);font-size:.9rem}
+.rv-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.rv{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:grid}
+.rv.photo{grid-template-columns:minmax(0,300px) 1fr}
+.rv-body{padding:24px 26px}
+.rv-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
+.rv h3{font-size:1.02rem;margin-bottom:8px}
+.rv p{font-size:.93rem;color:var(--ink-soft)}
+.rv footer{margin-top:14px;font-size:.83rem;color:var(--grey)}
+.verif{color:var(--green);font-weight:600;font-size:.82rem;white-space:nowrap}
+@media(max-width:900px){.rv-grid{grid-template-columns:1fr}}
+@media(max-width:520px){.rv.photo{grid-template-columns:1fr}}
+
+
+/* ---------- étoiles façon plateforme d'avis ---------- */
+.gstars{display:inline-flex;gap:3px;line-height:1}
+.gstars i{width:21px;height:21px;border-radius:2px;background:var(--green);color:#fff;font-style:normal;
+  font-size:.74rem;display:grid;place-items:center}
+.gstars i.off{background:#DDDCE6}
+.gstars i.half{background:linear-gradient(90deg,var(--green) 50%,#DDDCE6 50%)}
+.gstars.sm i{width:17px;height:17px;font-size:.62rem}
+
+/* ---------- pastille ventes ---------- */
+.sold{position:absolute;top:18px;left:clamp(20px,3vw,48px);z-index:3;display:inline-flex;align-items:center;gap:10px;
+  background:#fff;border-radius:100px;padding:9px 14px 9px 16px;font-size:.86rem;
+  box-shadow:0 10px 30px -14px rgba(11,8,30,.6)}
+.sold b{font-weight:600}
+.sold span{color:var(--grey)}
+.sold i{font-style:normal;color:var(--violet)}
+.sold button{border:0;background:transparent;cursor:pointer;color:var(--grey);font-size:1rem;line-height:1;padding:0 2px}
+@media(max-width:760px){.sold{top:12px;left:12px;font-size:.78rem;padding:7px 10px 7px 12px}}
+
+
+/* ---------- comparatif coloré ---------- */
+.cmp{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:#fff}
+.cmp table{border-collapse:collapse;width:100%;min-width:700px;font-size:.94rem}
+.cmp th,.cmp td{padding:18px 20px;text-align:center;border-bottom:1px solid var(--line);vertical-align:middle}
+.cmp thead th{font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);font-weight:500;padding-top:22px;padding-bottom:22px}
+.cmp tbody th{text-align:left;font-weight:600;color:var(--ink);width:210px}
+.cmp td{color:var(--grey)}
+.cmp .us{background:rgba(107,98,206,.07)}
+.cmp thead .us{color:var(--violet);font-weight:700;font-size:.8rem}
+.cmp td.us{color:var(--ink);font-weight:600}
+.cmp tr:last-child th,.cmp tr:last-child td{border-bottom:0}
+.ic{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;font-size:.9rem;font-weight:700;line-height:1}
+.ic.yes{background:var(--green);color:#fff;box-shadow:0 4px 12px -6px rgba(0,163,108,.8)}
+.ic.no{background:#FCE4E9;color:#E0526F}
+.ic.mid{background:#FDF0DA;color:#D9931F}
+.ic.na{background:transparent;color:#C6C3D6;font-size:1.1rem;font-weight:400}
+.cmp .save-row td{font-weight:600;color:var(--violet)}
+.cmp-note{margin-top:16px;font-size:.82rem;color:var(--grey);text-align:center}
+
+
+/* ---------- emplacement widget ---------- */
+.slot2{display:flex;gap:18px;align-items:flex-start;margin-top:24px;padding:24px 26px;
+  background:#fff;border:1.5px dashed var(--halo);border-radius:var(--radius)}
+.slot2-ico{flex:none;width:40px;height:40px;border-radius:10px;background:var(--green);color:#fff;
+  display:grid;place-items:center;font-size:1.1rem}
+.slot2 b{display:block;font-family:"Poppins",sans-serif;letter-spacing:-.02em;margin-bottom:4px}
+.slot2 p{font-size:.9rem;color:var(--grey)}
+
+/* ---------- sections ---------- */
+section{padding:62px 0}
+.sec-head{max-width:640px;margin-bottom:30px}
+.sec-head .lead{margin-top:14px}
+.center{margin-left:auto;margin-right:auto;text-align:center}
+.center .lead{margin-left:auto;margin-right:auto}
+.aida{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.18em;color:var(--halo);text-transform:uppercase}
+
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px 26px}
+.card h3{margin-bottom:10px}
+.card p{color:var(--grey);font-size:.95rem}
+.card .price-tag{font-family:"IBM Plex Mono",monospace;font-size:.78rem;color:var(--violet);letter-spacing:.08em;margin-bottom:14px}
+@media(max-width:860px){.cards{grid-template-columns:1fr}}
+
+/* ---------- split image / texte ---------- */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.split.rev .split-txt{order:2}
+.split .ph{aspect-ratio:4/5}
+.split-txt .lead{margin-top:16px}
+.ticks{list-style:none;padding:0;margin:26px 0 0;display:grid;gap:12px}
+.ticks li{display:flex;gap:12px;font-size:.97rem;color:var(--ink-soft)}
+.ticks i{color:var(--violet);font-style:normal}
+@media(max-width:880px){.split{grid-template-columns:1fr;gap:26px}.split.rev .split-txt{order:0}}
+
+/* ---------- étapes avec visuels ---------- */
+.step img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--radius);margin-bottom:18px;display:block}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.step .ph{aspect-ratio:4/3;margin-bottom:20px}
+.step-num{font-family:"IBM Plex Mono",monospace;font-size:.75rem;color:var(--violet);letter-spacing:.14em;margin-bottom:10px}
+.step p{color:var(--grey);font-size:.95rem;margin-top:8px}
+@media(max-width:860px){.steps{grid-template-columns:1fr}}
+
+/* ---------- galerie produit ---------- */
+.grid-shots{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.grid-shots .ph:nth-child(1){grid-column:span 2;grid-row:span 2;aspect-ratio:1/1}
+.grid-shots .ph{aspect-ratio:1/1}
+@media(max-width:860px){.grid-shots{grid-template-columns:repeat(2,1fr)}.grid-shots .ph:nth-child(1){grid-column:span 2;grid-row:auto}}
+
+/* ---------- fréquence ---------- */
+.freq{background:var(--ink);color:#fff;border-radius:26px;padding:54px 46px}
+.freq h2{color:#fff}.freq .lead{color:rgba(255,255,255,.62)}.freq .eyebrow{color:var(--halo)}
+.sweep{margin-top:38px}
+.sweep-bar{position:relative;height:74px;border-radius:12px;background:linear-gradient(90deg,rgba(201,196,245,.12),rgba(201,196,245,.28));overflow:hidden}
+.sweep-bar::after{content:"";position:absolute;top:0;bottom:0;width:120px;background:linear-gradient(90deg,transparent,rgba(201,196,245,.9),transparent);animation:sweep 5s ease-in-out infinite alternate}
+@keyframes sweep{from{left:-120px}to{left:100%}}
+@media(prefers-reduced-motion:reduce){.sweep-bar::after{animation:none;left:40%}}
+.sweep-scale{display:flex;justify-content:space-between;margin-top:12px;font-family:"IBM Plex Mono",monospace;font-size:.74rem;color:rgba(255,255,255,.45);letter-spacing:.1em}
+.freq-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:42px;border-top:1px solid rgba(255,255,255,.12);padding-top:30px}
+.freq-stats b{display:block;font-family:"Poppins",sans-serif;font-size:1.9rem;letter-spacing:-.03em;margin-bottom:4px}
+.freq-stats small{color:rgba(255,255,255,.5);font-size:.85rem}
+@media(max-width:860px){.freq{padding:38px 24px}.freq-stats{grid-template-columns:1fr}}
+
+/* ---------- transparence ---------- */
+.honest{background:#fff;border:1px solid var(--line);border-radius:26px;padding:50px 44px}
+.honest ul{list-style:none;padding:0;margin:32px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.honest li{padding-top:20px;border-top:2px solid var(--halo)}
+.honest li p{color:var(--grey);font-size:.93rem;margin-top:8px}
+@media(max-width:860px){.honest{padding:34px 24px}.honest ul{grid-template-columns:1fr}}
+
+/* ---------- comparatif ---------- */
+.table-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:#fff}
+table{border-collapse:collapse;width:100%;min-width:660px;font-size:.94rem}
+th,td{padding:16px 18px;text-align:left;border-bottom:1px solid var(--line)}
+thead th{font-family:"IBM Plex Mono",monospace;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);font-weight:500}
+tbody th{font-weight:600;color:var(--ink);width:200px}
+td{color:var(--grey)}
+.col-us{background:rgba(107,98,206,.06)}
+thead .col-us{color:var(--violet)}
+td.col-us{color:var(--ink);font-weight:600}
+tr:last-child th,tr:last-child td{border-bottom:0}
+
+/* ---------- avis façon plateforme ---------- */
+.rev-head{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px 28px;margin-bottom:22px}
+.rev-head .big{font-family:"Poppins",sans-serif;font-size:2.1rem;letter-spacing:-.04em}
+.rev-head small{display:block;color:var(--grey);font-size:.85rem}
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.review{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column}
+.review .ph{aspect-ratio:5/4;border-radius:0}
+.review-body{padding:22px 24px 24px}
+.review h3{font-size:1rem;margin:12px 0 8px}
+.review p{font-size:.93rem;color:var(--ink-soft)}
+.review footer{font-size:.83rem;color:var(--grey);margin-top:14px;display:flex;gap:8px;align-items:center}
+.verif{color:var(--green);font-weight:600}
+.slot{border:1.5px dashed var(--halo);border-radius:var(--radius);padding:20px;text-align:center;font-family:"IBM Plex Mono",monospace;font-size:.74rem;color:var(--violet);letter-spacing:.06em;margin-top:22px;line-height:1.7}
+@media(max-width:860px){.reviews{grid-template-columns:1fr}}
+
+/* ---------- garantie ---------- */
+.guarantee{display:grid;grid-template-columns:auto 1fr;gap:34px;align-items:center;
+  background:linear-gradient(120deg,rgba(107,98,206,.09),rgba(201,196,245,.16));border-radius:26px;padding:46px}
+.seal{width:120px;height:120px;border-radius:50%;border:2px solid var(--violet);display:grid;place-items:center;text-align:center;font-family:"Poppins",sans-serif;font-weight:600;line-height:1.1;color:var(--violet);background:#fff}
+.seal b{display:block;font-size:2rem;letter-spacing:-.04em}
+.seal small{font-size:.68rem;letter-spacing:.06em;text-transform:uppercase}
+@media(max-width:700px){.guarantee{grid-template-columns:1fr;padding:32px 24px;text-align:center;justify-items:center}}
+
+/* ---------- faq ---------- */
+details{border-bottom:1px solid var(--line);padding:20px 0}
+summary{cursor:pointer;font-family:"Poppins",sans-serif;font-weight:500;font-size:1.04rem;letter-spacing:-.02em;list-style:none;display:flex;justify-content:space-between;gap:20px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--violet);font-size:1.3rem;flex:none}
+details[open] summary::after{content:"–"}
+details p{color:var(--grey);font-size:.95rem;margin-top:12px;max-width:70ch}
+
+/* ---------- cta final ---------- */
+.final{position:relative;border-radius:26px;overflow:hidden;min-height:420px;display:grid;align-items:center;text-align:center}
+.final .ph{position:absolute;inset:0;border-radius:0}
+.final-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,19,52,.55),rgba(23,19,52,.85))}
+.final-inner{position:relative;padding:70px 26px}
+.final h2{color:#fff;margin-bottom:16px}
+.final p{color:rgba(255,255,255,.72);max-width:46ch;margin:0 auto 30px}
+
+footer.site{background:var(--ink);color:#fff;margin-top:0;padding:64px 0 34px}
+.foot-grid{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:30px}
+.foot-grid h4{font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:#fff;margin:0 0 14px;font-weight:500}
+.foot-grid ul{list-style:none;padding:0;margin:0;font-size:.92rem;color:rgba(255,255,255,.66)}
+.foot-grid li{margin-bottom:9px}
+.foot-grid a{text-decoration:none}
+.foot-grid a:hover{color:var(--halo)}
+footer.site .wordmark{color:#fff;text-shadow:none}
+.foot-tag{color:rgba(255,255,255,.6);font-size:.9rem;margin-top:12px;max-width:34ch}
+.legal{margin-top:42px;padding-top:22px;border-top:1px solid rgba(255,255,255,.14);font-size:.8rem;color:rgba(255,255,255,.48);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media(max-width:860px){.foot-grid{grid-template-columns:1fr 1fr}}
+
+
+/* ---------- grille nuisibles ---------- */
+.pests{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.pests li{display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);
+  border-radius:100px;padding:12px 22px;font-size:.96rem;font-weight:500;color:var(--ink);
+  box-shadow:0 6px 16px -14px rgba(23,19,52,.5);transition:border-color .15s,transform .15s}
+.pests li:hover{border-color:var(--halo);transform:translateY(-2px)}
+.pests li i{font-style:normal;font-size:1.15rem;line-height:1}
+.pests-note{margin:30px auto 0;max-width:64ch;text-align:center;font-size:.86rem;color:var(--grey)}
+/* ---------- packshot réel ---------- */
+.shot-img{width:100%;height:100%;object-fit:cover;border-radius:var(--radius);background:#EFEDFB}
+.grid-shots .shot-img{grid-column:span 2;grid-row:span 2;aspect-ratio:1/1}
+@media(max-width:860px){.grid-shots .shot-img{grid-column:span 2;grid-row:auto}}
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:80;background:#fff;border-top:1px solid var(--line);
+  padding:12px 18px calc(12px + env(safe-area-inset-bottom));display:none;align-items:center;gap:14px;
+  box-shadow:0 -8px 24px -12px rgba(23,19,52,.25)}
+.sticky b{font-family:"Poppins",sans-serif;font-size:1.15rem;letter-spacing:-.03em}
+.sticky small{display:block;color:var(--grey);font-size:.75rem}
+.sticky .btn{flex:1;padding:15px 18px}
+@media(max-width:880px){.sticky{display:flex}body{padding-bottom:80px}}
+
+
+/* ================= AJUSTEMENTS MOBILE ================= */
+@media(max-width:620px){
+  .wrap{padding:0 20px}
+  .hero-txt{padding:0}
+  .card,.rv,.pack,.tl-card,.safe2,.honest,.cmp{border-radius:16px}
+  .topbar{font-size:.7rem;padding:7px 10px;letter-spacing:-.01em;line-height:1.35}
+  .topbar span{margin:0 6px}
+  .nav{height:60px}
+  .wordmark{font-size:1.3rem}
+  .hero-img{height:min(62vh,430px)!important;object-position:64% 48%!important}
+  .hero-overlay{padding:28px 20px 32px!important}
+  .hero h1{font-size:clamp(1.85rem,8.4vw,2.4rem);line-height:1.08}
+  .hero-sub{font-size:.97rem;margin-top:12px}
+  .hero-cta{margin-top:20px;gap:9px}
+  .hero-cta .btn{width:100%;padding:16px 20px}
+  .hero-trust{margin-top:18px;font-size:.82rem}
+  section{padding:52px 0}
+  .sec-head{margin-bottom:28px}
+  h2{font-size:clamp(1.6rem,6.6vw,2rem)}
+  .lead{font-size:.98rem}
+  .card,.honest,.safe2-txt,.freq,.wave-in{padding:26px 20px}
+  .pests{gap:9px}
+  .pests li{padding:10px 16px;font-size:.88rem}
+  .tl-body,.rv-body{padding:18px 18px 20px}
+  .cmp table{font-size:.86rem;min-width:560px}
+  .cmp th,.cmp td{padding:13px 12px}
+  .cmp tbody th{width:130px}
+  .pack{padding:24px 20px}
+  .rv.photo{grid-template-columns:1fr}
+  .seal{width:96px;height:96px}
+  .foot-grid{grid-template-columns:1fr;gap:24px}
+  .legal{flex-direction:column;gap:8px}
+  details summary{font-size:.98rem}
+  .bundle{grid-template-columns:20px 46px 1fr auto;gap:9px;padding:13px 12px}
+  .bundle b{font-size:.92rem}
+  .bundle .meta,.bundle .room{font-size:.76rem}
+  .bundle .amt{font-size:.98rem}
+  .bundle .flag2{font-size:.6rem;padding:4px 9px;right:8px}
+  .product{gap:22px}
+  .thumbs{grid-template-columns:repeat(4,1fr)}
+  h1{font-size:clamp(1.7rem,7.4vw,2.2rem)}
+}
+@media(max-width:380px){
+  .topbar{font-size:.64rem}
+  .pests li{padding:9px 13px;font-size:.83rem}
+}
+
+/* --- badge des packs : à l'intérieur de la carte, plus coupé --- */
+.pack .flag{top:14px!important;bottom:auto;white-space:nowrap;z-index:2;
+  box-shadow:0 6px 14px -8px rgba(11,8,30,.7)}
+.pack.best{padding-top:56px}
+.packs{padding-top:4px}
+@media(max-width:760px){
+  .packs{gap:16px}
+  .pack{padding:24px 18px}
+  .pack.best{padding-top:52px}
+  .pack .flag{font-size:.6rem;padding:4px 10px;top:12px!important}
+  .pack h3{font-size:1.15rem;line-height:1.2}
+  .pack .p-sub{min-height:0;margin-top:6px}
+  .pack .p-price{font-size:1.85rem;margin:14px 0 2px}
+  .pack .btn{margin-top:18px}
+}
+
+/* --- bandeau d'achat fixe sur mobile --- */
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:80;background:#fff;border-top:1px solid var(--line);
+  padding:10px 16px calc(10px + env(safe-area-inset-bottom));display:none;align-items:center;gap:12px;
+  box-shadow:0 -8px 24px -12px rgba(23,19,52,.3)}
+.sticky b{font-family:"Poppins",sans-serif;font-size:1.05rem;letter-spacing:-.03em;display:block}
+.sticky small{display:block;color:var(--grey);font-size:.74rem}
+.sticky .btn{flex:1;padding:14px 18px;font-size:.95rem}
+@media(max-width:760px){.sticky{display:flex}body{padding-bottom:78px}}
+
+/* --- premier écran mobile : tout tient sans scroller (A.I.D.A) --- */
+.hero-sub-m,.hero-chips,.hero-scroll{display:none}
+@media(max-width:760px){
+  .hero{border-radius:0}
+  .hero-img{height:34vh!important;min-height:200px;max-height:280px;object-position:64% 46%!important}
+  .hero-overlay{position:static!important;background:var(--ink)!important;padding:22px 18px 24px!important;display:block!important}
+  .hero-txt{max-width:none;width:100%}
+  .hero-overlay .eyebrow{margin-bottom:8px;font-size:.62rem;letter-spacing:.14em}
+  .hero h1{font-size:clamp(1.9rem,8.6vw,2.4rem);line-height:1.06;text-shadow:none}
+  .hero-sub{display:none}
+  .hero-sub-m{display:block;color:rgba(255,255,255,.86);font-size:.98rem;line-height:1.45;margin-top:10px;text-shadow:none}
+  .hero-cta{margin-top:16px;display:block}
+  .hero-cta .btn{width:100%;padding:16px 20px;font-size:1.02rem}
+  .hero-trust{display:none}
+  .hero-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+  .hero-chips span{border:1px solid rgba(201,196,245,.45);color:rgba(255,255,255,.9);
+    border-radius:100px;padding:5px 11px;font-size:.74rem;white-space:nowrap}
+  .hero-scroll{display:block;margin-top:16px;color:var(--halo);font-size:.8rem;
+    text-decoration:none;font-family:"IBM Plex Mono",monospace;letter-spacing:.06em}
+}
+@media(max-width:380px){
+  .hero-img{height:30vh!important;min-height:180px}
+  .hero-chips span{font-size:.7rem;padding:4px 9px}
+}
+
+/* ================= MOBILE : marges et débordements (dernier mot) ================= */
+@media(max-width:900px){
+  html,body{overflow-x:hidden;max-width:100%}
+  *{min-width:0}
+  img,svg,video,table{max-width:100%}
+
+  /* toutes les zones de contenu gardent une marge latérale */
+  .wrap{padding-left:18px!important;padding-right:18px!important;max-width:100%}
+  .hero-overlay,.hero-txt{padding-left:18px!important;padding-right:18px!important}
+  .hero-overlay .wrap,.hero-txt{padding-left:0!important;padding-right:0!important}
+
+  /* cartes et blocs colorés : rembourrage intérieur homogène */
+  .why,.honest,.freq,.card,.panel,.side,.safe2-txt,.wave-in,.rv-body,.tl-body,.pack,.review,.slot2,.guarantee{
+    padding-left:20px!important;padding-right:20px!important}
+  .safe2,.why,.honest,.freq,.wave,.cmp,.rv,.pack,.tl-card,.slot2,.guarantee{
+    margin-left:0!important;margin-right:0!important;max-width:100%}
+
+  /* le tableau reste seul à défiler, jamais la page */
+  .cmp{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .cmp table{min-width:520px}
+
+  /* listes et grilles ne poussent plus les bords */
+  .pests,.safe-cards,.tl,.rv-grid,.packs,.foot-grid,.reviews{max-width:100%}
+  .pests li{max-width:100%}
+
+  /* tiroir et bandeau fixe */
+  .av-dr{width:100%!important;max-width:100%}
+  .sticky{padding-left:16px;padding-right:16px}
+}
+@media(max-width:400px){
+  .wrap{padding-left:15px!important;padding-right:15px!important}
+  .why,.honest,.freq,.card,.panel,.side,.safe2-txt,.wave-in,.rv-body,.tl-body,.pack{
+    padding-left:16px!important;padding-right:16px!important}
+}
+
+/* --- bandeau preuve sociale --- */
+.proof{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;text-decoration:none;
+  background:#fff;border:1px solid var(--line);border-radius:100px;padding:16px 26px;margin-top:-26px;
+  position:relative;z-index:5;box-shadow:0 16px 36px -26px rgba(23,19,52,.5);color:var(--ink)}
+.proof:hover{border-color:var(--halo)}
+.proof-txt{font-size:.95rem}
+.proof-txt b{font-family:"Poppins",sans-serif;font-size:1.1rem;letter-spacing:-.02em}
+.proof-txt b.proof-n{font-size:1rem}
+.proof-go{color:var(--violet);font-weight:600;font-size:.9rem}
+@media(max-width:760px){
+  .proof{margin-top:16px;border-radius:16px;padding:14px 16px;gap:8px;justify-content:flex-start}
+  .proof-txt{font-size:.88rem}
+  .proof-go{width:100%}
+}
+
+/* --- cadrage des photos : avis et sécurité ---
+   La photo n'est plus rognée : elle est affichée en entier (l'appareil compris).
+   L'espace restant est comblé par un halo flouté tiré de la photo elle-même. */
+.ph-fill{position:relative;overflow:hidden;margin:0;display:block;
+  background:linear-gradient(150deg,#F3F1FD,#E6E2FA)}
+.ph-fill::before{content:"";position:absolute;inset:0;
+  background-image:var(--ph);background-size:cover;background-position:center;
+  transform:scale(1.28);filter:blur(30px) saturate(1.18) brightness(1.05);opacity:.82}
+.ph-fill::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(120% 88% at 50% 38%,transparent 42%,rgba(23,19,52,.16) 100%)}
+.ph-fill img{position:relative;z-index:2;width:100%;height:100%;
+  object-fit:contain;object-position:center;display:block;
+  min-height:0;max-height:none;aspect-ratio:auto}
+
+/* cartes d'avis : la photo passe en haut, pleine largeur.
+   Le texte récupère toute la largeur de la carte : cartes plus courtes,
+   photos plus grandes, lecture bien plus facile. */
+.rv{display:flex!important;flex-direction:column;overflow:hidden;
+  transition:transform .28s ease,box-shadow .28s ease,border-color .28s ease}
+.rv:hover{transform:translateY(-4px);border-color:#D8D3F2;
+  box-shadow:0 30px 56px -40px rgba(11,8,30,.9)}
+.rv.photo{grid-template-columns:1fr!important}
+.rv-ph{width:100%;aspect-ratio:16/10;border-bottom:1px solid var(--line)}
+.rv-body{padding:22px 26px 24px;background:#fff;position:relative;z-index:1;
+  display:flex;flex-direction:column;flex:1}
+.rv h3{line-height:1.3;margin-bottom:8px}
+.rv p{line-height:1.6}
+.rv footer{margin-top:auto;padding-top:16px;display:flex;align-items:center;gap:8px}
+.rv footer::before{content:"";width:26px;height:26px;border-radius:50%;flex:0 0 26px;
+  background:linear-gradient(150deg,var(--halo),var(--violet));opacity:.85}
+
+/* photo de la section sécurité */
+.safe2-ph{height:100%;min-height:460px}
+.split-img{object-fit:cover;object-position:center center}
+
+@media(max-width:900px){
+  .rv-ph{aspect-ratio:4/3}
+  .safe2-ph{height:auto;min-height:0;aspect-ratio:4/3}
+  .split-img{aspect-ratio:4/3;object-position:center 42%}
+}
+@media(max-width:520px){
+  .rv-ph{aspect-ratio:5/4}
+  .safe2-ph{aspect-ratio:5/4}
+}
+</style>
+
+
+<div class="topbar">Livraison offerte en France <span>·</span> Expédié sous 24 h <span>·</span> 60 jours satisfait ou remboursé</div>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="wordmark">avenylo</a>
+    <nav class="nav-links">
+      <a href="#fonctionnement">Comment ça marche</a>
+      <a href="/pages/produit">Le produit</a>
+      <a href="#nuisibles">Nuisibles visés</a>
+      <a href="#packs">Packs</a>
+      <a href="#avis">Avis</a>
+      <a href="#faq">FAQ</a>
+      <a href="/pages/a-propos">À propos</a>
+    </nav>
+    <a href="#" class="cart" aria-label="Panier">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4.5 7.5h15l-1.2 12.2a1.5 1.5 0 0 1-1.5 1.3H7.2a1.5 1.5 0 0 1-1.5-1.3L4.5 7.5Z"/>
+        <path d="M8.8 7.5V6a3.2 3.2 0 0 1 6.4 0v1.5"/>
+      </svg>
+      <span class="count">0</span>
+    </a>
+  </div>
+</header>
+
+<!-- ============================================================
+     A — ATTENTION : accroche dans la zone sombre à gauche de la photo
+     ============================================================ -->
+<div class="hero">
+  <img class="hero-img" src="{{ 'avenylo-05140be2.jpg' | asset_img_url: '1200x' }}" alt="Le répulsif Avenylo branché sur une prise murale dans un salon" srcset="{{ 'avenylo-05140be2.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-05140be2.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-05140be2.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:760px) 100vw, 50vw" loading="eager" fetchpriority="high" decoding="async">
+  <div class="hero-overlay">
+    <div class="hero-txt">
+      <p class="eyebrow">Répulsif à ultrasons · 22–65 kHz</p>
+      <h1>{{ section.settings.hero_l1 }}<br><em>{{ section.settings.hero_l2 }}</em></h1>
+      <p class="hero-sub">{{ section.settings.hero_texte }}</p>
+      <p class="hero-sub-m">Une prise. Des ultrasons inaudibles. Ni poison, ni pièges.</p>
+      <div class="hero-cta">
+        <a href="/pages/produit#achat" class="btn btn--light">Commander</a>
+      </div>
+      <div class="hero-trust">
+        <span><i>✓</i>Sans produit chimique</span>
+        <span><i>✓</i>60 jours pour l'essayer</span>
+      </div>
+      <div class="hero-chips">
+        <span>Sans poison</span><span>60 jours d'essai</span><span>Livraison offerte</span>
+      </div>
+      <a class="hero-scroll" href="#nuisibles">Ce que ça repousse ↓</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PREUVE SOCIALE ============ -->
+<div class="wrap">
+  <a class="proof" href="#avis">
+    {% assign n = section.settings.note_etoiles | default: 5 %}
+    <span class="gstars" aria-hidden="true">{% for k in (1..5) %}{% if k <= n %}<i>&#9733;</i>{% else %}<i class="off">&#9733;</i>{% endif %}{% endfor %}</span>
+    <span class="proof-txt"><b>4,9</b> sur <b class="proof-n">7 348</b> avis vérifiés</span>
+    <span class="proof-go">Lire les avis →</span>
+  </a>
+</div>
+
+<!-- ============ CE QUE ÇA REPOUSSE ============ -->
+<section id="nuisibles">
+  <div class="wrap">
+    <div class="sec-head center">
+      <p class="eyebrow">Ce que ça repousse</p>
+      <h2>avenylo est conçu pour éloigner <span style="color:var(--violet)">les nuisibles domestiques les plus courants.</span></h2>
+      <p class="lead">Rats, cafards, souris, araignées : un seul appareil branché sur une prise.</p>
+    </div>
+    <ul class="pests">
+      <li><i>🪲</i>Punaises de lit</li>
+      <li><i>🪳</i>Cafards</li>
+      <li><i>🐀</i>Rats</li>
+      <li><i>🐁</i>Souris</li>
+      <li><i>🕷️</i>Araignées</li>
+      <li><i>🐜</i>Fourmis</li>
+      <li><i>🦟</i>Puces</li>
+      <li><i>🦟</i>Moustiques</li>
+      <li><i>🦗</i>Grillons</li>
+      <li><i>🐛</i>Poissons d'argent</li>
+      <li><i>🪲</i>Perce-oreilles</li>
+      <li><i>🐝</i>Guêpes</li>
+      <li><i>🦋</i>Papillons de nuit</li>
+      <li><i>🐝</i>Frelons</li>
+    </ul>
+    <p class="pests-note">Répulsif d'appoint et de prévention : l'appareil rend la pièce inconfortable, il ne détruit pas un nid déjà installé. En cas d'infestation avancée, faites appel à un professionnel.</p>
+  </div>
+</section>
+
+<!-- ============ COMMENT ÇA MARCHE ============ -->
+<section id="fonctionnement" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Comment ça marche</p>
+      <h2>trois étapes, dix secondes.</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <img src="{{ 'avenylo-af910dd4.jpg' | asset_img_url: '1200x' }}" alt="Appareil Avenylo branché sur une prise murale" srcset="{{ 'avenylo-af910dd4.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-af910dd4.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-af910dd4.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:760px) 100vw, 50vw" loading="lazy" decoding="async">
+        <p class="step-num">01 — Installation</p>
+        <h3>vous branchez</h3>
+        <p>Sur n'importe quelle prise, à 20–80 cm du sol. Le témoin bleu confirme que l'appareil émet.</p>
+      </div>
+      <div class="step">
+        <img src="{{ 'avenylo-821d316d.jpg' | asset_img_url: '1200x' }}" alt="Appareil allumé dans une cuisine, halo bleu" srcset="{{ 'avenylo-821d316d.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-821d316d.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-821d316d.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:760px) 100vw, 50vw" loading="lazy" decoding="async">
+        <p class="step-num">02 — Émission</p>
+        <h3>le balayage démarre</h3>
+        <p>Il parcourt en boucle 22 à 65 kHz, au-delà de l'audition humaine, pour éviter que les nuisibles s'habituent à un son fixe.</p>
+      </div>
+      <div class="step">
+        <img src="{{ 'avenylo-2e7b15dd.jpg' | asset_img_url: '1200x' }}" alt="Famille dans un salon avec l'appareil branché" srcset="{{ 'avenylo-2e7b15dd.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-2e7b15dd.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-2e7b15dd.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:760px) 100vw, 50vw" loading="lazy" decoding="async">
+        <p class="step-num">03 — Durée</p>
+        <h3>vous laissez tourner</h3>
+        <p>24 h/24, sans recharge ni entretien. Moins de 4 W, soit environ 1 € d'électricité par an.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TIMELINE : LES PREMIERS JOURS ============ -->
+<section id="timeline" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Après le branchement</p>
+      <h2>à quoi s'attendre les premiers jours.</h2>
+      <p class="lead">Un répulsif ne fait pas disparaître un problème en une nuit. Voici comment les choses évoluent en général, pièce par pièce.</p>
+    </div>
+
+    <div class="tl">
+      <article class="tl-card">
+        <div class="tl-media"><img src="{{ 'avenylo-dcd6e20f.jpg' | asset_img_url: '1200x' }}" alt="Appareil Avenylo branché sur une prise du salon" srcset="{{ 'avenylo-dcd6e20f.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-dcd6e20f.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-dcd6e20f.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:760px) 100vw, 50vw" loading="lazy" decoding="async"><span class="tl-num">01</span></div>
+        <div class="tl-body">
+          <span class="tl-day">Jour 1</span>
+          <h3>activation</h3>
+          <p>Vous branchez, le témoin bleu s'allume. Le balayage 22–65 kHz démarre immédiatement dans la pièce. Vous, vous n'entendez rien.</p>
+        </div>
+      </article>
+
+      <article class="tl-card">
+        <div class="tl-media"><img src="{{ 'avenylo-357c6095.jpg' | asset_img_url: '1200x' }}" alt="Ondes ultrasonores diffusées près d'un cafard" srcset="{{ 'avenylo-357c6095.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-357c6095.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-357c6095.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:760px) 100vw, 50vw" loading="lazy" decoding="async"><span class="tl-num">02</span></div>
+        <div class="tl-body">
+          <span class="tl-day">Jour 2 – 3</span>
+          <h3>perturbation</h3>
+          <p>La zone devient bruyante pour eux. Il arrive même qu'on observe <b>plus</b> de passages au début : ils quittent leurs cachettes.</p>
+        </div>
+      </article>
+
+      <article class="tl-card">
+        <div class="tl-media"><img src="{{ 'avenylo-f53bf168.jpg' | asset_img_url: '1200x' }}" alt="Nuisibles quittant une pièce sous l'effet des ultrasons" srcset="{{ 'avenylo-f53bf168.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-f53bf168.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-f53bf168.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:760px) 100vw, 50vw" loading="lazy" decoding="async"><span class="tl-num">03</span></div>
+        <div class="tl-body">
+          <span class="tl-day">Jour 3 – 4</span>
+          <h3>le départ</h3>
+          <p>Les nuisibles cherchent un endroit plus calme. Les passages diminuent, en particulier si les accès sont bouchés et la nourriture rangée.</p>
+        </div>
+      </article>
+
+      <article class="tl-card">
+        <div class="tl-media"><img src="{{ 'avenylo-c0534a09.jpg' | asset_img_url: '1200x' }}" alt="Famille et chien dans un salon avec l'appareil branché" srcset="{{ 'avenylo-c0534a09.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-c0534a09.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-c0534a09.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:760px) 100vw, 50vw" loading="lazy" decoding="async"><span class="tl-num">04</span></div>
+        <div class="tl-body">
+          <span class="tl-day">Jour 4 et après</span>
+          <h3>vous n'y pensez plus</h3>
+          <p>L'appareil continue de tourner 24 h/24, en prévention. Rien à recharger, rien à vider, rien à surveiller.</p>
+        </div>
+      </article>
+    </div>
+
+    <p class="tl-note">Ces délais sont indicatifs : ils dépendent de la pièce, de son encombrement et de ce qui attire les nuisibles chez vous. C'est pour cette raison que la garantie est aussi longue.</p>
+  </div>
+</section>
+
+<!-- ============ SÉCURITÉ ============ -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="safe2">
+      <figure class="safe2-ph ph-fill" style="--ph:url('{{ 'avenylo-8479123d.jpg' | asset_img_url: '480x' }}')"><img src="{{ 'avenylo-8479123d.jpg' | asset_img_url: '1200x' }}" alt="Enfant et chien dans un salon, appareil Avenylo branché" srcset="{{ 'avenylo-8479123d.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-8479123d.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-8479123d.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:760px) 100vw, 50vw" loading="lazy" decoding="async"></figure>
+      <div class="safe2-txt">
+        <p class="eyebrow">Sécurité</p>
+        <h2>aucun produit chimique.<br>aucun poison.<br>aucun piège.</h2>
+        <p class="lead">La plupart des méthodes consistent à répandre chez vous un produit nocif pour éliminer quelque chose de nocif. Avenylo n'émet qu'un son, situé au-dessus de ce que l'oreille humaine perçoit.</p>
+        <div class="safe-cards">
+          <div class="safe-card"><span class="dot">✓</span><h3>Enfants</h3><p>Inaudible, rien au sol, rien à avaler.</p></div>
+          <div class="safe-card"><span class="dot">✓</span><h3>Chats et chiens</h3><p>Au-dessus de leur seuil d'audition.</p></div>
+          <div class="safe-card warn"><span class="dot">!</span><h3>Hamsters, lapins, oiseaux</h3><p>Déconseillé : eux entendent ces fréquences.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPARATIF ============ -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head center">
+      <p class="eyebrow">Comparatif</p>
+      <h2>ce que ça change sur un an.</h2>
+    </div>
+    <div class="cmp">
+      <table>
+        <thead><tr><th></th><th>Dératiseur</th><th>Poisons &amp; pièges</th><th>Répulsifs premier prix</th><th class="us">avenylo</th></tr></thead>
+        <tbody>
+          <tr><th>Coût la 1<sup>re</sup> année</th><td>150 – 400 €</td><td>35 – 100 €</td><td>10 – 25 €</td><td class="us">29,90 €</td></tr>
+          <tr><th>Coût ensuite</th><td>À chaque retour</td><td>Recharges régulières</td><td>À remplacer souvent</td><td class="us">Aucun — dure 3 à 5 ans</td></tr>
+          <tr><th>Sans produit chimique</th><td><span class="ic no">✕</span></td><td><span class="ic no">✕</span></td><td><span class="ic yes">✓</span></td><td class="us"><span class="ic yes">✓</span></td></tr>
+          <tr><th>Sans danger pour chiens et chats</th><td><span class="ic no">✕</span></td><td><span class="ic no">✕</span></td><td><span class="ic yes">✓</span></td><td class="us"><span class="ic yes">✓</span></td></tr>
+          <tr><th>Balayage de fréquences</th><td><span class="ic na">—</span></td><td><span class="ic na">—</span></td><td><span class="ic no">✕</span></td><td class="us"><span class="ic yes">✓</span></td></tr>
+          <tr><th>Effort demandé</th><td>Rendez-vous à prendre</td><td>Poser, surveiller, vider</td><td>Remplacer souvent</td><td class="us">Branchez et oubliez</td></tr>
+          <tr><th>Garantie</th><td>Selon prestataire</td><td>Aucune</td><td>Aucune</td><td class="us">60 jours remboursé</td></tr>
+          <tr class="save-row"><th>Économie la 1<sup>re</sup> année</th><td>110 – 360 €</td><td>Jusqu'à 60 €</td><td>Durée de vie 3× plus longue</td><td class="us">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="cmp-note">Fourchettes constatées sur le marché français en 2026.</p>
+  </div>
+</section>
+
+<!-- ============ AVIS ============ -->
+<section id="avis" style="padding-top:0">
+  <div class="wrap">
+    <div class="rv-hero">
+      <div class="rv-hero-txt">
+        <p class="eyebrow">Avis clients</p>
+        <h2>des retours de vraies maisons.</h2>
+      </div>
+      <div class="rv-hero-score">
+        <span class="gstars" aria-hidden="true"><i>★</i><i>★</i><i>★</i><i>★</i><i style="background:linear-gradient(90deg,var(--green) 90%,rgba(255,255,255,.22) 90%)">★</i></span>
+        <p class="rv-hero-num"><b>4,9</b><span>/5</span></p>
+        <p class="rv-hero-sub">7 348 avis vérifiés</p>
+      </div>
+    </div>
+    <div class="rv-grid">
+      <article class="rv photo"><figure class="rv-ph ph-fill" style="--ph:url('{{ 'avenylo-b546460d.jpg' | asset_img_url: '480x' }}')"><img src="{{ 'avenylo-b546460d.jpg' | asset_img_url: '1200x' }}" alt="Client tenant l'appareil dans son garage" srcset="{{ 'avenylo-b546460d.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-b546460d.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-b546460d.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:900px) 96vw, 300px" loading="lazy" decoding="async"></figure><div class="rv-body">
+        <div class="rv-head">{% assign n = section.settings.a1_etoiles | default: 5 %}<span class="gstars sm" aria-hidden="true">{% for k in (1..5) %}{% if k <= n %}<i>&#9733;</i>{% else %}<i class="off">&#9733;</i>{% endif %}{% endfor %}</span><span class="verif">✓ Vérifié</span></div><h3>{{ section.settings.a1_titre }}</h3><p>{{ section.settings.a1_texte }}</p><footer>{{ section.settings.a1_nom }}</footer></div></article>
+      <article class="rv photo"><figure class="rv-ph ph-fill" style="--ph:url('{{ 'avenylo-d698943d.jpg' | asset_img_url: '480x' }}')"><img src="{{ 'avenylo-d698943d.jpg' | asset_img_url: '1200x' }}" alt="Appareil branché dans une cuisine" srcset="{{ 'avenylo-d698943d.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-d698943d.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-d698943d.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:900px) 96vw, 300px" loading="lazy" decoding="async"></figure><div class="rv-body">
+        <div class="rv-head">{% assign n = section.settings.a2_etoiles | default: 5 %}<span class="gstars sm" aria-hidden="true">{% for k in (1..5) %}{% if k <= n %}<i>&#9733;</i>{% else %}<i class="off">&#9733;</i>{% endif %}{% endfor %}</span><span class="verif">✓ Vérifié</span></div><h3>{{ section.settings.a2_titre }}</h3><p>{{ section.settings.a2_texte }}</p><footer>{{ section.settings.a2_nom }}</footer></div></article>
+      <article class="rv photo"><figure class="rv-ph ph-fill" style="--ph:url('{{ 'avenylo-d400c2d6.jpg' | asset_img_url: '480x' }}')"><img src="{{ 'avenylo-d400c2d6.jpg' | asset_img_url: '1200x' }}" alt="Cliente tenant l'appareil dans son salon" srcset="{{ 'avenylo-d400c2d6.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-d400c2d6.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-d400c2d6.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:900px) 96vw, 300px" loading="lazy" decoding="async"></figure><div class="rv-body">
+        <div class="rv-head">{% assign n = section.settings.a3_etoiles | default: 5 %}<span class="gstars sm" aria-hidden="true">{% for k in (1..5) %}{% if k <= n %}<i>&#9733;</i>{% else %}<i class="off">&#9733;</i>{% endif %}{% endfor %}</span><span class="verif">✓ Vérifié</span></div><h3>{{ section.settings.a3_titre }}</h3><p>{{ section.settings.a3_texte }}</p><footer>{{ section.settings.a3_nom }}</footer></div></article>
+      <article class="rv photo"><figure class="rv-ph ph-fill" style="--ph:url('{{ 'avenylo-087eab66.jpg' | asset_img_url: '480x' }}')"><img src="{{ 'avenylo-087eab66.jpg' | asset_img_url: '1200x' }}" alt="Déballage du colis Avenylo" srcset="{{ 'avenylo-087eab66.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-087eab66.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-087eab66.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:900px) 96vw, 300px" loading="lazy" decoding="async"></figure><div class="rv-body">
+        <div class="rv-head">{% assign n = section.settings.a4_etoiles | default: 5 %}<span class="gstars sm" aria-hidden="true">{% for k in (1..5) %}{% if k <= n %}<i>&#9733;</i>{% else %}<i class="off">&#9733;</i>{% endif %}{% endfor %}</span><span class="verif">✓ Vérifié</span></div><h3>{{ section.settings.a4_titre }}</h3><p>{{ section.settings.a4_texte }}</p><footer>{{ section.settings.a4_nom }}</footer></div></article>
+      <article class="rv"><div class="rv-body"><div class="rv-head">{% assign n = section.settings.a5_etoiles | default: 5 %}<span class="gstars sm" aria-hidden="true">{% for k in (1..5) %}{% if k <= n %}<i>&#9733;</i>{% else %}<i class="off">&#9733;</i>{% endif %}{% endfor %}</span><span class="verif">✓ Vérifié</span></div><h3>{{ section.settings.a5_titre }}</h3><p>{{ section.settings.a5_texte }}</p><footer>{{ section.settings.a5_nom }}</footer></div></article>
+      <article class="rv"><div class="rv-body"><div class="rv-head">{% assign n = section.settings.a6_etoiles | default: 5 %}<span class="gstars sm" aria-hidden="true">{% for k in (1..5) %}{% if k <= n %}<i>&#9733;</i>{% else %}<i class="off">&#9733;</i>{% endif %}{% endfor %}</span><span class="verif">✓ Vérifié</span></div><h3>{{ section.settings.a6_titre }}</h3><p>{{ section.settings.a6_texte }}</p><footer>{{ section.settings.a6_nom }}</footer></div></article>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ============ FAQ ============ -->
+<section id="faq" style="padding-top:0">
+  <div class="wrap" style="max-width:840px">
+    <div class="sec-head center"><p class="eyebrow">Questions fréquentes</p><h2>vous vous demandez sûrement…</h2></div>
+    <details open><summary>Est-ce que je vais entendre quelque chose ?</summary>
+      <p>Non. L'audition humaine plafonne autour de 20 kHz ; Avenylo démarre à 22 kHz. Les personnes très sensibles peuvent percevoir un léger sifflement dans un silence complet — la garantie 60 jours couvre ce cas.</p></details>
+    <details><summary>Combien d'appareils me faut-il ?</summary>
+      <p>Un par pièce à protéger, puisque les ondes ne traversent pas les murs. En priorité : cuisine, garage, cave, buanderie. Le pack de 4 couvre un logement standard.</p></details>
+    <details><summary>Et mes animaux ?</summary>
+      <p>Chiens et chats n'entendent pas ces fréquences. À l'inverse, si vous possédez un rongeur ou un oiseau de compagnie, cet appareil n'est pas fait pour vous.</p></details>
+    <details><summary>Au bout de combien de temps voit-on une différence ?</summary>
+      <p>Cela dépend de la pièce, de son encombrement et de ce qui attire les nuisibles chez vous. L'appareil agit en complément du rangement des aliments et du colmatage des accès. D'où la durée de la garantie.</p></details>
+    <details><summary>Livraison et retours</summary>
+      <p>Expédition sous 24 h ouvrées, livraison offerte en France métropolitaine sous 3 à 5 jours. Rétractation légale de 14 jours, plus notre garantie de 60 jours.</p></details>
+  </div>
+</section>
+
+<!-- ============ PACKS ============ -->
+<section id="packs" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head center">
+      <p class="eyebrow">Choisir son pack</p>
+      <h2>une unité par pièce à protéger.</h2>
+      <p class="lead">Les ultrasons ne traversent ni les murs ni les meubles. Comptez un appareil par pièce : cuisine, garage, cave, buanderie.</p>
+    </div>
+    <div class="packs">
+      <article class="pack"><h3>1 appareil</h3><p class="p-sub">Studio ou chambre simple.</p>
+        <p class="p-price">29,90 €</p><p class="p-strike">59,90 €</p><p class="p-unit">29,90 € l'appareil</p>
+        <a href="/pages/produit?pack=1#achat" class="btn btn--outline">Choisir</a></article>
+      <article class="pack best"><span class="flag">le plus choisi</span><h3>2 achetés, le 3<sup>e</sup> offert</h3><p class="p-sub">3 appareils — appartement de 1 à 2 pièces.</p>
+        <p class="p-price">59,80 €</p><p class="p-strike">119,80 €</p><p class="p-unit">19,93 € l'appareil</p>
+        <a href="/pages/produit?pack=3#achat" class="btn">Choisir</a></article>
+      <article class="pack"><h3>4 achetés, 5 offerts</h3><p class="p-sub">9 appareils — grande maison ou location.</p>
+        <p class="p-price">119,60 €</p><p class="p-strike">239,60 €</p><p class="p-unit">13,29 € l'appareil</p>
+        <a href="/pages/produit?pack=9#achat" class="btn btn--outline">Choisir</a></article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GARANTIE ============ -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="wave">
+      <img src="{{ 'avenylo-59f0f817.jpg' | asset_img_url: '1200x' }}" alt="" srcset="{{ 'avenylo-59f0f817.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-59f0f817.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-59f0f817.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:760px) 100vw, 50vw" loading="lazy" decoding="async">
+      <div class="wave-tint"></div>
+      <div class="wave-in">
+        <h2>{{ section.settings.garantie_titre }}</h2>
+        <p>Branchez l'appareil pendant deux mois. Si vous ne constatez pas de différence chez vous, on vous rembourse intégralement. Pas de colis à renvoyer, pas de formulaire, un simple e-mail.</p>
+        <a href="/pages/produit#achat" class="btn">Protéger ma maison</a>
+        <small>Livraison gratuite en France · Expédié sous 48 h</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="#" class="wordmark" style="font-size:1.4rem">avenylo</a>
+        <p class="foot-tag">Des solutions simples pour la maison, sans produits chimiques. Marque française, service client à Paris, réponse sous 24 à 48 h ouvrées.</p>
+      </div>
+      <div><h4>Boutique</h4><ul>
+        <li><a href="/pages/produit">Le répulsif Avenylo</a></li>
+        <li><a href="/pages/produit?pack=3#achat">Pack 3 appareils</a></li>
+        <li><a href="/pages/produit?pack=9#achat">Pack 9 appareils</a></li></ul></div>
+      <div><h4>Aide</h4><ul><li><a href="/pages/a-propos">À propos</a></li>
+        <li><a href="/pages/contact">Nous contacter</a></li>
+        <li><a href="/pages/livraison">Livraison</a></li><li><a href="/pages/retours">Retours</a></li></ul></div>
+      <div><h4>Légal</h4><ul>
+        <li><a href="/pages/mentions-legales">Mentions légales</a></li><li><a href="/pages/cgv">CGV</a></li>
+        <li><a href="/pages/confidentialite">Confidentialité</a></li><li><a href="/pages/cookies">Cookies</a></li></ul></div>
+    </div>
+    <div class="legal">
+      <span>© 2026 Avenylo · Tous droits réservés</span>
+      <span>Répulsif d'appoint — ne remplace pas l'intervention d'un professionnel en cas d'infestation.</span>
+    </div>
+  </div>
+</footer>
+</div>
+
+<script>
+(function(){
+  // toute la carte de pack renvoie vers la page produit, avec l'offre présélectionnée
+  document.querySelectorAll('.pack').forEach(function(card){
+    var link = card.querySelector('a[href]');
+    if (!link) return;
+    card.addEventListener('click', function(e){
+      if (e.target.closest('a')) return;   // le lien gère déjà son propre clic
+      window.location.href = link.getAttribute('href');
+    });
+  });
+})();
+</script>
+
+
+
+{% schema %}
+{
+  "name": "Avenylo accueil",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Note globale"
+    },
+    {
+      "type": "range",
+      "id": "note_etoiles",
+      "label": "Étoiles de la note globale",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Bandeau d'accueil"
+    },
+    {
+      "type": "text",
+      "id": "hero_l1",
+      "label": "Titre — 1re ligne",
+      "default": "chez vous."
+    },
+    {
+      "type": "text",
+      "id": "hero_l2",
+      "label": "Titre — 2e ligne",
+      "default": "pas chez eux."
+    },
+    {
+      "type": "textarea",
+      "id": "hero_texte",
+      "label": "Texte sous le titre",
+      "default": "Une prise. Des ultrasons que vous n'entendez pas et que les nuisibles fuient. Ni poison, ni pièges, ni odeur."
+    },
+    {
+      "type": "header",
+      "content": "Avis 1"
+    },
+    {
+      "type": "text",
+      "id": "a1_titre",
+      "label": "Titre",
+      "default": "Ma femme refusait de dormir dans notre lit tant que cela n'avait pas fonctionné."
+    },
+    {
+      "type": "textarea",
+      "id": "a1_texte",
+      "label": "Texte",
+      "default": "« Nous avons ramené des punaises de lit d'une location de vacances à la plage. Ma femme a refusé de dormir dans notre chambre pendant un mois. J'ai acheté le pack Maison avec housses de matelas. Après trois semaines de traitement Avenylo, elle est revenue. Deux mois plus tard, nous n'avons toujours pas de piqûres. »"
+    },
+    {
+      "type": "text",
+      "id": "a1_nom",
+      "label": "Prénom",
+      "default": "Pierre"
+    },
+    {
+      "type": "range",
+      "id": "a1_etoiles",
+      "label": "Étoiles",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Avis 2"
+    },
+    {
+      "type": "text",
+      "id": "a2_titre",
+      "label": "Titre",
+      "default": "Très efficace contre les fourmis."
+    },
+    {
+      "type": "textarea",
+      "id": "a2_texte",
+      "label": "Texte",
+      "default": "« Je l'ai acheté pour lutter contre l'invasion de fourmis dans la cuisine chaque été. Les fourmis ont disparu en 5 jours. »"
+    },
+    {
+      "type": "text",
+      "id": "a2_nom",
+      "label": "Prénom",
+      "default": "Eric"
+    },
+    {
+      "type": "range",
+      "id": "a2_etoiles",
+      "label": "Étoiles",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Avis 3"
+    },
+    {
+      "type": "text",
+      "id": "a3_titre",
+      "label": "Titre",
+      "default": "Problème d'araignées résolu."
+    },
+    {
+      "type": "textarea",
+      "id": "a3_texte",
+      "label": "Texte",
+      "default": "« J'ai une peur bleue des araignées et notre maison les attirait comme un aimant. En deux semaines, je n'en voyais plus. Mon mari pensait que c'était un effet placebo, jusqu'à ce qu'il n'en voie pas une seule pendant un mois lui aussi. »"
+    },
+    {
+      "type": "text",
+      "id": "a3_nom",
+      "label": "Prénom",
+      "default": "Linda"
+    },
+    {
+      "type": "range",
+      "id": "a3_etoiles",
+      "label": "Étoiles",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Avis 4"
+    },
+    {
+      "type": "text",
+      "id": "a4_titre",
+      "label": "Titre",
+      "default": "La sécurité des tout-petits était non négociable."
+    },
+    {
+      "type": "textarea",
+      "id": "a4_texte",
+      "label": "Texte",
+      "default": "« Avec une enfant de 2 ans qui rampe partout, je ne voulais pas utiliser de sprays ni de pièges. Avenylo était la seule option acceptable. Trois semaines plus tard, plus de souris dans le garde-manger, plus de cafards en vue, et ma fille n'est absolument pas affectée. »"
+    },
+    {
+      "type": "text",
+      "id": "a4_nom",
+      "label": "Prénom",
+      "default": "Juliette"
+    },
+    {
+      "type": "range",
+      "id": "a4_etoiles",
+      "label": "Étoiles",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Avis 5"
+    },
+    {
+      "type": "text",
+      "id": "a5_titre",
+      "label": "Titre",
+      "default": "Deux unités, zéro cafard en un mois."
+    },
+    {
+      "type": "textarea",
+      "id": "a5_texte",
+      "label": "Texte",
+      "default": "« Mon appartement était constamment infesté de cafards. J'ai branché deux appareils Avenylo dans la cuisine et le salon. En une semaine, plus aucun cafard. Mon mari était sceptique, mais maintenant il y croit. »"
+    },
+    {
+      "type": "text",
+      "id": "a5_nom",
+      "label": "Prénom",
+      "default": "Inès"
+    },
+    {
+      "type": "range",
+      "id": "a5_etoiles",
+      "label": "Étoiles",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Avis 6"
+    },
+    {
+      "type": "text",
+      "id": "a6_titre",
+      "label": "Titre",
+      "default": "Idéal pour les locataires. Ça m'a sauvé la vie."
+    },
+    {
+      "type": "textarea",
+      "id": "a6_texte",
+      "label": "Texte",
+      "default": "« Appartements + cafards = fléau. Mon propriétaire refusait de payer un exterminateur. En deux semaines, l'infestation de cafards a diminué de 90 %. En tant que locataire, c'est la seule solution qui ait fonctionné sans modifier l'appartement. »"
+    },
+    {
+      "type": "text",
+      "id": "a6_nom",
+      "label": "Prénom",
+      "default": "Mathieu"
+    },
+    {
+      "type": "range",
+      "id": "a6_etoiles",
+      "label": "Étoiles",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Bandeau garantie"
+    },
+    {
+      "type": "text",
+      "id": "garantie_titre",
+      "label": "Titre",
+      "default": "essayez Avenylo sans risque pendant 60 jours."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Avenylo accueil"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="sticky">
+  <div><b>59,80 €</b><small>Pack 3 appareils · le plus choisi</small></div>
+  <a href="/pages/produit?pack=3#achat" class="btn">Commander</a>
+</div>

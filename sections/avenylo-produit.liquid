@@ -1,0 +1,1219 @@
+{%- comment -%} Avenylo — page produit {%- endcomment -%}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --cart-blue:#6B62CE;
+  --ink:#171334;--ink-soft:#3B3660;--violet:#6B62CE;--violet-deep:#4A41A8;
+  --halo:#C9C4F5;--paper:#FBFAFE;--line:#E6E3F5;--grey:#6E6B85;
+  --green:#00A36C;
+  --radius:18px;--max:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Instrument Sans",system-ui,sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 22px}
+h1,h2,h3,.wordmark{font-family:"Poppins",sans-serif;font-weight:600;text-transform:lowercase;letter-spacing:-.035em;line-height:1.06;margin:0}
+h1{font-size:clamp(2.3rem,5.4vw,3.8rem)}
+h2{font-size:clamp(1.85rem,3.8vw,2.8rem)}
+h3{font-size:1.15rem;letter-spacing:-.02em}
+p{margin:0}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--violet);margin-bottom:16px}
+.lead{color:var(--grey);font-size:1.05rem;max-width:56ch}
+:focus-visible{outline:2.5px solid var(--violet);outline-offset:3px;border-radius:6px}
+
+/* ---------- EMPLACEMENTS PHOTO ---------- */
+.ph{position:relative;background:linear-gradient(135deg,#EFEDFB,#DEDAF6);border-radius:var(--radius);
+  display:grid;place-items:center;text-align:center;padding:20px;overflow:hidden}
+.ph::before{content:"";position:absolute;inset:10px;border:1.5px dashed rgba(107,98,206,.45);border-radius:12px}
+.ph span{position:relative;font-family:"IBM Plex Mono",monospace;font-size:.7rem;letter-spacing:.08em;
+  color:var(--violet-deep);max-width:24ch;line-height:1.5;text-transform:uppercase}
+
+.topbar{background:var(--ink);color:#fff;font-size:.8rem;text-align:center;padding:9px 16px}
+.topbar span{opacity:.55;margin:0 10px}
+/* ---------- panier ---------- */
+.cart{position:relative;display:inline-grid;place-items:center;width:44px;height:44px;border-radius:12px;
+  color:var(--ink);text-decoration:none;transition:background .15s}
+.cart:hover{background:rgba(107,98,206,.09);color:var(--violet)}
+.cart svg{width:24px;height:24px;display:block}
+.cart .count{position:absolute;top:2px;right:2px;background:var(--ink);color:#fff;min-width:18px;height:18px;
+  border-radius:50%;font-size:.65rem;font-weight:700;display:grid;place-items:center;padding:0 4px;border:2px solid var(--paper)}
+header{position:sticky;top:0;z-index:60;background:rgba(251,250,254,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+.wordmark{font-size:1.5rem;letter-spacing:-.055em;color:var(--violet);text-decoration:none;text-shadow:0 1.5px 0 rgba(74,65,168,.35)}
+.nav-links{display:flex;gap:28px;font-size:.93rem;color:var(--ink-soft)}
+.nav-links a{text-decoration:none}
+.nav-links a:hover{color:var(--violet)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--violet);color:#fff;text-decoration:none;font-weight:600;font-size:.97rem;padding:16px 28px;border-radius:100px;border:0;cursor:pointer;box-shadow:0 6px 18px -6px rgba(107,98,206,.65);transition:transform .15s,background .15s;font-family:inherit}
+.btn:hover{background:var(--violet-deep);transform:translateY(-1px)}
+.btn--sm{padding:11px 20px;font-size:.9rem}
+.btn--light{background:#fff;color:var(--ink);box-shadow:0 6px 18px -8px rgba(23,19,52,.35)}
+.btn--light:hover{background:var(--halo);color:var(--ink)}
+.btn--ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.5);box-shadow:none}
+.btn--ghost:hover{background:rgba(255,255,255,.14)}
+@media(max-width:880px){.nav-links{display:none}}
+
+/* ============ A — ATTENTION : photo + accroche collée à gauche ============ */
+.hero{position:relative;width:100%;margin:0;overflow:hidden;background:#EFEDFB}
+/* pleine largeur, pleine hauteur du bandeau */
+.hero-img{display:block;width:100%;height:min(72vh,680px);object-fit:cover;object-position:center 46%}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:120px;z-index:2;pointer-events:none;
+  background:linear-gradient(180deg,rgba(11,8,30,0),rgba(11,8,30,.55) 55%,rgba(11,8,30,.92))}
+.hero-overlay{position:absolute;inset:0;z-index:2;display:flex;align-items:flex-end;justify-content:flex-start;
+  padding:0 0 50px 0;
+  background:linear-gradient(90deg,rgba(11,8,30,.90) 0%,rgba(11,8,30,.74) 18%,rgba(11,8,30,.34) 32%,rgba(11,8,30,0) 46%)}
+.hero-txt{width:min(40%,400px);margin-left:clamp(20px,3vw,48px)}
+.hero-overlay .eyebrow{color:var(--halo);margin-bottom:12px}
+.hero h1{color:#fff;font-size:clamp(1.9rem,3.4vw,3rem);text-shadow:0 2px 22px rgba(11,8,30,.6)}
+.hero h1 em{font-style:normal;color:var(--halo)}
+.hero-sub{color:rgba(255,255,255,.92);font-size:1rem;margin-top:14px;text-shadow:0 1px 14px rgba(11,8,30,.7)}
+.hero-cta{display:flex;gap:10px;margin-top:26px;flex-wrap:wrap}
+.hero-trust{display:flex;flex-direction:column;gap:6px;margin-top:22px;font-size:.84rem;color:rgba(255,255,255,.85);text-shadow:0 1px 10px rgba(11,8,30,.7)}
+.hero-trust i{color:var(--halo);font-style:normal;margin-right:7px}
+.btn--outline{background:#fff;color:var(--ink);border:1.5px solid var(--line);box-shadow:none}
+.btn--outline:hover{background:#fff;color:var(--violet);border-color:var(--halo)}
+@media(max-width:900px){
+  .hero-img{height:min(52vh,380px);object-fit:cover;object-position:70% 48%}
+  .hero-overlay{position:static;background:var(--ink);padding:32px 22px 38px;display:block}
+  .hero-txt{width:auto;margin-left:0}
+  .hero-trust{flex-direction:row;flex-wrap:wrap;gap:8px 22px}
+}
+
+
+/* ---------- timeline "à quoi s'attendre" ---------- */
+.tl{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.tl-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+  display:flex;flex-direction:column}
+.tl-media{position:relative}
+.tl-media img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.tl-num{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;background:var(--violet);
+  color:#fff;display:grid;place-items:center;font-family:"IBM Plex Mono",monospace;font-size:.78rem;
+  box-shadow:0 4px 12px -4px rgba(11,8,30,.6)}
+.tl-body{padding:20px 22px 24px}
+.tl-day{display:block;font-family:"IBM Plex Mono",monospace;font-size:.74rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--violet);margin-bottom:6px}
+.tl-body h3{margin-bottom:8px}
+.tl-body p{color:var(--grey);font-size:.92rem}
+.tl-note{margin:26px auto 0;max-width:70ch;text-align:center;font-size:.86rem;color:var(--grey)}
+@media(max-width:1000px){.tl{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.tl{grid-template-columns:1fr}}
+.split-img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--radius);display:block}
+
+
+/* ---------- sécurité ---------- */
+.safety{background:var(--ink);color:#fff;border-radius:26px;padding:50px 44px}
+.safety h2{color:#fff}.safety .lead{color:rgba(255,255,255,.62)}.safety .eyebrow{color:var(--halo)}
+.safety-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:36px}
+.safety-item{border-top:2px solid rgba(201,196,245,.45);padding-top:20px}
+.safety-item .ico{font-size:1.7rem;display:block;margin-bottom:12px}
+.safety-item h3{color:#fff;margin-bottom:6px}
+.safety-item p{color:rgba(255,255,255,.6);font-size:.92rem}
+.safety-item.warn{border-top-color:#E9B44C}
+@media(max-width:860px){.safety{padding:34px 24px}.safety-grid{grid-template-columns:1fr}}
+
+/* ---------- packs ---------- */
+.packs{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.pack{position:relative;background:#fff;border:1.5px solid var(--line);border-radius:var(--radius);padding:30px 26px;text-align:center;
+  display:flex;flex-direction:column;transition:border-color .15s,transform .15s}
+.pack:hover{border-color:var(--halo);transform:translateY(-2px)}
+.pack.best{border-color:var(--violet);box-shadow:0 18px 40px -30px rgba(107,98,206,.9)}
+.pack .flag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;
+  font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px;border-radius:100px}
+.pack h3{font-size:1.3rem;margin-bottom:6px}
+.pack .p-sub{color:var(--grey);font-size:.9rem;min-height:42px}
+.pack .p-price{font-family:"Poppins",sans-serif;font-weight:600;font-size:2.1rem;letter-spacing:-.04em;margin:16px 0 2px}
+.pack .p-strike{color:var(--grey);text-decoration:line-through;font-size:.92rem}
+.pack .p-unit{color:var(--violet);font-size:.85rem;margin-top:8px;font-weight:600}
+.pack .btn{margin-top:22px;width:100%}
+@media(max-width:860px){.packs{grid-template-columns:1fr}}
+
+/* ---------- visuel produit dans les packs ---------- */
+.p-media{position:relative;margin:-8px 0 20px;border-radius:14px;overflow:hidden;background:#EFEDFB;aspect-ratio:16/10}
+.p-media img{width:100%;height:100%;object-fit:cover;display:block}
+.p-qty{position:absolute;top:10px;right:10px;background:rgba(255,255,255,.94);color:var(--ink);
+  font-family:"Poppins",sans-serif;font-weight:600;font-size:.8rem;letter-spacing:-.02em;
+  padding:5px 11px;border-radius:100px;box-shadow:0 6px 18px -10px rgba(11,8,30,.7)}
+
+/* ---------- en-tête d'avis ---------- */
+.rv-hero{display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;
+  background:linear-gradient(120deg,var(--ink) 0%,#241E52 55%,var(--violet-deep) 100%);
+  color:#fff;border-radius:var(--radius);padding:30px 34px;margin-bottom:24px}
+.rv-hero .eyebrow{color:var(--halo);margin-bottom:8px}
+.rv-hero h2{color:#fff;font-size:clamp(1.6rem,2.8vw,2.15rem);margin:0}
+.rv-hero-score{text-align:right;flex-shrink:0}
+.rv-hero-score .gstars{margin-bottom:8px}
+.rv-hero-num{font-family:"Poppins",sans-serif;font-weight:600;font-size:2.3rem;letter-spacing:-.04em;line-height:1}
+.rv-hero-num span{font-size:1.1rem;color:rgba(255,255,255,.5);margin-left:2px}
+.rv-hero-sub{font-size:.84rem;color:rgba(255,255,255,.62);margin-top:6px}
+@media(max-width:700px){.rv-hero{padding:24px;justify-content:flex-start}.rv-hero-score{text-align:left}}
+
+
+/* ---------- sécurité (clair, dans le thème) ---------- */
+.safe2{display:grid;grid-template-columns:1fr 1fr;gap:0;background:linear-gradient(140deg,#F3F1FD,#E6E2FA);
+  border:1px solid var(--line);border-radius:26px;overflow:hidden}
+.safe2-ph{min-height:460px}
+.safe2-txt{padding:48px 44px}
+.safe2 h2{margin-bottom:16px}
+.safe2 .lead{color:var(--ink-soft)}
+.safe-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}
+.safe-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 16px 18px}
+.safe-card .dot{width:22px;height:22px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;
+  font-size:.72rem;margin-bottom:10px}
+.safe-card.warn .dot{background:#E9A93C}
+.safe-card h3{font-size:.98rem;margin-bottom:4px}
+.safe-card p{font-size:.82rem;color:var(--grey)}
+@media(max-width:900px){.safe2{grid-template-columns:1fr}.safe2-ph{min-height:0;aspect-ratio:4/3}.safe2-txt{padding:32px 24px}
+  .safe-cards{grid-template-columns:1fr}}
+
+/* ---------- bandeau garantie sur fond d'ondes ---------- */
+.wave{position:relative;border-radius:26px;overflow:hidden;text-align:center}
+.wave img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.wave-tint{position:absolute;inset:0;background:linear-gradient(180deg,rgba(74,65,168,.55),rgba(43,36,110,.75))}
+.wave-in{position:relative;padding:86px 26px}
+.wave h2{color:#fff;max-width:18ch;margin:0 auto 18px}
+.wave p{color:rgba(255,255,255,.82);max-width:52ch;margin:0 auto 30px}
+.wave .btn{background:#fff;color:var(--violet-deep)}
+.wave .btn:hover{background:var(--halo);color:var(--ink)}
+.wave small{display:block;margin-top:20px;color:rgba(255,255,255,.7);font-size:.85rem}
+@media(max-width:700px){.wave-in{padding:56px 20px}}
+
+/* ---------- avis façon plateforme ---------- */
+.rv-top{text-align:center;margin-bottom:30px}
+.rv-score{display:inline-flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center}
+.rv-score b{font-family:"Poppins",sans-serif;font-size:1.6rem;letter-spacing:-.03em}
+.rv-score small{color:var(--grey);font-size:.9rem}
+.rv-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.rv{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:grid}
+.rv.photo{grid-template-columns:minmax(0,300px) 1fr}
+.rv-body{padding:24px 26px}
+.rv-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
+.rv h3{font-size:1.02rem;margin-bottom:8px}
+.rv p{font-size:.93rem;color:var(--ink-soft)}
+.rv footer{margin-top:14px;font-size:.83rem;color:var(--grey)}
+.verif{color:var(--green);font-weight:600;font-size:.82rem;white-space:nowrap}
+@media(max-width:900px){.rv-grid{grid-template-columns:1fr}}
+@media(max-width:520px){.rv.photo{grid-template-columns:1fr}}
+
+
+/* ---------- étoiles façon plateforme d'avis ---------- */
+.gstars{display:inline-flex;gap:3px;line-height:1}
+.gstars i{width:21px;height:21px;border-radius:2px;background:var(--green);color:#fff;font-style:normal;
+  font-size:.74rem;display:grid;place-items:center}
+.gstars i.off{background:#DDDCE6}
+.gstars i.half{background:linear-gradient(90deg,var(--green) 50%,#DDDCE6 50%)}
+.gstars.sm i{width:17px;height:17px;font-size:.62rem}
+
+/* ---------- pastille ventes ---------- */
+.sold{position:absolute;top:18px;left:clamp(20px,3vw,48px);z-index:3;display:inline-flex;align-items:center;gap:10px;
+  background:#fff;border-radius:100px;padding:9px 14px 9px 16px;font-size:.86rem;
+  box-shadow:0 10px 30px -14px rgba(11,8,30,.6)}
+.sold b{font-weight:600}
+.sold span{color:var(--grey)}
+.sold i{font-style:normal;color:var(--violet)}
+.sold button{border:0;background:transparent;cursor:pointer;color:var(--grey);font-size:1rem;line-height:1;padding:0 2px}
+@media(max-width:760px){.sold{top:12px;left:12px;font-size:.78rem;padding:7px 10px 7px 12px}}
+
+
+/* ---------- comparatif coloré ---------- */
+.cmp{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:#fff}
+.cmp table{border-collapse:collapse;width:100%;min-width:700px;font-size:.94rem}
+.cmp th,.cmp td{padding:18px 20px;text-align:center;border-bottom:1px solid var(--line);vertical-align:middle}
+.cmp thead th{font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);font-weight:500;padding-top:22px;padding-bottom:22px}
+.cmp tbody th{text-align:left;font-weight:600;color:var(--ink);width:210px}
+.cmp td{color:var(--grey)}
+.cmp .us{background:rgba(107,98,206,.07)}
+.cmp thead .us{color:var(--violet);font-weight:700;font-size:.8rem}
+.cmp td.us{color:var(--ink);font-weight:600}
+.cmp tr:last-child th,.cmp tr:last-child td{border-bottom:0}
+.ic{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;font-size:.9rem;font-weight:700;line-height:1}
+.ic.yes{background:var(--green);color:#fff;box-shadow:0 4px 12px -6px rgba(0,163,108,.8)}
+.ic.no{background:#FCE4E9;color:#E0526F}
+.ic.mid{background:#FDF0DA;color:#D9931F}
+.ic.na{background:transparent;color:#C6C3D6;font-size:1.1rem;font-weight:400}
+.cmp .save-row td{font-weight:600;color:var(--violet)}
+.cmp-note{margin-top:16px;font-size:.82rem;color:var(--grey);text-align:center}
+
+
+/* ---------- emplacement widget ---------- */
+.slot2{display:flex;gap:18px;align-items:flex-start;margin-top:24px;padding:24px 26px;
+  background:#fff;border:1.5px dashed var(--halo);border-radius:var(--radius)}
+.slot2-ico{flex:none;width:40px;height:40px;border-radius:10px;background:var(--green);color:#fff;
+  display:grid;place-items:center;font-size:1.1rem}
+.slot2 b{display:block;font-family:"Poppins",sans-serif;letter-spacing:-.02em;margin-bottom:4px}
+.slot2 p{font-size:.9rem;color:var(--grey)}
+
+/* ---------- sections ---------- */
+section{padding:62px 0}
+.sec-head{max-width:640px;margin-bottom:30px}
+.sec-head .lead{margin-top:14px}
+.center{margin-left:auto;margin-right:auto;text-align:center}
+.center .lead{margin-left:auto;margin-right:auto}
+.aida{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.18em;color:var(--halo);text-transform:uppercase}
+
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px 26px}
+.card h3{margin-bottom:10px}
+.card p{color:var(--grey);font-size:.95rem}
+.card .price-tag{font-family:"IBM Plex Mono",monospace;font-size:.78rem;color:var(--violet);letter-spacing:.08em;margin-bottom:14px}
+@media(max-width:860px){.cards{grid-template-columns:1fr}}
+
+/* ---------- split image / texte ---------- */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.split.rev .split-txt{order:2}
+.split .ph{aspect-ratio:4/5}
+.split-txt .lead{margin-top:16px}
+.ticks{list-style:none;padding:0;margin:26px 0 0;display:grid;gap:12px}
+.ticks li{display:flex;gap:12px;font-size:.97rem;color:var(--ink-soft)}
+.ticks i{color:var(--violet);font-style:normal}
+@media(max-width:880px){.split{grid-template-columns:1fr;gap:26px}.split.rev .split-txt{order:0}}
+
+/* ---------- étapes avec visuels ---------- */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.step .ph{aspect-ratio:4/3;margin-bottom:20px}
+.step-num{font-family:"IBM Plex Mono",monospace;font-size:.75rem;color:var(--violet);letter-spacing:.14em;margin-bottom:10px}
+.step p{color:var(--grey);font-size:.95rem;margin-top:8px}
+@media(max-width:860px){.steps{grid-template-columns:1fr}}
+
+/* ---------- galerie produit ---------- */
+.grid-shots{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.grid-shots .ph:nth-child(1){grid-column:span 2;grid-row:span 2;aspect-ratio:1/1}
+.grid-shots .ph{aspect-ratio:1/1}
+@media(max-width:860px){.grid-shots{grid-template-columns:repeat(2,1fr)}.grid-shots .ph:nth-child(1){grid-column:span 2;grid-row:auto}}
+
+/* ---------- fréquence ---------- */
+.freq{background:var(--ink);color:#fff;border-radius:26px;padding:54px 46px}
+.freq h2{color:#fff}.freq .lead{color:rgba(255,255,255,.62)}.freq .eyebrow{color:var(--halo)}
+.sweep{margin-top:38px}
+.sweep-bar{position:relative;height:74px;border-radius:12px;background:linear-gradient(90deg,rgba(201,196,245,.12),rgba(201,196,245,.28));overflow:hidden}
+.sweep-bar::after{content:"";position:absolute;top:0;bottom:0;width:120px;background:linear-gradient(90deg,transparent,rgba(201,196,245,.9),transparent);animation:sweep 5s ease-in-out infinite alternate}
+@keyframes sweep{from{left:-120px}to{left:100%}}
+@media(prefers-reduced-motion:reduce){.sweep-bar::after{animation:none;left:40%}}
+.sweep-scale{display:flex;justify-content:space-between;margin-top:12px;font-family:"IBM Plex Mono",monospace;font-size:.74rem;color:rgba(255,255,255,.45);letter-spacing:.1em}
+.freq-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:42px;border-top:1px solid rgba(255,255,255,.12);padding-top:30px}
+.freq-stats b{display:block;font-family:"Poppins",sans-serif;font-size:1.9rem;letter-spacing:-.03em;margin-bottom:4px}
+.freq-stats small{color:rgba(255,255,255,.5);font-size:.85rem}
+@media(max-width:860px){.freq{padding:38px 24px}.freq-stats{grid-template-columns:1fr}}
+
+/* ---------- pourquoi ce prix ---------- */
+.why{position:relative;overflow:hidden;background:#fff;border:1px solid var(--line);
+  border-radius:26px;padding:52px 46px;box-shadow:0 34px 74px -62px rgba(11,8,30,.95)}
+.why::before{content:"";position:absolute;top:-170px;right:-130px;width:400px;height:400px;
+  border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(107,98,206,.15),transparent 68%)}
+.why > *{position:relative}
+.why h2{max-width:22ch}
+.why .lead{max-width:58ch;color:var(--ink-soft)}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
+.why-col{display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--line);
+  border-radius:18px;padding:24px 22px 26px;
+  transition:transform .28s ease,box-shadow .28s ease,border-color .28s ease}
+.why-col:hover{transform:translateY(-3px);border-color:#D8D3F2;
+  box-shadow:0 24px 46px -38px rgba(11,8,30,.9)}
+.why-col .tag{display:inline-flex;align-items:center;gap:7px;align-self:flex-start;
+  font-family:"IBM Plex Mono",monospace;font-size:.66rem;font-weight:600;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--grey);
+  background:#fff;border:1px solid var(--line);border-radius:100px;padding:6px 12px;margin-bottom:16px}
+.why-col .tag::before{content:"✕";font-size:.62rem;color:#B7B2CC;font-family:inherit}
+.why-col h3{font-size:1.08rem;line-height:1.25;margin:0 0 9px;letter-spacing:-.01em}
+.why-col p{font-size:.9rem;line-height:1.55;color:var(--grey);margin:0}
+.why-col.us{background:linear-gradient(150deg,var(--ink) 0%,#241E52 58%,var(--violet-deep) 100%);
+  border-color:transparent;box-shadow:0 28px 54px -34px rgba(74,65,168,.85)}
+.why-col.us:hover{border-color:transparent;box-shadow:0 34px 62px -34px rgba(74,65,168,.95)}
+.why-col.us .tag{background:rgba(255,255,255,.13);border-color:rgba(255,255,255,.24);color:#fff}
+.why-col.us .tag::before{content:"✓";color:var(--halo)}
+.why-col.us h3{color:#fff}
+.why-col.us p{color:rgba(255,255,255,.74)}
+@media(max-width:860px){
+  .why{padding:34px 22px;border-radius:20px}
+  .why h2,.why .lead{max-width:none}
+  .why-grid{grid-template-columns:1fr;gap:12px;margin-top:26px}
+  .why-col{padding:20px 18px 22px}
+  .why-col h3{font-size:1.03rem}
+}
+
+/* ---------- transparence ---------- */
+.honest{background:#fff;border:1px solid var(--line);border-radius:26px;padding:50px 44px}
+.honest ul{list-style:none;padding:0;margin:32px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.honest li{padding-top:20px;border-top:2px solid var(--halo)}
+.honest li p{color:var(--grey);font-size:.93rem;margin-top:8px}
+@media(max-width:860px){.honest{padding:34px 24px}.honest ul{grid-template-columns:1fr}}
+
+/* ---------- comparatif ---------- */
+.table-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:#fff}
+table{border-collapse:collapse;width:100%;min-width:660px;font-size:.94rem}
+th,td{padding:16px 18px;text-align:left;border-bottom:1px solid var(--line)}
+thead th{font-family:"IBM Plex Mono",monospace;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);font-weight:500}
+tbody th{font-weight:600;color:var(--ink);width:200px}
+td{color:var(--grey)}
+.col-us{background:rgba(107,98,206,.06)}
+thead .col-us{color:var(--violet)}
+td.col-us{color:var(--ink);font-weight:600}
+tr:last-child th,tr:last-child td{border-bottom:0}
+
+/* ---------- avis façon plateforme ---------- */
+.rev-head{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px 28px;margin-bottom:22px}
+.rev-head .big{font-family:"Poppins",sans-serif;font-size:2.1rem;letter-spacing:-.04em}
+.rev-head small{display:block;color:var(--grey);font-size:.85rem}
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.review{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column}
+.review .ph{aspect-ratio:5/4;border-radius:0}
+.review-body{padding:22px 24px 24px}
+.review h3{font-size:1rem;margin:12px 0 8px}
+.review p{font-size:.93rem;color:var(--ink-soft)}
+.review footer{font-size:.83rem;color:var(--grey);margin-top:14px;display:flex;gap:8px;align-items:center}
+.verif{color:var(--green);font-weight:600}
+.slot{border:1.5px dashed var(--halo);border-radius:var(--radius);padding:20px;text-align:center;font-family:"IBM Plex Mono",monospace;font-size:.74rem;color:var(--violet);letter-spacing:.06em;margin-top:22px;line-height:1.7}
+@media(max-width:860px){.reviews{grid-template-columns:1fr}}
+
+/* ---------- garantie ---------- */
+.guarantee{display:grid;grid-template-columns:auto 1fr;gap:34px;align-items:center;
+  background:linear-gradient(120deg,rgba(107,98,206,.09),rgba(201,196,245,.16));border-radius:26px;padding:46px}
+.seal{width:120px;height:120px;border-radius:50%;border:2px solid var(--violet);display:grid;place-items:center;text-align:center;font-family:"Poppins",sans-serif;font-weight:600;line-height:1.1;color:var(--violet);background:#fff}
+.seal b{display:block;font-size:2rem;letter-spacing:-.04em}
+.seal small{font-size:.68rem;letter-spacing:.06em;text-transform:uppercase}
+@media(max-width:700px){.guarantee{grid-template-columns:1fr;padding:32px 24px;text-align:center;justify-items:center}}
+
+/* ---------- faq ---------- */
+details{border-bottom:1px solid var(--line);padding:20px 0}
+summary{cursor:pointer;font-family:"Poppins",sans-serif;font-weight:500;font-size:1.04rem;letter-spacing:-.02em;list-style:none;display:flex;justify-content:space-between;gap:20px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--violet);font-size:1.3rem;flex:none}
+details[open] summary::after{content:"–"}
+details p{color:var(--grey);font-size:.95rem;margin-top:12px;max-width:70ch}
+
+/* ---------- cta final ---------- */
+.final{position:relative;border-radius:26px;overflow:hidden;min-height:420px;display:grid;align-items:center;text-align:center}
+.final .ph{position:absolute;inset:0;border-radius:0}
+.final-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,19,52,.55),rgba(23,19,52,.85))}
+.final-inner{position:relative;padding:70px 26px}
+.final h2{color:#fff;margin-bottom:16px}
+.final p{color:rgba(255,255,255,.72);max-width:46ch;margin:0 auto 30px}
+
+footer.site{background:var(--ink);color:#fff;margin-top:0;padding:64px 0 34px}
+.foot-grid{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:30px}
+.foot-grid h4{font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:#fff;margin:0 0 14px;font-weight:500}
+.foot-grid ul{list-style:none;padding:0;margin:0;font-size:.92rem;color:rgba(255,255,255,.66)}
+.foot-grid li{margin-bottom:9px}
+.foot-grid a{text-decoration:none}
+.foot-grid a:hover{color:var(--halo)}
+footer.site .wordmark{color:#fff;text-shadow:none}
+.foot-tag{color:rgba(255,255,255,.6);font-size:.9rem;margin-top:12px;max-width:34ch}
+.legal{margin-top:42px;padding-top:22px;border-top:1px solid rgba(255,255,255,.14);font-size:.8rem;color:rgba(255,255,255,.48);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media(max-width:860px){.foot-grid{grid-template-columns:1fr 1fr}}
+
+
+/* ---------- grille nuisibles ---------- */
+.pests{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.pests li{display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);
+  border-radius:100px;padding:12px 22px;font-size:.96rem;font-weight:500;color:var(--ink);
+  box-shadow:0 6px 16px -14px rgba(23,19,52,.5);transition:border-color .15s,transform .15s}
+.pests li:hover{border-color:var(--halo);transform:translateY(-2px)}
+.pests li i{font-style:normal;font-size:1.15rem;line-height:1}
+.pests-note{margin:30px auto 0;max-width:64ch;text-align:center;font-size:.86rem;color:var(--grey)}
+/* ---------- packshot réel ---------- */
+.shot-img{width:100%;height:100%;object-fit:cover;border-radius:var(--radius);background:#EFEDFB}
+.grid-shots .shot-img{grid-column:span 2;grid-row:span 2;aspect-ratio:1/1}
+@media(max-width:860px){.grid-shots .shot-img{grid-column:span 2;grid-row:auto}}
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:80;background:#fff;border-top:1px solid var(--line);
+  padding:12px 18px calc(12px + env(safe-area-inset-bottom));display:none;align-items:center;gap:14px;
+  box-shadow:0 -8px 24px -12px rgba(23,19,52,.25)}
+.sticky b{font-family:"Poppins",sans-serif;font-size:1.15rem;letter-spacing:-.03em}
+.sticky small{display:block;color:var(--grey);font-size:.75rem}
+.sticky .btn{flex:1;padding:15px 18px}
+@media(max-width:880px){.sticky{display:flex}body{padding-bottom:80px}}
+
+/* ================= PAGE PRODUIT ================= */
+.crumb{font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--grey);padding:24px 0 0}
+.crumb a{text-decoration:none}.crumb a:hover{color:var(--violet)}
+.product{display:grid;grid-template-columns:1.02fr .98fr;gap:54px;padding:22px 0 76px;align-items:start}
+.gallery{position:sticky;top:96px}
+.shot{position:relative;background:#EFEDFB;border-radius:22px;overflow:hidden}
+.sarrow{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:44px;height:44px;border-radius:50%;
+  border:0;background:#fff;color:var(--ink);cursor:pointer;
+  display:grid;place-items:center;font-size:1.45rem;line-height:1;padding:0 0 3px;
+  box-shadow:0 3px 10px rgba(11,8,30,.22),0 10px 26px -12px rgba(11,8,30,.5);
+  transition:background .15s,transform .15s,color .15s}
+.sarrow:hover{background:var(--violet);color:#fff}
+.sarrow.prev{left:14px}
+.sarrow.next{right:14px}
+.sarrow.prev:hover{transform:translateY(-50%) translateX(-2px)}
+.sarrow.next:hover{transform:translateY(-50%) translateX(2px)}
+@media(max-width:520px){.sarrow{width:36px;height:36px;font-size:1.15rem}.sarrow.prev{left:8px}.sarrow.next{right:8px}}
+.shot img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:#fff}
+.thumbs{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:10px}
+.thumbs button{padding:0;border:2px solid transparent;border-radius:12px;overflow:hidden;background:none;cursor:pointer;line-height:0}
+.thumbs img{width:100%;aspect-ratio:1/1;object-fit:cover}
+.thumbs button.on{border-color:var(--violet)}
+.p-rate{display:flex;align-items:center;gap:10px;margin-bottom:14px;font-size:.88rem;color:var(--grey)}
+.price-row{display:flex;align-items:baseline;gap:12px;margin:22px 0 4px}
+.price{font-family:"Poppins",sans-serif;font-weight:600;font-size:2.2rem;letter-spacing:-.04em}
+.strike{color:var(--grey);text-decoration:line-through;font-size:1.05rem}
+.save{background:var(--violet);color:#fff;font-size:.74rem;font-weight:600;padding:4px 11px;border-radius:100px}
+.unit{font-size:.86rem;color:var(--grey)}
+.bundles{display:grid;gap:12px;margin:24px 0 18px}
+/* ---------- packs façon offre ---------- */
+.bundle{position:relative;display:grid;grid-template-columns:22px 62px 1fr auto;gap:14px;align-items:center;
+  border:1.5px solid var(--line);background:#fff;border-radius:16px;padding:16px 18px;cursor:pointer;
+  transition:border-color .15s,background .15s,box-shadow .15s}
+.bundle:hover{border-color:var(--halo)}
+.bundle .bimg{width:62px;height:56px;object-fit:contain;background:#F7F6FD;border-radius:10px}
+.bundle b{font-weight:600;font-size:1.02rem;display:block}
+.bundle .meta{display:flex;align-items:center;gap:8px;color:var(--grey);font-size:.83rem;margin-top:3px;flex-wrap:wrap}
+.bundle .meta .u{color:var(--violet);font-weight:600}
+.bundle .room{display:flex;align-items:center;gap:6px;color:var(--violet-deep);font-size:.8rem;margin-top:5px}
+.bundle .room i{font-style:normal;opacity:.75}
+.bundle .amt{text-align:right;font-weight:700;font-size:1.15rem;font-family:"Poppins",sans-serif;letter-spacing:-.03em}
+.bundle .amt s{display:block;color:var(--grey);font-weight:400;font-size:.82rem;font-family:"Instrument Sans",sans-serif;letter-spacing:0}
+.bundle.is-on{border-color:var(--violet);background:linear-gradient(180deg,rgba(107,98,206,.07),rgba(107,98,206,.03));
+  box-shadow:0 0 0 3px rgba(107,98,206,.14)}
+.bundle.is-on .dot{border-color:var(--violet)}
+.bundle.is-on .dot::after{transform:scale(1)}
+.bundle .flag2{position:absolute;top:-11px;right:14px;color:#fff;font-size:.66rem;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;padding:5px 12px;border-radius:100px;white-space:nowrap}
+.bundle .flag2.pop{background:var(--violet);box-shadow:0 6px 14px -6px rgba(107,98,206,.9)}
+.bundle .dot{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center}
+.bundle .dot::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--violet);transform:scale(0);transition:transform .15s}
+.bundle .flag2.deal{background:var(--green);box-shadow:0 6px 14px -6px rgba(0,163,108,.9)}
+@media(max-width:520px){.bundle{grid-template-columns:20px 48px 1fr auto;gap:10px;padding:14px}
+  .bundle .bimg{width:48px;height:46px}.bundle .amt{font-size:1rem}}
+  border:1.5px solid var(--line);background:#fff;border-radius:14px;padding:16px 18px;cursor:pointer;transition:border-color .15s,background .15s}
+.bundle:hover{border-color:var(--halo)}
+.bundle .dot{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center}
+.bundle .dot::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--violet);transform:scale(0);transition:transform .15s}
+.bundle.is-on{border-color:var(--violet);background:rgba(107,98,206,.05)}
+.bundle.is-on .dot{border-color:var(--violet)}
+.bundle.is-on .dot::after{transform:scale(1)}
+.bundle b{font-weight:600;font-size:1rem}
+.bundle small{display:block;color:var(--grey);font-size:.84rem}
+.bundle .amt{text-align:right;font-weight:600}
+.bundle .amt s{display:block;color:var(--grey);font-weight:400;font-size:.82rem}
+.bundle .tag{position:absolute;top:-9px;right:16px;background:var(--ink);color:#fff;font-size:.64rem;letter-spacing:.1em;
+  text-transform:uppercase;font-family:"IBM Plex Mono",monospace;padding:3px 10px;border-radius:100px}
+/* ---------- panier latéral ---------- */
+.cart-ov{position:fixed;inset:0;z-index:90;background:rgba(11,8,30,.45);opacity:0;visibility:hidden;
+  transition:opacity .25s,visibility .25s}
+.cart-ov.on{opacity:1;visibility:visible}
+.cart-dw{position:fixed;top:0;right:0;bottom:0;z-index:91;width:min(420px,100%);background:#fff;
+  display:flex;flex-direction:column;transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);
+  box-shadow:-18px 0 50px -20px rgba(11,8,30,.5)}
+.cart-dw.on{transform:translateX(0)}
+.cart-hd{display:flex;align-items:center;gap:10px;padding:18px 20px}
+.cart-hd b{font-family:"Poppins",sans-serif;font-size:1.15rem;letter-spacing:-.03em}
+.cart-count{background:var(--cart-blue);color:#fff;font-size:.72rem;font-weight:700;min-width:20px;height:20px;
+  border-radius:100px;display:grid;place-items:center;padding:0 6px}
+.cart-x{margin-left:auto;border:0;background:transparent;cursor:pointer;font-size:1.4rem;line-height:1;
+  color:var(--grey);padding:2px 4px}
+.cart-resa{background:var(--cart-blue);color:#fff;text-align:center;font-size:.82rem;font-weight:600;
+  letter-spacing:.04em;text-transform:uppercase;padding:11px 14px;display:flex;align-items:center;
+  justify-content:center;gap:9px}
+.cart-resa i{font-style:normal;font-size:1rem}
+.cart-resa b{font-variant-numeric:tabular-nums;font-weight:700}
+.cart-ship{padding:18px 20px 4px;text-align:center}
+.cart-ship p{font-size:.9rem;color:var(--ink-soft)}
+.cart-ship p b{color:var(--ink)}
+.cart-bar{position:relative;height:6px;border-radius:100px;background:#D8E3FF;margin:12px 0 6px}
+.cart-bar span{position:absolute;top:0;bottom:0;left:0;width:100%;border-radius:100px;
+  background:var(--cart-blue);transition:width 1s linear}
+.cart-bar i{position:absolute;right:-9px;top:50%;transform:translateY(-50%);font-style:normal;font-size:.95rem}
+.cart-body{flex:1;overflow-y:auto;padding:16px 20px}
+.cart-line[hidden]{display:none}
+.cart-line{display:grid;grid-template-columns:78px 1fr;gap:14px;align-items:start}
+.cart-line img{width:78px;height:78px;object-fit:cover;border-radius:10px;background:#EFEDFB}
+.cart-line h4{font-size:.95rem;font-weight:600;line-height:1.3;margin:0;padding-right:28px}
+.cart-line .cl-var{font-size:.85rem;color:var(--grey);margin-top:4px}
+.cart-line .cl-del{position:absolute;top:0;right:0;border:1px solid var(--line);background:#fff;border-radius:50%;
+  width:28px;height:28px;cursor:pointer;color:var(--grey);font-size:.85rem;display:grid;place-items:center}
+.cl-right{position:relative}
+.hot{display:inline-flex;align-items:center;gap:6px;margin-top:8px;border:1px solid #F2C9C9;background:#FDF3F3;
+  color:#C0392B;font-size:.75rem;font-weight:600;border-radius:100px;padding:4px 11px}
+.hot::before{content:"";width:6px;height:6px;border-radius:50%;background:#E74C3C}
+.cl-bot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:100px;overflow:hidden}
+.qty button{border:0;background:transparent;cursor:pointer;font-size:1.05rem;line-height:1;padding:7px 12px;color:var(--ink)}
+.qty button:hover{color:var(--violet)}
+.qty span{min-width:26px;text-align:center;font-size:.92rem;font-variant-numeric:tabular-nums}
+.cl-price{font-size:.98rem;font-weight:600;color:var(--cart-blue)}
+.cl-price s{color:var(--grey);font-weight:400;margin-right:8px;font-size:.88rem}
+.cart-empty{text-align:center;color:var(--grey);font-size:.93rem;padding:48px 10px}
+.cart-empty b{display:block;color:var(--ink);font-family:"Poppins",sans-serif;font-size:1.05rem;margin-bottom:8px}
+.cart-ft{border-top:1px solid var(--line);background:var(--paper);padding:18px 20px calc(18px + env(safe-area-inset-bottom))}
+.cart-row{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:.95rem;margin-bottom:10px}
+.cart-row.tot b{font-family:"Poppins",sans-serif;font-size:1.15rem;letter-spacing:-.03em}
+.cart-row .eco{background:rgba(22,86,242,.10);color:var(--cart-blue);font-size:.78rem;font-weight:700;
+  border-radius:100px;padding:3px 10px}
+.cart-row s{color:var(--grey);font-size:.88rem;margin-right:8px}
+.cart-ft .btn{width:100%;margin:6px 0 14px;background:linear-gradient(180deg,#3D77FF,#0B44D6);
+  box-shadow:0 8px 22px -8px rgba(11,68,214,.7)}
+.cart-ft .btn:hover{background:linear-gradient(180deg,#2E68F5,#0838BC)}
+.cart-ft .pay-cards{justify-content:center}
+@media(max-width:520px){.cart-dw{width:100%}}
+.btn--block{width:100%;padding:19px 26px;font-size:1.05rem}
+.pay{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:16px}
+.pay-cards{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.pc{width:52px;height:34px;border:1px solid var(--line);border-radius:7px;background:#fff;
+  display:grid;place-items:center;padding:5px;box-shadow:0 2px 6px -4px rgba(11,8,30,.5)}
+.pc svg{width:100%;height:auto;display:block}
+.pay-note{font-size:.8rem;color:var(--grey);display:flex;align-items:center;gap:7px}
+.pay-note i{font-style:normal}
+.reassure{display:grid;gap:11px;margin-top:24px;padding-top:22px;border-top:1px solid var(--line);font-size:.9rem;color:var(--ink-soft)}
+.reassure div{display:flex;gap:10px}.reassure i{color:var(--violet);font-style:normal}
+details.acc{border-top:1px solid var(--line);padding:16px 0;margin:0}
+details.acc:last-of-type{border-bottom:1px solid var(--line)}
+details.acc p,details.acc ul{color:var(--grey);font-size:.93rem;margin-top:12px}
+details.acc ul{padding-left:18px}details.acc li{margin-bottom:5px}
+.acc-wrap{margin-top:28px}
+@media(max-width:900px){.product{grid-template-columns:1fr;gap:28px;padding-bottom:110px}.gallery{position:static}}
+
+
+/* ================= AJUSTEMENTS MOBILE ================= */
+@media(max-width:760px){
+  .wrap{padding:0 18px!important}
+  .topbar{font-size:.7rem;padding:8px 12px;line-height:1.4}
+  .nav{height:60px}
+  .wordmark{font-size:1.3rem}
+  .product{gap:24px;padding:16px 0 110px}
+  .shot{border-radius:16px}
+  .shot img{border-radius:16px}
+  .thumbs{grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
+  h1{font-size:clamp(1.6rem,7vw,2.1rem);line-height:1.12;margin-top:6px}
+  .lead,.p-rate{margin-top:10px}
+  .lead{font-size:.97rem}
+  .price-row{margin:18px 0 4px}
+  .price{font-size:1.9rem}
+  .bundles{gap:10px;margin:20px 0 16px}
+  .bundle{padding:14px 12px;gap:10px}
+  .bundle b{font-size:.94rem;line-height:1.25}
+  .bundle .meta,.bundle .room{font-size:.76rem}
+  .bundle .amt{font-size:1rem}
+  .bundle .flag2{font-size:.58rem;padding:4px 8px;right:8px;top:-9px}
+  .btn--block{padding:17px 20px;font-size:1rem}
+  .reassure{gap:12px;font-size:.9rem;line-height:1.45}
+  .reassure div{align-items:flex-start}
+  section{padding:48px 0}
+  .sec-head{margin-bottom:26px}
+  h2{font-size:clamp(1.55rem,6.4vw,2rem);line-height:1.15}
+  .honest,.safe2-txt,.freq,.wave-in,.card{padding:26px 20px}
+  .pests{gap:9px}
+  .pests li{padding:10px 15px;font-size:.87rem}
+  .tl{grid-template-columns:1fr;gap:16px}
+  .tl-media img{aspect-ratio:16/10}
+  .tl-body{padding:18px 18px 20px}
+  .rv-grid{grid-template-columns:1fr;gap:16px}
+  .rv.photo{grid-template-columns:1fr}
+  .rv-body{padding:18px}
+  .safe2{grid-template-columns:1fr}
+  .safe-cards{grid-template-columns:1fr;gap:10px}
+  .cmp table{font-size:.85rem;min-width:540px}
+  .cmp th,.cmp td{padding:12px 10px}
+  .cmp tbody th{width:120px}
+  .foot-grid{grid-template-columns:1fr;gap:24px}
+  .legal{flex-direction:column;gap:8px;text-align:left}
+  details summary{font-size:.96rem;gap:12px}
+  .av-dr{width:100%}
+  .sticky{padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
+  .sticky b{font-size:1.05rem}
+}
+@media(max-width:380px){
+  .wrap{padding:0 15px!important}
+  .topbar{font-size:.64rem}
+  .thumbs{grid-template-columns:repeat(3,1fr)}
+  .pests li{padding:9px 12px;font-size:.82rem}
+}
+
+
+
+/* --- cadrage des photos : avis et sécurité ---
+   La photo n'est plus rognée : elle est affichée en entier (l'appareil compris).
+   L'espace restant est comblé par un halo flouté tiré de la photo elle-même. */
+.ph-fill{position:relative;overflow:hidden;margin:0;display:block;
+  background:linear-gradient(150deg,#F3F1FD,#E6E2FA)}
+.ph-fill::before{content:"";position:absolute;inset:0;
+  background-image:var(--ph);background-size:cover;background-position:center;
+  transform:scale(1.28);filter:blur(30px) saturate(1.18) brightness(1.05);opacity:.82}
+.ph-fill::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(120% 88% at 50% 38%,transparent 42%,rgba(23,19,52,.16) 100%)}
+.ph-fill img{position:relative;z-index:2;width:100%;height:100%;
+  object-fit:contain;object-position:center;display:block;
+  min-height:0;max-height:none;aspect-ratio:auto}
+
+/* cartes d'avis : la photo passe en haut, pleine largeur.
+   Le texte récupère toute la largeur de la carte : cartes plus courtes,
+   photos plus grandes, lecture bien plus facile. */
+.rv{display:flex!important;flex-direction:column;overflow:hidden;
+  transition:transform .28s ease,box-shadow .28s ease,border-color .28s ease}
+.rv:hover{transform:translateY(-4px);border-color:#D8D3F2;
+  box-shadow:0 30px 56px -40px rgba(11,8,30,.9)}
+.rv.photo{grid-template-columns:1fr!important}
+.rv-ph{width:100%;aspect-ratio:16/10;border-bottom:1px solid var(--line)}
+.rv-body{padding:22px 26px 24px;background:#fff;position:relative;z-index:1;
+  display:flex;flex-direction:column;flex:1}
+.rv h3{line-height:1.3;margin-bottom:8px}
+.rv p{line-height:1.6}
+.rv footer{margin-top:auto;padding-top:16px;display:flex;align-items:center;gap:8px}
+.rv footer::before{content:"";width:26px;height:26px;border-radius:50%;flex:0 0 26px;
+  background:linear-gradient(150deg,var(--halo),var(--violet));opacity:.85}
+
+/* photo de la section sécurité */
+.safe2-ph{height:100%;min-height:460px}
+.split-img{object-fit:cover;object-position:center center}
+
+@media(max-width:900px){
+  .rv-ph{aspect-ratio:4/3}
+  .safe2-ph{height:auto;min-height:0;aspect-ratio:4/3}
+  .split-img{aspect-ratio:4/3;object-position:center 42%}
+}
+@media(max-width:520px){
+  .rv-ph{aspect-ratio:5/4}
+  .safe2-ph{aspect-ratio:5/4}
+}
+
+/* --- tiroir panier aux couleurs Avenylo --- */
+.cart-count{background:var(--violet)!important}
+.cart-resa{background:var(--violet)!important;color:#fff!important}
+.cart-bar{background:#E6E3F5!important}
+.cart-bar span{background:var(--green)!important}
+.cart-row .eco{background:rgba(0,163,108,.12)!important;color:var(--green)!important}
+.cart-ft .btn,.cart-ft button.btn{background:var(--violet)!important;background-image:none!important;
+  color:#fff!important;border-radius:100px!important;box-shadow:0 8px 22px -8px rgba(107,98,206,.75)!important}
+.cart-ft .btn:hover{background:var(--violet-deep)!important}
+.cart-dw{font-family:"Instrument Sans",system-ui,sans-serif}
+.cart-hd b,.cart-row.tot b,.cart-empty b{font-family:"Poppins",sans-serif;letter-spacing:-.03em}
+.cart-line img{background:#EFEDFB!important}
+.cart-ft{background:var(--paper)!important}
+.cart-x:hover{color:var(--violet)!important}
+</style>
+
+
+<div class="topbar">Livraison offerte en France <span>·</span> Expédié sous 24 h <span>·</span> 60 jours satisfait ou remboursé</div>
+
+<header>
+  <div class="wrap nav">
+    <a href="/" class="wordmark">avenylo</a>
+    <nav class="nav-links">
+      <a href="#fonctionnement">Comment ça marche</a>
+      <a href="#nuisibles">Nuisibles visés</a>
+      <a href="#avis">Avis</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a href="#" class="cart" aria-label="Panier">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4.5 7.5h15l-1.2 12.2a1.5 1.5 0 0 1-1.5 1.3H7.2a1.5 1.5 0 0 1-1.5-1.3L4.5 7.5Z"/>
+        <path d="M8.8 7.5V6a3.2 3.2 0 0 1 6.4 0v1.5"/>
+      </svg>
+      <span class="count">0</span>
+    </a>
+  </div>
+</header>
+
+<div class="wrap trustbar">
+  <span><i>🚚</i>Expédié sous 24 h depuis la France</span>
+  <span><i>🛡️</i>60 jours satisfait ou remboursé</span>
+  <span><i>🔒</i>Paiement sécurisé</span>
+</div>
+
+<!-- ============ BLOC ACHAT ============ -->
+<div class="wrap product" id="achat">
+
+  <div class="gallery">
+    <div class="shot"><img id="mainshot" src="{{ 'avenylo-7faca4eb.jpg' | asset_img_url: '1200x' }}" alt="Répulsif à ultrasons Avenylo" srcset="{{ 'avenylo-7faca4eb.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-7faca4eb.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-7faca4eb.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:760px) 100vw, 50vw" loading="eager" fetchpriority="high" decoding="async"><button class="sarrow prev" type="button" aria-label="Photo précédente">&#8249;</button><button class="sarrow next" type="button" aria-label="Photo suivante">&#8250;</button></div>
+    <div class="thumbs">
+        <button type="button" class="on" data-src="{{ 'avenylo-7faca4eb.jpg' | asset_url }}" aria-label="Photo 1"><img src="{{ 'avenylo-7faca4eb.jpg' | asset_img_url: '1200x' }}" alt="Répulsif Avenylo, vue de face" srcset="{{ 'avenylo-7faca4eb.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-7faca4eb.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-7faca4eb.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:760px) 100vw, 50vw" loading="lazy" decoding="async"></button>
+        <button type="button" class="" data-src="{{ 'avenylo-1d2693c4.jpg' | asset_url }}" aria-label="Photo 2"><img src="{{ 'avenylo-1d2693c4.jpg' | asset_img_url: '1200x' }}" alt="Avenylo branché dans un salon" srcset="{{ 'avenylo-1d2693c4.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-1d2693c4.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-1d2693c4.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:760px) 100vw, 50vw" loading="lazy" decoding="async"></button>
+        <button type="button" class="" data-src="{{ 'avenylo-821d316d.jpg' | asset_url }}" aria-label="Photo 3"><img src="{{ 'avenylo-821d316d.jpg' | asset_img_url: '1200x' }}" alt="Avenylo branché dans une cuisine" srcset="{{ 'avenylo-821d316d.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-821d316d.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-821d316d.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:760px) 100vw, 50vw" loading="lazy" decoding="async"></button>
+        <button type="button" class="" data-src="{{ 'avenylo-af910dd4.jpg' | asset_url }}" aria-label="Photo 4"><img src="{{ 'avenylo-af910dd4.jpg' | asset_img_url: '1200x' }}" alt="Gros plan de l'appareil sur la prise" srcset="{{ 'avenylo-af910dd4.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-af910dd4.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-af910dd4.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:760px) 100vw, 50vw" loading="lazy" decoding="async"></button>
+        <button type="button" class="" data-src="{{ 'avenylo-75ef0cd4.jpg' | asset_url }}" aria-label="Photo 5"><img src="{{ 'avenylo-75ef0cd4.jpg' | asset_img_url: '1200x' }}" alt="Colis, notice et appareil Avenylo" srcset="{{ 'avenylo-75ef0cd4.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-75ef0cd4.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-75ef0cd4.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:760px) 100vw, 50vw" loading="lazy" decoding="async"></button>
+        <button type="button" class="" data-src="{{ 'avenylo-2e7b15dd.jpg' | asset_url }}" aria-label="Photo 6"><img src="{{ 'avenylo-2e7b15dd.jpg' | asset_img_url: '1200x' }}" alt="Famille dans un salon équipé" srcset="{{ 'avenylo-2e7b15dd.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-2e7b15dd.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-2e7b15dd.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:760px) 100vw, 50vw" loading="lazy" decoding="async"></button>
+    </div>
+  </div>
+
+  <div>
+    <p class="eyebrow">Répulsif à ultrasons · 22–65 kHz</p>
+    <h1>le répulsif avenylo</h1>
+    <div class="p-rate" style="margin-top:14px"><span class="gstars sm" aria-hidden="true"><i>★</i><i>★</i><i>★</i><i>★</i><i class="half">★</i></span><span><b>4,9</b> sur <b>7 348</b> avis vérifiés</span> <a href="#avis">Lire les avis ↓</a></div>
+    <p class="lead">Branché sur une prise, il diffuse en continu des ultrasons inaudibles pour vous, conçus pour rendre la pièce inconfortable aux rongeurs et à de nombreux insectes. Sans poison, sans piège à vider, sans odeur.</p>
+
+    <p class="stockline"><span class="dot"></span>En stock — commandé aujourd'hui, expédié demain</p>
+    <div class="price-row">
+      <span class="price" id="price">59,80 €</span>
+      <span class="strike" id="strike">119,80 €</span>
+      <span class="save" id="save">–50 %</span>
+    </div>
+    <p class="unit" id="unit">19,93 € /unité · livraison offerte</p>
+    <p><span class="hot">Épuisé rapidement</span></p>
+
+    <div class="bundles" role="radiogroup" aria-label="Choisir une offre">
+      <label class="bundle " data-price="29,90 €" data-strike="59,90 €" data-save="–50 %" data-unit="29,90 € /unité · livraison offerte" data-name="1 appareil" data-variant="58187018764671">
+        <input type="radio" name="pack" hidden>
+        <span class="dot"></span>
+        <img class="bimg" src="{{ 'avenylo-9ff41aae.jpg' | asset_img_url: '1200x' }}" alt="" srcset="{{ 'avenylo-9ff41aae.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-9ff41aae.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-9ff41aae.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:760px) 100vw, 50vw" loading="lazy" decoding="async">
+        <span><b>1 appareil</b><span class="meta"><span>1 appareil</span>·<span class="u">29,90 € /unité</span></span><span class="room"><i>⌂</i>Studio, chambre simple</span></span>
+        <span class="amt">29,90 €<s>59,90 €</s></span>
+      </label>
+      <label class="bundle is-on" data-price="59,80 €" data-strike="119,80 €" data-save="–50 %" data-unit="19,93 € /unité · livraison offerte" data-name="3 appareils" data-variant="58187018797439">
+        <span class="flag2 pop">Le plus populaire</span><input type="radio" name="pack" hidden checked>
+        <span class="dot"></span>
+        <img class="bimg" src="{{ 'avenylo-d58c9cb5.jpg' | asset_img_url: '1200x' }}" alt="" srcset="{{ 'avenylo-d58c9cb5.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-d58c9cb5.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-d58c9cb5.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:760px) 100vw, 50vw" loading="lazy" decoding="async">
+        <span><b>Achetez-en 2, le 3<sup>e</sup> est offert</b><span class="meta"><span>3 appareils</span>·<span class="u">19,93 € /unité</span></span><span class="room"><i>⌂</i>Appartement de 1 à 2 pièces</span></span>
+        <span class="amt">59,80 €<s>119,80 €</s></span>
+      </label>
+      <label class="bundle " data-price="89,70 €" data-strike="179,70 €" data-save="–50 %" data-unit="14,95 € /unité · livraison offerte" data-name="6 appareils" data-variant="58187018830207">
+        <input type="radio" name="pack" hidden>
+        <span class="dot"></span>
+        <img class="bimg" src="{{ 'avenylo-00944d1d.jpg' | asset_img_url: '1200x' }}" alt="" srcset="{{ 'avenylo-00944d1d.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-00944d1d.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-00944d1d.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:760px) 100vw, 50vw" loading="lazy" decoding="async">
+        <span><b>3 achetés, 3 offerts</b><span class="meta"><span>6 appareils</span>·<span class="u">14,95 € /unité</span></span><span class="room"><i>⌂</i>Maison de 3 à 4 pièces</span></span>
+        <span class="amt">89,70 €<s>179,70 €</s></span>
+      </label>
+      <label class="bundle " data-price="119,60 €" data-strike="239,60 €" data-save="–50 %" data-unit="13,29 € /unité · livraison offerte" data-name="9 appareils" data-variant="58187018862975">
+        <span class="flag2 deal">Meilleur rapport qualité-prix</span><input type="radio" name="pack" hidden>
+        <span class="dot"></span>
+        <img class="bimg" src="{{ 'avenylo-48fa09a2.jpg' | asset_img_url: '1200x' }}" alt="" srcset="{{ 'avenylo-48fa09a2.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-48fa09a2.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-48fa09a2.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:760px) 100vw, 50vw" loading="lazy" decoding="async">
+        <span><b>4 achetés, 5 offerts</b><span class="meta"><span>9 appareils</span>·<span class="u">13,29 € /unité</span></span><span class="room"><i>⌂</i>Grande maison, location saisonnière</span></span>
+        <span class="amt">119,60 €<s>239,60 €</s></span>
+      </label>
+    </div>
+
+    <button class="btn btn--block" type="button">Ajouter au panier</button>
+    <div class="refund"><i>✓</i><span><b>60 jours pour changer d'avis.</b> Un e-mail suffit : on rembourse, sans colis à renvoyer ni formulaire à remplir.</span></div>
+
+    <div class="pay">
+      <span class="pay-cards">
+        <span class="pc"><svg viewBox="0 0 48 16" aria-label="Visa"><text x="24" y="12.5" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700" font-style="italic" fill="#1A1F71" letter-spacing="1">VISA</text></svg></span>
+        <span class="pc"><svg viewBox="0 0 48 30" aria-label="Mastercard"><circle cx="19" cy="15" r="9.2" fill="#EB001B"/><circle cx="29" cy="15" r="9.2" fill="#F79E1B" fill-opacity=".9"/><path d="M24 8.1a9.2 9.2 0 0 0 0 13.8 9.2 9.2 0 0 0 0-13.8z" fill="#FF5F00"/></svg></span>
+        <span class="pc"><svg viewBox="0 0 56 16" aria-label="PayPal"><text x="28" y="12.5" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11.5" font-weight="700" fill="#003087">Pay<tspan fill="#009CDE">Pal</tspan></text></svg></span>
+        <span class="pc"><svg viewBox="0 0 56 18" aria-label="Apple Pay"><path d="M12.4 6.4c-.5.6-1.3 1.1-2.1 1-.1-.8.3-1.6.8-2.1.5-.6 1.4-1 2.1-1 .1.8-.2 1.6-.8 2.1zm.8 1.2c-1.2-.1-2.2.7-2.7.7-.6 0-1.4-.6-2.3-.6-1.2 0-2.3.7-2.9 1.8-1.2 2.1-.3 5.3.9 7 .6.8 1.3 1.8 2.2 1.7.9 0 1.2-.6 2.3-.6s1.4.6 2.3.5c.9 0 1.5-.8 2.1-1.7.7-1 .9-1.9 1-2-.1 0-1.9-.7-1.9-2.8 0-1.7 1.4-2.6 1.5-2.6-.8-1.2-2.1-1.4-2.5-1.4z" fill="#000"/><text x="34" y="14" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="600" fill="#000">Pay</text></svg></span><span class="pc"><svg viewBox="0 0 56 20" aria-label="Shop Pay"><rect x="2" y="2" width="52" height="16" rx="4" fill="#5A31F4"/><text x="28" y="14.2" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="10.5" font-weight="700" fill="#fff">shop</text></svg></span><span class="pc"><svg viewBox="0 0 56 18" aria-label="Google Pay"><path d="M13.9 8.2v3.1h-1.3V3.6h2.6c.7 0 1.2.2 1.7.6.5.4.7 1 .7 1.6 0 .7-.2 1.2-.7 1.6-.5.5-1 .7-1.7.7h-1.3zm0-3.3v2.1h1.4c.4 0 .7-.1.9-.4.2-.2.4-.5.4-.8 0-.3-.1-.6-.4-.8-.2-.2-.5-.4-.9-.4h-1.4z" fill="#5F6368"/><path d="M20.2 5.7c.9 0 1.6.3 2.1.8.5.5.8 1.1.8 2v3.9h-1.2v-.9h-.1c-.4.7-1 1.1-1.8 1.1-.6 0-1.2-.2-1.6-.6-.4-.4-.6-.9-.6-1.4 0-.6.2-1.1.7-1.5.5-.4 1.1-.5 1.9-.5.7 0 1.2.1 1.6.4v-.3c0-.4-.1-.7-.4-.9-.3-.3-.6-.4-1-.4-.6 0-1.1.3-1.4.8l-1.1-.7c.5-.9 1.3-1.3 2.1-1.3zm-1.6 4.9c0 .3.1.5.3.7.2.2.5.3.8.3.4 0 .8-.2 1.2-.5.3-.3.5-.7.5-1.1-.3-.3-.8-.4-1.4-.4-.4 0-.8.1-1.1.3-.2.2-.3.4-.3.7z" fill="#5F6368"/><path d="M29.6 5.9l-3.9 9h-1.3l1.5-3.1-2.6-5.9h1.4l1.8 4.4h.1l1.8-4.4h1.2z" fill="#5F6368"/><path d="M9.6 7.7c0-.3 0-.6-.1-.9H5.3v1.7h2.4c-.1.6-.4 1-.9 1.3v1.1h1.5c.9-.8 1.3-2 1.3-3.2z" fill="#4285F4"/><path d="M5.3 12.1c1.2 0 2.2-.4 3-1.1l-1.5-1.1c-.4.3-.9.4-1.5.4-1.2 0-2.2-.8-2.5-1.9H1.3v1.2c.7 1.5 2.2 2.5 4 2.5z" fill="#34A853"/><path d="M2.8 8.4c-.1-.3-.1-.5-.1-.8s0-.6.1-.8V5.6H1.3c-.3.6-.4 1.3-.4 2s.2 1.4.4 2l1.5-1.2z" fill="#FBBC04"/><path d="M5.3 4.9c.7 0 1.3.2 1.7.7l1.3-1.3c-.8-.7-1.8-1.2-3-1.2-1.8 0-3.3 1-4 2.5l1.5 1.2c.3-1.1 1.3-1.9 2.5-1.9z" fill="#EA4335"/></svg></span>
+              </span>
+      <span class="pay-note"><i>🔒</i>Toutes les transactions sont sécurisées et chiffrées</span>
+    </div>
+
+    <div class="reassure">
+      <div><i>✓</i><span><b>60 jours pour l'essayer.</b> Pas convaincu ? On rembourse, sans renvoi de colis.</span></div>
+      <div><i>✓</i><span><b>Expédié sous 24 h</b>, livré en 3 à 5 jours en France métropolitaine.</span></div>
+      <div><i>✓</i><span><b>Sans danger pour chiens et chats</b> — ils n'entendent pas ces fréquences.</span></div>
+    </div>
+
+    <div class="acc-wrap">
+      <details class="acc" open><summary>Caractéristiques</summary>
+        <ul>
+          <li>Fréquences : balayage continu de 22 à 65 kHz</li>
+          <li>Portée : environ 80 m² dans une pièce dégagée</li>
+          <li>Alimentation : prise secteur 220–240 V, moins de 4 W</li>
+          <li>Dimensions : 11 × 6 × 4 cm — témoin lumineux bleu</li>
+          <li>Durée de vie estimée : 3 à 5 ans en fonctionnement continu</li>
+          <li>Garantie constructeur : 12 mois</li>
+        </ul></details>
+      <details class="acc"><summary>Dans la boîte</summary>
+        <ul>
+          <li>Le ou les appareils Avenylo selon le pack choisi</li>
+          <li>Guide de démarrage rapide en français</li>
+          <li>Carte de garantie et contact du service client</li>
+        </ul></details>
+      <details class="acc"><summary>Où le brancher</summary>
+        <p>À 20–80 cm du sol, sur un mur dégagé, orienté vers la pièce. Évitez de le placer derrière un meuble, un rideau épais ou un canapé : les ultrasons ne traversent pas les obstacles. Une unité par pièce à protéger.</p></details>
+      <details class="acc"><summary>Livraison et retours</summary>
+        <p>Expédition sous 24 h ouvrées, livraison offerte en France métropolitaine sous 3 à 5 jours. Droit de rétractation légal de 14 jours, auquel s'ajoute la garantie satisfait ou remboursé de 60 jours.</p></details>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============ POURQUOI CE PRIX ============ -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="why">
+      <p class="eyebrow">Le prix</p>
+      <h2>29,90 €, et voici exactement ce que vous payez.</h2>
+      <p class="lead" style="margin-top:14px">La différence avec un modèle premier prix ne se voit pas sur la photo. Elle est dans la fréquence et dans la durée.</p>
+      <div class="why-grid">
+        <div class="why-col">
+          <span class="tag">Modèle premier prix</span>
+          <h3>une fréquence fixe</h3>
+          <p>Le même son émis en boucle. Risque d'accoutumance des nuisibles au bout de quelques semaines.</p>
+        </div>
+        <div class="why-col">
+          <span class="tag">Modèle premier prix</span>
+          <h3>durée de vie limitée</h3>
+          <p>Composants bas de gamme, remplacement plus fréquent. Racheté deux ou trois fois, il revient plus cher.</p>
+        </div>
+        <div class="why-col us">
+          <span class="tag">Avenylo</span>
+          <h3>balayage continu 22–65 kHz</h3>
+          <p>Conçu pour limiter l'accoutumance. Durée de vie annoncée : 3 à 5 ans.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NUISIBLES ============ -->
+<section id="nuisibles" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head center">
+      <p class="eyebrow">Ce que ça repousse</p>
+      <h2>14 nuisibles, un seul appareil.</h2>
+    </div>
+    <ul class="pests">
+      <li><i>🪲</i>Punaises de lit</li><li><i>🪳</i>Cafards</li><li><i>🐀</i>Rats</li><li><i>🐁</i>Souris</li>
+      <li><i>🕷️</i>Araignées</li><li><i>🐜</i>Fourmis</li><li><i>🦟</i>Puces</li><li><i>🦟</i>Moustiques</li>
+      <li><i>🦗</i>Grillons</li><li><i>🐛</i>Poissons d'argent</li><li><i>🪲</i>Perce-oreilles</li>
+      <li><i>🐝</i>Guêpes</li><li><i>🦋</i>Papillons de nuit</li><li><i>🐝</i>Frelons</li>
+    </ul>
+    <p class="pests-note">Répulsif d'appoint et de prévention : l'appareil rend la pièce inconfortable, il ne détruit pas un nid déjà installé.</p>
+  </div>
+</section>
+
+<!-- ============ COMMENT ÇA MARCHE ============ -->
+<section id="fonctionnement" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head"><p class="eyebrow">Comment ça marche</p><h2>trois étapes, dix secondes.</h2></div>
+    <div class="tl">
+      <article class="tl-card"><div class="tl-media"><img src="{{ 'avenylo-dcd6e20f.jpg' | asset_img_url: '1200x' }}" alt="Appareil branché sur une prise" srcset="{{ 'avenylo-dcd6e20f.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-dcd6e20f.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-dcd6e20f.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:760px) 100vw, 50vw" loading="lazy" decoding="async"><span class="tl-num">01</span></div>
+        <div class="tl-body"><span class="tl-day">Installation</span><h3>vous branchez</h3>
+        <p>Sur n'importe quelle prise, à 20–80 cm du sol. Le témoin bleu confirme que l'appareil émet.</p></div></article>
+      <article class="tl-card"><div class="tl-media"><img src="{{ 'avenylo-357c6095.jpg' | asset_img_url: '1200x' }}" alt="Ondes ultrasonores diffusées dans la pièce" srcset="{{ 'avenylo-357c6095.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-357c6095.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-357c6095.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:760px) 100vw, 50vw" loading="lazy" decoding="async"><span class="tl-num">02</span></div>
+        <div class="tl-body"><span class="tl-day">Émission</span><h3>le balayage démarre</h3>
+        <p>Il parcourt en boucle 22 à 65 kHz, au-delà de l'audition humaine, pour éviter l'accoutumance.</p></div></article>
+      <article class="tl-card"><div class="tl-media"><img src="{{ 'avenylo-c0534a09.jpg' | asset_img_url: '1200x' }}" alt="Salon calme avec l'appareil branché" srcset="{{ 'avenylo-c0534a09.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-c0534a09.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-c0534a09.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:760px) 100vw, 50vw" loading="lazy" decoding="async"><span class="tl-num">03</span></div>
+        <div class="tl-body"><span class="tl-day">Durée</span><h3>vous laissez tourner</h3>
+        <p>24 h/24, sans recharge ni entretien. Moins de 4 W, soit environ 1 € d'électricité par an.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SÉCURITÉ ============ -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="safe2">
+      <figure class="safe2-ph ph-fill" style="--ph:url('{{ 'avenylo-8479123d.jpg' | asset_img_url: '480x' }}')"><img src="{{ 'avenylo-8479123d.jpg' | asset_img_url: '1200x' }}" alt="Enfant et chien dans un salon, appareil Avenylo branché" srcset="{{ 'avenylo-8479123d.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-8479123d.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-8479123d.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:760px) 100vw, 50vw" loading="lazy" decoding="async"></figure>
+      <div class="safe2-txt">
+        <p class="eyebrow">Sécurité</p>
+        <h2>aucun produit chimique.<br>aucun poison.<br>aucun piège.</h2>
+        <p class="lead">Avenylo n'émet qu'un son, situé au-dessus de ce que l'oreille humaine perçoit. Rien à poser au sol, rien à avaler, aucun résidu.</p>
+        <div class="safe-cards">
+          <div class="safe-card"><span class="dot">✓</span><h3>Enfants</h3><p>Inaudible, rien au sol, rien à avaler.</p></div>
+          <div class="safe-card"><span class="dot">✓</span><h3>Chats et chiens</h3><p>Au-dessus de leur seuil d'audition.</p></div>
+          <div class="safe-card warn"><span class="dot">!</span><h3>Hamsters, lapins, oiseaux</h3><p>Déconseillé : eux entendent ces fréquences.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AVIS ============ -->
+<section id="avis" style="padding-top:0">
+  <div class="wrap">
+    <div class="rv-hero">
+      <div class="rv-hero-txt">
+        <p class="eyebrow">Avis clients</p>
+        <h2>des retours de vraies maisons.</h2>
+      </div>
+      <div class="rv-hero-score">
+        <span class="gstars" aria-hidden="true"><i>★</i><i>★</i><i>★</i><i>★</i><i style="background:linear-gradient(90deg,var(--green) 90%,rgba(255,255,255,.22) 90%)">★</i></span>
+        <p class="rv-hero-num"><b>4,9</b><span>/5</span></p>
+        <p class="rv-hero-sub">7 348 avis vérifiés</p>
+      </div>
+    </div>
+    <div class="rv-grid">
+      <article class="rv photo"><figure class="rv-ph ph-fill" style="--ph:url('{{ 'avenylo-b546460d.jpg' | asset_img_url: '480x' }}')"><img src="{{ 'avenylo-b546460d.jpg' | asset_img_url: '1200x' }}" alt="Client tenant l'appareil dans son garage" srcset="{{ 'avenylo-b546460d.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-b546460d.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-b546460d.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:900px) 96vw, 300px" loading="lazy" decoding="async"></figure><div class="rv-body">
+        <div class="rv-head"><span class="gstars" aria-hidden="true"><i>★</i><i>★</i><i>★</i><i>★</i><i>★</i></span><span class="verif">✓ Vérifié</span></div>
+        <h3>Ma femme refusait de dormir dans notre lit tant que cela n'avait pas fonctionné.</h3><p>« Nous avons ramené des punaises de lit d'une location de vacances à la plage. Ma femme a refusé de dormir dans notre chambre pendant un mois. J'ai acheté le pack Maison avec housses de matelas. Après trois semaines de traitement Avenylo, elle est revenue. Deux mois plus tard, nous n'avons toujours pas de piqûres. »</p><footer>Pierre</footer></div></article>
+      <article class="rv photo"><figure class="rv-ph ph-fill" style="--ph:url('{{ 'avenylo-d698943d.jpg' | asset_img_url: '480x' }}')"><img src="{{ 'avenylo-d698943d.jpg' | asset_img_url: '1200x' }}" alt="Appareil branché dans une cuisine" srcset="{{ 'avenylo-d698943d.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-d698943d.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-d698943d.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:900px) 96vw, 300px" loading="lazy" decoding="async"></figure><div class="rv-body">
+        <div class="rv-head"><span class="gstars" aria-hidden="true"><i>★</i><i>★</i><i>★</i><i>★</i><i class="half">★</i></span><span class="verif">✓ Vérifié</span></div>
+        <h3>Très efficace contre les fourmis.</h3><p>« Je l'ai acheté pour lutter contre l'invasion de fourmis dans la cuisine chaque été. Les fourmis ont disparu en 5 jours. »</p><footer>Eric</footer></div></article>
+      <article class="rv photo"><figure class="rv-ph ph-fill" style="--ph:url('{{ 'avenylo-d400c2d6.jpg' | asset_img_url: '480x' }}')"><img src="{{ 'avenylo-d400c2d6.jpg' | asset_img_url: '1200x' }}" alt="Cliente tenant l'appareil dans son salon" srcset="{{ 'avenylo-d400c2d6.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-d400c2d6.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-d400c2d6.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:900px) 96vw, 300px" loading="lazy" decoding="async"></figure><div class="rv-body">
+        <div class="rv-head"><span class="gstars" aria-hidden="true"><i>★</i><i>★</i><i>★</i><i>★</i><i>★</i></span><span class="verif">✓ Vérifié</span></div>
+        <h3>Problème d'araignées résolu.</h3><p>« J'ai une peur bleue des araignées et notre maison les attirait comme un aimant. En deux semaines, je n'en voyais plus. Mon mari pensait que c'était un effet placebo, jusqu'à ce qu'il n'en voie pas une seule pendant un mois lui aussi. »</p><footer>Linda</footer></div></article>
+      <article class="rv photo"><figure class="rv-ph ph-fill" style="--ph:url('{{ 'avenylo-087eab66.jpg' | asset_img_url: '480x' }}')"><img src="{{ 'avenylo-087eab66.jpg' | asset_img_url: '1200x' }}" alt="Déballage du colis Avenylo" srcset="{{ 'avenylo-087eab66.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-087eab66.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-087eab66.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:900px) 96vw, 300px" loading="lazy" decoding="async"></figure><div class="rv-body">
+        <div class="rv-head"><span class="gstars" aria-hidden="true"><i>★</i><i>★</i><i>★</i><i>★</i><i>★</i></span><span class="verif">✓ Vérifié</span></div>
+        <h3>La sécurité des tout-petits était non négociable.</h3><p>« Avec une enfant de 2 ans qui rampe partout, je ne voulais pas utiliser de sprays ni de pièges. Avenylo était la seule option acceptable. Trois semaines plus tard, plus de souris dans le garde-manger, plus de cafards en vue, et ma fille n'est absolument pas affectée. »</p><footer>Juliette</footer></div></article>
+      <article class="rv"><div class="rv-body"><div class="rv-head"><span class="gstars" aria-hidden="true"><i>★</i><i>★</i><i>★</i><i>★</i><i>★</i></span><span class="verif">✓ Vérifié</span></div>
+        <h3>Deux unités, zéro cafard en un mois.</h3><p>« Mon appartement était constamment infesté de cafards. J'ai branché deux appareils Avenylo dans la cuisine et le salon. En une semaine, plus aucun cafard. Mon mari était sceptique, mais maintenant il y croit. »</p><footer>Inès</footer></div></article>
+      <article class="rv"><div class="rv-body"><div class="rv-head"><span class="gstars" aria-hidden="true"><i>★</i><i>★</i><i>★</i><i>★</i><i class="half">★</i></span><span class="verif">✓ Vérifié</span></div>
+        <h3>Idéal pour les locataires. Ça m'a sauvé la vie.</h3><p>« Appartements + cafards = fléau. Mon propriétaire refusait de payer un exterminateur. En deux semaines, l'infestation de cafards a diminué de 90 %. En tant que locataire, c'est la seule solution qui ait fonctionné sans modifier l'appartement. »</p><footer>Mathieu</footer></div></article>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ============ GARANTIE ============ -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="wave">
+      <img src="{{ 'avenylo-59f0f817.jpg' | asset_img_url: '1200x' }}" alt="" srcset="{{ 'avenylo-59f0f817.jpg' | asset_img_url: '480x' }} 480w, {{ 'avenylo-59f0f817.jpg' | asset_img_url: '800x' }} 800w, {{ 'avenylo-59f0f817.jpg' | asset_img_url: '1200x' }} 1200w" sizes="(max-width:760px) 100vw, 50vw" loading="lazy" decoding="async">
+      <div class="wave-tint"></div>
+      <div class="wave-in">
+        <h2>essayez Avenylo sans risque pendant 60 jours.</h2>
+        <p>Branchez l'appareil pendant deux mois. Si vous ne constatez pas de différence chez vous, on vous rembourse intégralement. Pas de colis à renvoyer, pas de formulaire, un simple e-mail.</p>
+        <a href="#achat" class="btn">Choisir mon pack</a>
+        <small>Livraison gratuite en France · Expédié sous 48 h</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq" style="padding-top:0">
+  <div class="wrap" style="max-width:840px">
+    <div class="sec-head center"><p class="eyebrow">Questions fréquentes</p><h2>avant de commander.</h2></div>
+    <details open><summary>Est-ce que je vais entendre quelque chose ?</summary>
+      <p>Non. L'audition humaine plafonne autour de 20 kHz ; Avenylo démarre à 22 kHz. Les personnes très sensibles peuvent percevoir un léger sifflement dans un silence complet — la garantie 60 jours couvre ce cas.</p></details>
+    <details><summary>Combien d'appareils pour ma maison ?</summary>
+      <p>Un par pièce à protéger, les ondes ne passant pas les cloisons. Le pack de 4 couvre un logement standard : cuisine, garage, cave, buanderie.</p></details>
+    <details><summary>Et mes animaux ?</summary>
+      <p>Chiens et chats n'entendent pas ces fréquences. À l'inverse, si vous possédez un rongeur ou un oiseau de compagnie, cet appareil n'est pas fait pour vous.</p></details>
+    <details><summary>Au bout de combien de temps ?</summary>
+      <p>Cela dépend de la pièce, de son encombrement et de ce qui attire les nuisibles chez vous. L'appareil agit en complément du rangement des aliments et du colmatage des accès. D'où les 60 jours d'essai.</p></details>
+    <details><summary>Et si ça ne marche pas chez moi ?</summary>
+      <p>Vous nous écrivez et on vous rembourse intégralement, sans renvoyer le colis ni remplir de formulaire.</p></details>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="/" class="wordmark" style="font-size:1.4rem">avenylo</a>
+        <p style="color:var(--grey);font-size:.9rem;margin-top:12px;max-width:34ch">Des solutions simples pour la maison, sans produits chimiques. Marque française, service client à Paris, réponse sous 24 à 48 h ouvrées.</p>
+      </div>
+      <div><h4>Boutique</h4><ul><li><a href="#achat">1 appareil</a></li><li><a href="#achat">Pack 2</a></li><li><a href="#achat">Pack 4</a></li></ul></div>
+      <div><h4>Aide</h4><ul><li><a href="/pages/a-propos">À propos</a></li><li><a href="/pages/contact">Nous contacter</a></li><li><a href="/pages/livraison">Livraison</a></li><li><a href="/pages/retours">Retours</a></li></ul></div>
+      <div><h4>Légal</h4><ul><li><a href="/pages/mentions-legales">Mentions légales</a></li><li><a href="/pages/cgv">CGV</a></li><li><a href="/pages/confidentialite">Confidentialité</a></li><li><a href="/pages/cookies">Cookies</a></li></ul></div>
+    </div>
+    <div class="legal">
+      <span>© 2026 Avenylo · Tous droits réservés</span>
+      <span>Répulsif d'appoint — ne remplace pas l'intervention d'un professionnel en cas d'infestation.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="sticky">
+  <div><b id="sticky-price">59,80 €</b><small id="sticky-pack">3 appareils</small></div>
+  <button class="btn" type="button">Ajouter au panier</button>
+</div>
+
+<script>
+(function(){
+  var b = document.querySelectorAll('.bundle');
+  var ids = ['price','strike','save','unit'];
+  b.forEach(function(x){
+    x.addEventListener('click', function(){
+      b.forEach(function(y){ y.classList.remove('is-on'); });
+      x.classList.add('is-on');
+      x.querySelector('input').checked = true;
+      document.getElementById('price').textContent  = x.dataset.price;
+      document.getElementById('strike').textContent = x.dataset.strike;
+      document.getElementById('save').textContent   = x.dataset.save;
+      document.getElementById('unit').textContent   = x.dataset.unit;
+      document.getElementById('sticky-price').textContent = x.dataset.price;
+      document.getElementById('sticky-pack').textContent  = x.dataset.name;
+    });
+  });
+  // offre présélectionnée depuis la page d'accueil : ?pack=1 / 3 / 6 / 9
+  var want = (location.search.match(/[?&]pack=(\d+)/) || [])[1];
+  if (want) {
+    b.forEach(function(x){
+      if (parseInt(x.dataset.name, 10) === parseInt(want, 10)) { x.click(); }
+    });
+  }
+
+  var t = document.querySelectorAll('.thumbs button');
+  function go(step){
+    var list = Array.prototype.slice.call(t);
+    var i = list.findIndex(function(x){ return x.classList.contains('on'); });
+    if (i < 0) i = 0;
+    list[(i + step + list.length) % list.length].click();
+  }
+  var prev = document.querySelector('.sarrow.prev'), next = document.querySelector('.sarrow.next');
+  if (prev) prev.addEventListener('click', function(){ go(-1); });
+  if (next) next.addEventListener('click', function(){ go(1); });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowLeft')  go(-1);
+    if (e.key === 'ArrowRight') go(1);
+  });
+  t.forEach(function(x){
+    x.addEventListener('click', function(){
+      t.forEach(function(y){ y.classList.remove('on'); });
+      x.classList.add('on');
+      document.getElementById('mainshot').src = x.dataset.src;
+    });
+  });
+})();
+</script>
+<div class="cart-ov" id="cartOv"></div>
+<aside class="cart-dw" id="cart" role="dialog" aria-label="Panier" aria-hidden="true">
+  <div class="cart-hd">
+    <b>Panier</b><span class="cart-count" id="cartCount">0</span>
+    <button class="cart-x" id="cartX" type="button" aria-label="Fermer le panier">&times;</button>
+  </div>
+  <div class="cart-resa" id="cartResa">Votre panier est réservé pour <b id="cartTimer">05:00</b></div>
+  <div class="cart-ship">
+    <p>Félicitations, vous avez débloqué <b>la livraison gratuite !</b></p>
+    <div class="cart-bar"><span id="cartBar"><i>&#128666;</i></span></div>
+  </div>
+  <div class="cart-body" id="cartBody">
+    <div class="cart-empty" id="cartEmpty"><b>Votre panier est vide</b>Choisissez une offre pour le remplir.</div>
+    <div class="cart-line" id="cartLine" hidden>
+      <img id="clImg" src="" alt="">
+      <div class="cl-right">
+        <button class="cl-del" id="clDel" type="button" aria-label="Retirer du panier">&#128465;</button>
+        <h4>Répulsif à ultrasons Avenylo — repousse rongeurs et insectes</h4>
+        <p class="cl-var">Paquet : <span id="clVar">3 appareils</span></p>
+        <span class="hot">Épuisé rapidement</span>
+        <div class="cl-bot">
+          <span class="qty">
+            <button type="button" id="clMinus" aria-label="Diminuer la quantité">&minus;</button>
+            <span id="clQty">1</span>
+            <button type="button" id="clPlus" aria-label="Augmenter la quantité">+</button>
+          </span>
+          <span class="cl-price"><s id="clStrike">119,80 €</s><span id="clPrice">59,80 €</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cart-ft">
+    <div class="cart-row tot"><span>Total</span>
+      <span><span class="eco" id="cartEco">Économisez 50 %</span> <s id="cartStrike">119,80 €</s><b id="cartTotal">59,80 €</b></span></div>
+    <div class="cart-row"><span>Expédition</span><span><b>GRATUIT</b></span></div>
+    <button class="btn" type="button">Passer à la caisse &#8594;</button>
+    <div class="pay"><span class="pay-cards">
+        <span class="pc"><svg viewBox="0 0 48 16" aria-label="Visa"><text x="24" y="12.5" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="700" font-style="italic" fill="#1A1F71" letter-spacing="1">VISA</text></svg></span>
+        <span class="pc"><svg viewBox="0 0 48 30" aria-label="Mastercard"><circle cx="19" cy="15" r="9.2" fill="#EB001B"/><circle cx="29" cy="15" r="9.2" fill="#F79E1B" fill-opacity=".9"/><path d="M24 8.1a9.2 9.2 0 0 0 0 13.8 9.2 9.2 0 0 0 0-13.8z" fill="#FF5F00"/></svg></span>
+        <span class="pc"><svg viewBox="0 0 56 16" aria-label="PayPal"><text x="28" y="12.5" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11.5" font-weight="700" fill="#003087">Pay<tspan fill="#009CDE">Pal</tspan></text></svg></span>
+        <span class="pc"><svg viewBox="0 0 56 18" aria-label="Apple Pay"><path d="M12.4 6.4c-.5.6-1.3 1.1-2.1 1-.1-.8.3-1.6.8-2.1.5-.6 1.4-1 2.1-1 .1.8-.2 1.6-.8 2.1zm.8 1.2c-1.2-.1-2.2.7-2.7.7-.6 0-1.4-.6-2.3-.6-1.2 0-2.3.7-2.9 1.8-1.2 2.1-.3 5.3.9 7 .6.8 1.3 1.8 2.2 1.7.9 0 1.2-.6 2.3-.6s1.4.6 2.3.5c.9 0 1.5-.8 2.1-1.7.7-1 .9-1.9 1-2-.1 0-1.9-.7-1.9-2.8 0-1.7 1.4-2.6 1.5-2.6-.8-1.2-2.1-1.4-2.5-1.4z" fill="#000"/><text x="34" y="14" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="600" fill="#000">Pay</text></svg></span><span class="pc"><svg viewBox="0 0 56 20" aria-label="Shop Pay"><rect x="2" y="2" width="52" height="16" rx="4" fill="#5A31F4"/><text x="28" y="14.2" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="10.5" font-weight="700" fill="#fff">shop</text></svg></span><span class="pc"><svg viewBox="0 0 56 18" aria-label="Google Pay"><path d="M13.9 8.2v3.1h-1.3V3.6h2.6c.7 0 1.2.2 1.7.6.5.4.7 1 .7 1.6 0 .7-.2 1.2-.7 1.6-.5.5-1 .7-1.7.7h-1.3zm0-3.3v2.1h1.4c.4 0 .7-.1.9-.4.2-.2.4-.5.4-.8 0-.3-.1-.6-.4-.8-.2-.2-.5-.4-.9-.4h-1.4z" fill="#5F6368"/><path d="M20.2 5.7c.9 0 1.6.3 2.1.8.5.5.8 1.1.8 2v3.9h-1.2v-.9h-.1c-.4.7-1 1.1-1.8 1.1-.6 0-1.2-.2-1.6-.6-.4-.4-.6-.9-.6-1.4 0-.6.2-1.1.7-1.5.5-.4 1.1-.5 1.9-.5.7 0 1.2.1 1.6.4v-.3c0-.4-.1-.7-.4-.9-.3-.3-.6-.4-1-.4-.6 0-1.1.3-1.4.8l-1.1-.7c.5-.9 1.3-1.3 2.1-1.3zm-1.6 4.9c0 .3.1.5.3.7.2.2.5.3.8.3.4 0 .8-.2 1.2-.5.3-.3.5-.7.5-1.1-.3-.3-.8-.4-1.4-.4-.4 0-.8.1-1.1.3-.2.2-.3.4-.3.7z" fill="#5F6368"/><path d="M29.6 5.9l-3.9 9h-1.3l1.5-3.1-2.6-5.9h1.4l1.8 4.4h.1l1.8-4.4h1.2z" fill="#5F6368"/><path d="M9.6 7.7c0-.3 0-.6-.1-.9H5.3v1.7h2.4c-.1.6-.4 1-.9 1.3v1.1h1.5c.9-.8 1.3-2 1.3-3.2z" fill="#4285F4"/><path d="M5.3 12.1c1.2 0 2.2-.4 3-1.1l-1.5-1.1c-.4.3-.9.4-1.5.4-1.2 0-2.2-.8-2.5-1.9H1.3v1.2c.7 1.5 2.2 2.5 4 2.5z" fill="#34A853"/><path d="M2.8 8.4c-.1-.3-.1-.5-.1-.8s0-.6.1-.8V5.6H1.3c-.3.6-.4 1.3-.4 2s.2 1.4.4 2l1.5-1.2z" fill="#FBBC04"/><path d="M5.3 4.9c.7 0 1.3.2 1.7.7l1.3-1.3c-.8-.7-1.8-1.2-3-1.2-1.8 0-3.3 1-4 2.5l1.5 1.2c.3-1.1 1.3-1.9 2.5-1.9z" fill="#EA4335"/></svg></span>
+              </span></div>
+  </div>
+</aside>
+
+<script>
+(function(){
+  var RESA = 5 * 60;                          // 5 minutes de réservation
+  var cart = document.getElementById('cart'), ov = document.getElementById('cartOv');
+  var line = document.getElementById('cartLine'), empty = document.getElementById('cartEmpty');
+  var timerEl = document.getElementById('cartTimer'), resa = document.getElementById('cartResa');
+  var qty = 1, unit = 0, unitStrike = 0, left = RESA, tick = null;
+
+  function eur(n){ return n.toFixed(2).replace('.', ',') + ' \u20AC'; }
+  function num(txt){ return parseFloat(String(txt).replace(/[^0-9,]/g,'').replace(',', '.')) || 0; }
+  function mmss(s){ var m = Math.floor(s/60), r = s%60; return (m<10?'0':'')+m+':'+(r<10?'0':'')+r; }
+
+  function render(){
+    document.getElementById('clQty').textContent = qty;
+    document.getElementById('clPrice').textContent  = eur(unit * qty);
+    document.getElementById('clStrike').textContent = eur(unitStrike * qty);
+    document.getElementById('cartTotal').textContent  = eur(unit * qty);
+    document.getElementById('cartStrike').textContent = eur(unitStrike * qty);
+    var eco = unitStrike > 0 ? Math.round((1 - unit/unitStrike) * 100) : 0;
+    document.getElementById('cartEco').textContent = 'Économisez ' + eco + ' %';
+    document.getElementById('cartCount').textContent = qty;
+  }
+
+  function stop(){ if (tick) { clearInterval(tick); tick = null; } }
+
+  function reset(){                           // minuteur écoulé ou article retiré : tout repart à zéro
+    stop();
+    qty = 1; unit = 0; unitStrike = 0; left = RESA;
+    line.hidden = true; empty.hidden = false;
+    resa.style.display = 'none';
+    document.querySelector('.cart-ship').style.display = 'none';
+    document.getElementById('cartEco').style.display = 'none';
+    document.getElementById('cartCount').textContent = '0';
+    document.getElementById('cartTotal').textContent = eur(0);
+    document.getElementById('cartStrike').textContent = '';
+    document.getElementById('cartEco').textContent = '';
+    timerEl.textContent = mmss(RESA);
+    var bar0 = document.getElementById('cartBar');
+    if (bar0) { bar0.style.transition = 'none'; bar0.style.width = '0%'; bar0.offsetWidth; bar0.style.transition = ''; }
+  }
+
+  function start(){
+    stop();
+    left = RESA;
+    resa.style.display = '';
+    document.querySelector('.cart-ship').style.display = '';
+    document.getElementById('cartEco').style.display = '';
+    timerEl.textContent = mmss(left);
+    document.getElementById('cartBar').style.width = '0%';
+    tick = setInterval(function(){
+      left--;
+      timerEl.textContent = mmss(Math.max(left, 0));
+      // le camion avance à mesure que le minuteur tourne
+      document.getElementById('cartBar').style.width = (RESA - Math.max(left, 0)) / RESA * 100 + '%';
+      if (left <= 0) { reset(); }             // le produit est retiré et tout revient à l'état initial
+    }, 1000);
+  }
+
+  function open(){ cart.classList.add('on'); ov.classList.add('on'); cart.setAttribute('aria-hidden','false'); }
+  function close(){ cart.classList.remove('on'); ov.classList.remove('on'); cart.setAttribute('aria-hidden','true'); }
+
+  function add(){
+    var b = document.querySelector('.bundle.is-on') || document.querySelector('.bundle');
+    if (!b) return;
+    unit = num(b.dataset.price);
+    unitStrike = num(b.dataset.strike);
+    qty = 1;
+    document.getElementById('clVar').textContent = b.dataset.name;
+    var shot = document.getElementById('mainshot');
+    if (shot) document.getElementById('clImg').src = shot.src;
+    empty.hidden = true; line.hidden = false;
+    render(); start(); open();
+  }
+
+  document.querySelectorAll('button.btn').forEach(function(btn){
+    if (/ajouter au panier/i.test(btn.textContent)) btn.addEventListener('click', add);
+  });
+  document.getElementById('clPlus').addEventListener('click', function(){ qty++; render(); });
+  document.getElementById('clMinus').addEventListener('click', function(){
+    if (qty > 1) { qty--; render(); } else { reset(); }
+  });
+  document.getElementById('clDel').addEventListener('click', reset);
+  var icon = document.querySelector('a.cart');
+  if (icon) icon.addEventListener('click', function(e){ e.preventDefault(); open(); });
+  document.getElementById('cartX').addEventListener('click', close);
+  ov.addEventListener('click', close);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') close(); });
+
+  reset();
+})();
+</script>
+
+
+<script>
+/* Branchement Shopify : garde le tiroir, ajoute vraiment au panier */
+(function(){
+  function variante(){
+    var s = document.querySelector('.bundle.is-on') || document.querySelector('.bundle');
+    return s ? s.getAttribute('data-variant') : null;
+  }
+  document.querySelectorAll('button').forEach(function(b){
+    var t = b.textContent.trim().toLowerCase();
+    if (t.indexOf('ajouter au panier') === 0) {
+      b.addEventListener('click', function(){
+        var id = variante(); if(!id) return;
+        fetch('/cart/add.js', {method:'POST', headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({items:[{id:Number(id), quantity:1}]})});
+      });
+    }
+    if (t.indexOf('passer à la caisse') === 0) {
+      b.addEventListener('click', function(){ window.location.href = '/checkout'; });
+    }
+  });
+})();
+</script>
+
+
+{% schema %}
+{
+  "name": "Avenylo produit",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Avenylo produit"
+    }
+  ]
+}
+{% endschema %}
